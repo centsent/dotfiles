@@ -1,0 +1,6 @@
+/.netrwhist
+/spell/
+packer_compiled.lua
+utils.lua
+tangerine_vimrc.lua
+.luarc.json
