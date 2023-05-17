@@ -1,3 +1,4 @@
-fish/.config/fish/fish_history
-fish/.config/fish/fish_variables
-fish/.config/fish/fishd.*
+common/.config/fish/fish_history
+common/.config/fish/fish_variables
+common/.config/fish/fishd.*
+common/.config/nvim/lua

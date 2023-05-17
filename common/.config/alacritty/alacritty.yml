@@ -1,0 +1,49 @@
+window:
+  padding:
+    x: 10
+    y: 10
+  # Background opacity
+  #
+  # Window opacity as a floating point number from `0.0` to `1.0`.
+  # The value `0.0` is completely transparent and `1.0` is opaque.
+  opacity: 0.75
+
+# Font configuration
+font:
+  # Normal (roman) font face
+  normal:
+    family: Hack Nerd Font Mono
+    # The `style` can be specified to pick a specific face.
+    style: Regular
+
+  # Point size
+  size: 16.0
+
+# TokyoNight Alacritty Colors
+colors:
+  # Default colors
+  primary:
+    background: "#0f1624"
+    foreground: "#e0e0e0"
+
+  # Normal colors
+  normal:
+    black: "0x1d202f"
+    red: "0xf7768e"
+    green: "0x9ece6a"
+    yellow: "0xe0af68"
+    blue: "0x7aa2f7"
+    magenta: "0xbb9af7"
+    cyan: "0x7dcfff"
+    white: "0xa9b1d6"
+
+  # Bright colors
+  bright:
+    black: "0x414868"
+    red: "0xf7768e"
+    green: "0x9ece6a"
+    yellow: "0xe0af68"
+    blue: "0x7aa2f7"
+    magenta: "0xbb9af7"
+    cyan: "0x7dcfff"
+    white: "0xc0caf5"
