@@ -9,13 +9,13 @@
 (fn config [_ _]
   (local cmp (require :cmp))
   (local lspkind (require :lspkind))
-  (local cmp-sources [{:name :nvim_lsp}
+  (local cmp-sources [{:name :codeium}
+                      {:name :nvim_lsp}
                       {:name :nvim_lsp_signature_help}
                       {:name :path}
                       {:name :buffer}
                       {:name :luasnip}
-                      {:name :nvim_lua}
-                      {:name :codeium}])
+                      {:name :nvim_lua}])
   (local cmp-mapping
          {:<c-p> (cmp.mapping.select_prev_item)
           :<c-n> (cmp.mapping.select_next_item)

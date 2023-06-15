@@ -1,9 +1,27 @@
 [;; A native neovim extension for Codeium
- {1 :jcdickinson/codeium.nvim
+ {1 :Exafunction/codeium.vim
   :build ":Codeium Auth"
   :event [:InsertEnter]
-  :dependencies [:nvim-lua/plenary.nvim :hrsh7th/nvim-cmp]
-  :config true}
+  :keys [{1 :<c-g>
+          2 #((. vim.fn "codeium#Accept"))
+          :mode :i
+          :expr true
+          :desc "Accept Codeium"}
+         {1 "<c-;>"
+          2 #((. vim.fn "codeium#CycleCompletions") 1)
+          :mode :i
+          :expr true
+          :desc "Next Codeium Suggestion"}
+         {1 "<c-,>"
+          2 #((. vim.fn "codeium#CycleCompletions") -1)
+          :mode :i
+          :expr true
+          :desc "Previous Codeium Suggestion"}
+         {1 :<c-x>
+          2 #((. vim.fn "codeium#Clear"))
+          :mode :i
+          :expr true
+          :desc "Clear Codeium Suggestion"}]}
  ;; A tree like view for symbols in Neovim using the Language Server Protocol
  {1 :simrat39/symbols-outline.nvim
   :keys [{1 :<leader>cs 2 :<cmd>SymbolsOutline<cr> :desc "Symbols Outline"}]

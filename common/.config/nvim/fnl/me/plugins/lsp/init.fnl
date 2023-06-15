@@ -34,8 +34,9 @@
     (local setup-server (. settings.setup server))
     (when setup-server
       (pcall setup-server server server-opts))
-    (local lspconfig (require :lspconfig))
-    ((. lspconfig server :setup) server-opts))
+    (when (not setup-server)
+      (local lspconfig (require :lspconfig))
+      ((. lspconfig server :setup) server-opts)))
 
   (fn setup-mason-lsp []
     ;; Initialize and setup Mason LSP
@@ -64,7 +65,9 @@
                      ;; Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim
                      :williamboman/mason-lspconfig.nvim
                      ;; Standalone UI for nvim-lsp progress
-                     :j-hui/fidget.nvim
+                     {1 :j-hui/fidget.nvim :opt {}}
+                     ;; Dev setup for init.lua and plugin development with full signature help docs and completion for the nvim lua API.
+                     {1 :folke/neodev.nvim :opt {}}
                      ;; Simple winbar/statusline plugin that shows your current code context
                      :SmiteshP/nvim-navic
                      ;; LSP signature hint as you type
