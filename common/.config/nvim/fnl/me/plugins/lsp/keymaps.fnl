@@ -19,7 +19,8 @@
               :desc "Signature Help"
               :has :signatureHelp}
              {1 :gn 2 #(vim.diagnostic.goto_next) :desc "Next diagnostic"}
-             {1 :gp 2 #(vim.diagnostic.goto_prev) :desc "Prev diagnostic"}
+             {1 :gN 2 #(vim.diagnostic.goto_prev) :desc "Prev diagnostic"}
+             {1 :gs 2 ":Navbuddy<cr>" :desc "Open Navbuddy"}
              {1 :gF
               2 #((. (require :me.plugins.lsp.format) :toggle))
               :desc "Toggle autoformat"}])

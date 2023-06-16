@@ -20,10 +20,7 @@
     (local keymaps (require :me.plugins.lsp.keymaps))
     (local format (require :me.plugins.lsp.format))
     (keymaps.on-attach client buffer)
-    (format.on-attach client buffer)
-    (when client.server_capabilities.documentSymbolProvider
-      (local navic (require :nvim-navic))
-      (navic.attach client buffer)))
+    (format.on-attach client buffer))
 
   (fn setup [server]
     (local capabilities (get-capabilities))
@@ -65,14 +62,24 @@
                      ;; Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim
                      :williamboman/mason-lspconfig.nvim
                      ;; Standalone UI for nvim-lsp progress
-                     {1 :j-hui/fidget.nvim :opt {}}
+                     {1 :j-hui/fidget.nvim :opts {}}
                      ;; Dev setup for init.lua and plugin development with full signature help docs and completion for the nvim lua API.
-                     {1 :folke/neodev.nvim :opt {}}
-                     ;; Simple winbar/statusline plugin that shows your current code context
-                     :SmiteshP/nvim-navic
+                     {1 :folke/neodev.nvim :opts {}}
+                     ;; A simple popup display that provides breadcrumbs feature using LSP server
+                     {1 :SmiteshP/nvim-navbuddy
+                      :cmd :Navbuddy
+                      :dependencies [;; Simple winbar/statusline plugin that shows your current code context
+                                     {1 :SmiteshP/nvim-navic
+                                      :opts {:lsp {:auto_attach true}
+                                             :icons (. (require :me.config)
+                                                       :icons :kinds)}}]
+                      :opts {:lsp {:auto_attach true}}}
                      ;; LSP signature hint as you type
                      {1 :ray-x/lsp_signature.nvim
-                      :opts {:noice true :padding " "}}
+                      :opts {:bind true
+                             :noice true
+                             :padding " "
+                             :handler_opts {:border :rounded}}}
                      ;; Extensions for the built-in LSP support in Neovim for eclipse.jdt.ls
                      :mfussenegger/nvim-jdtls])
 

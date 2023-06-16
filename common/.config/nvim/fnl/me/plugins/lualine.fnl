@@ -162,8 +162,16 @@
                              components.fileformat
                              components.time]})
 
+(local winbar {:lualine_x [{1 :filename :path 1}]})
+
+(let [(has-navic? _) (pcall require :nvim-navic)]
+  (when has-navic?
+    (set winbar.lualine_c [{1 :navic :color_correction :dynamic}])))
+
 ;; A blazing fast and easy to configure neovim statusline plugin written in pure lua.
 {1 :nvim-lualine/lualine.nvim
- :opts {:options {:component_separators "" :section_separators ""} : sections}
+ :opts {:options {:component_separators "" :section_separators ""}
+        : sections
+        : winbar}
  :event :VeryLazy}
 
