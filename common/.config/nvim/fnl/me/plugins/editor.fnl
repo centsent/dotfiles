@@ -25,5 +25,9 @@
  ;; Next-generation motion plugin using incremental input processing
  {1 :ggandor/leap.nvim
   :event [:BufNewFile :BufReadPost]
-  :config #((. (require :leap) :add_default_mappings))}]
+  :config #((. (require :leap) :add_default_mappings))}
+ {1 :ellisonleao/glow.nvim
+  :config true
+  :cmd [:Glow]
+  :keys [{1 :<leader>mp 2 ":Glow<cr>" :desc "Preview Markdown in Glow"}]}]
 
