@@ -58,6 +58,7 @@
 (local dependencies [;; Portable package manager for Neovim that runs everywhere Neovim runs.
                      {1 :williamboman/mason.nvim
                       :cmd :Mason
+                      :build ":MasonUpdate"
                       :opts {:max_concurrent_installers 10}}
                      ;; Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim
                      :williamboman/mason-lspconfig.nvim
@@ -80,6 +81,8 @@
                              :noice true
                              :padding " "
                              :handler_opts {:border :rounded}}}
+                     ;; Neovim plugin for displaying references and difinition infos upon functions like JB's IDEA.
+                     {1 :VidocqH/lsp-lens.nvim :opts {}}
                      ;; Extensions for the built-in LSP support in Neovim for eclipse.jdt.ls
                      :mfussenegger/nvim-jdtls])
 
