@@ -19,13 +19,12 @@
  ;; Add/change/delete surrounding delimiter pairs with ease.
  {1 :kylechui/nvim-surround :config true :event [:BufNewFile :BufReadPost]}
  ;; The fastest Neovim colorizer.
- {1 :norcalli/nvim-colorizer.lua
-  :opts {:filetypes ["*" :!lazy] :buftype ["*" :!prompt :!nofile]}
-  :event :BufReadPost}
- ;; Next-generation motion plugin using incremental input processing
+ {1 :norcalli/nvim-colorizer.lua :opts {}}
+ ; Next-generation motion plugin using incremental input processing
  {1 :ggandor/leap.nvim
   :event [:BufNewFile :BufReadPost]
   :config #((. (require :leap) :add_default_mappings))}
+ ; A markdown preview directly in your neovim
  {1 :ellisonleao/glow.nvim
   :config true
   :cmd [:Glow]

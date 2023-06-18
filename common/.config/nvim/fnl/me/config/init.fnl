@@ -52,15 +52,15 @@
 (fn load-configs []
   (local util (require :me.util))
   (local config-prefix :me.config.)
-  (local mods [:options :keymaps :autocmds])
+  (local mods [:options :autocmds :keymaps])
   (each [_ mod (ipairs mods)]
     (util.load (.. config-prefix mod))))
 
 (fn M.setup [_opts]
   (local util (require :me.util))
   (util.on-very-lazy (fn []
-                       (set-colorscheme)
-                       (load-configs))))
+                       (load-configs)
+                       (set-colorscheme))))
 
 M
 

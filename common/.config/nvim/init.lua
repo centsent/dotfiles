@@ -30,6 +30,8 @@ end
 local function init_lazy()
   local lazy = init_plugin("https://github.com/folke/lazy.nvim", "lazy")
   vim.g.mapleader = ","
+  -- Enables 24-bit RGB color in the TUI
+  vim.o.termguicolors = true
 
   lazy.setup({
     git = { timeout = 12000 },

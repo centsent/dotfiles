@@ -57,9 +57,7 @@
                 ;; Time to wait for a mapped sequence to complete (in milliseconds)
                 :timeoutlen 1000
                 ;; Access system's clipboard
-                :clipboard :unnamedplus
-                ;; Enables 24-bit RGB color in the TUI
-                :termguicolors true})
+                :clipboard :unnamedplus})
 
 (each! options set-option)
 
