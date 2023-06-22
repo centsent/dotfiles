@@ -1,13 +1,13 @@
 (import-macros {: not-nil! : tappend!} :macros)
 
-(local M {})
+(local M {:timer nil})
 
 (fn M.has [plugin]
   (local lazy (require :lazy.core.config))
   (not-nil! (. lazy.plugins plugin)))
 
-(fn M.on-very-lazy [fun]
-  (vim.api.nvim_create_autocmd :User {:pattern :VeryLazy :callback #(fun)}))
+(fn M.on-very-lazy [callback]
+  (vim.api.nvim_create_autocmd :User {:pattern :VeryLazy :callback #(callback)}))
 
 (fn M.load [mod]
   (local util (require :lazy.core.util))
@@ -27,6 +27,10 @@
                                             (local client
                                                    (vim.lsp.get_client_by_id args.data.client_id))
                                             (on-attach client buffer))}))
+
+(fn M.start-timer [sleep callback]
+  (set M.timer (vim.loop.new_timer))
+  (M.timer:start 0 sleep (vim.schedule_wrap callback)))
 
 (fn M.get-formatter []
   (let [(ok? formatter-config) (pcall require :formatter.config)]

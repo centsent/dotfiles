@@ -19,7 +19,7 @@
  ;; Add/change/delete surrounding delimiter pairs with ease.
  {1 :kylechui/nvim-surround :config true :event [:BufNewFile :BufReadPost]}
  ;; The fastest Neovim colorizer.
- {1 :norcalli/nvim-colorizer.lua :opts {}}
+ {1 :norcalli/nvim-colorizer.lua :opts {} :event [:BufNewFile :BufReadPost]}
  ; Next-generation motion plugin using incremental input processing
  {1 :ggandor/leap.nvim
   :event [:BufNewFile :BufReadPost]

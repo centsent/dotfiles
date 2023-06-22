@@ -21,11 +21,11 @@
         (vim.cmd :FormatWrite)
         (vim.lsp.buf.format))))
 
-(fn M.on-attach [_ buffer]
-  ;; Attach format on save functionality to the current buffer
-  (local augroup (vim.api.nvim_create_augroup (.. :LspFormat. buffer) {}))
+(fn M.setup []
+  ;; Attach format on save functionality
+  (local augroup (vim.api.nvim_create_augroup :AutoFormatting {}))
   (vim.api.nvim_create_autocmd :BufWritePost
-                               {:group augroup : buffer :callback #(M.format)}))
+                               {:group augroup :callback #(M.format)}))
 
 M
 

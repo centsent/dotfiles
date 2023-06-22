@@ -36,11 +36,14 @@
       (cmp.setup.cmdline cmd {: sources : mapping})))
 
   (local lspkind-format (lspkind.cmp_format {:mode :symbol_text}))
-  (local cmp-settings {:snippet {:expand setup-luasnip}
-                       :formatting {:format lspkind-format}
-                       :sources (cmp.config.sources cmp-sources)
-                       :mapping (cmp.mapping.preset.insert cmp-mapping)
-                       :experimental {:ghost_text true}})
+  (local cmp-settings
+         {:snippet {:expand setup-luasnip}
+          :formatting {:format lspkind-format}
+          :sources (cmp.config.sources cmp-sources)
+          :mapping (cmp.mapping.preset.insert cmp-mapping)
+          :experimental {:ghost_text true}
+          :window {:completion (cmp.config.window.bordered)
+                   :documentation (cmp.config.window.bordered)}})
   (cmp.setup cmp-settings)
   (setup-cmdline cmdline-confg)
   (setup-from-vscode)

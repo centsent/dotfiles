@@ -2,7 +2,7 @@
  {1 :Exafunction/codeium.vim
   :build ":Codeium Auth"
   :event [:InsertEnter]
-  :keys [{1 :<c-g>
+  :keys [{1 :<c-l>
           2 #((. vim.fn "codeium#Accept"))
           :mode :i
           :expr true

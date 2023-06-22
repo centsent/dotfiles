@@ -15,12 +15,12 @@
 (fn config [_ settings]
   "Configure LSP settings and setup servers"
   (local servers settings.servers)
+  (local format (require :me.plugins.lsp.format))
+  (format.setup)
 
   (fn on-attach [client buffer]
     (local keymaps (require :me.plugins.lsp.keymaps))
-    (local format (require :me.plugins.lsp.format))
-    (keymaps.on-attach client buffer)
-    (format.on-attach client buffer))
+    (keymaps.on-attach client buffer))
 
   (fn setup [server]
     (local capabilities (get-capabilities))
@@ -83,6 +83,8 @@
                              :handler_opts {:border :rounded}}}
                      ;; Neovim plugin for displaying references and difinition infos upon functions like JB's IDEA.
                      {1 :VidocqH/lsp-lens.nvim :opts {}}
+                     ;; Incremental LSP renaming based on Neovim's command-preview feature
+                     {1 :smjonas/inc-rename.nvim :opts {}}
                      ;; Extensions for the built-in LSP support in Neovim for eclipse.jdt.ls
                      :mfussenegger/nvim-jdtls])
 
@@ -102,6 +104,7 @@
                    :html {}
                    :julials {}
                    :marksman {}
+                   :prismals {}
                    :pyright {}
                    :solargraph {}
                    :tailwindcss {}

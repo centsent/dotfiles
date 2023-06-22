@@ -21,9 +21,13 @@
  {1 :folke/noice.nvim
   :event :VeryLazy
   :opts {:lsp {:override {:vim.lsp.util.convert_input_to_markdown_lines true
-                          :vim.lsp.util.stylize_markdown true}
+                          :vim.lsp.util.stylize_markdown true
+                          :cmp.entry.get_documentation true}
                :signature {:enabled false}}
-         :presets {:command_palette true :long_message_to_split true}}}
+         :presets {:command_palette true
+                   :long_message_to_split true
+                   :bottom_search true
+                   :inc_rename true}}}
  ;; A snazzy bufferline for Neovim
  {1 :akinsho/bufferline.nvim
   :event :VeryLazy
@@ -45,9 +49,5 @@
  ;; Git integration for buffers
  {1 :lewis6991/gitsigns.nvim
   :event [:BufNewFile :BufReadPost]
-  :opts {:current_line_blame true}}
- ;; Extensible Neovim Scrollbar
- {1 :petertriho/nvim-scrollbar
-  :opts {:excluded_filetypes [:prompt :TelescopePrompt :noice :notify]}
-  :event :BufReadPost}]
+  :opts {:current_line_blame true}}]
 

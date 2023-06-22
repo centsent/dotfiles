@@ -162,11 +162,10 @@
                              components.fileformat
                              components.time]})
 
-(local winbar {:lualine_x [{1 :filename :path 1}]})
-
-(let [(has-navic? _) (pcall require :nvim-navic)]
-  (when has-navic?
-    (set winbar.lualine_c [{1 :navic :color_correction :dynamic}])))
+(local winbar {:lualine_c [{1 #((. (require :nvim-navic) :get_location))
+                            :cond #(and (. package.loaded :nvim-navic)
+                                        ((. (require :nvim-navic) :is_available)))}]
+               :lualine_x [{1 :filename :path 1}]})
 
 ;; A blazing fast and easy to configure neovim statusline plugin written in pure lua.
 {1 :nvim-lualine/lualine.nvim
