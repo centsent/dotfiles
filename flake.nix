@@ -3,25 +3,35 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    home-manager = {
+    hm = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
-    let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      formatter.${system} = pkgs.nixpkgs-fmt;
-      homeConfigurations.apearwin = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        modules = [
-          ./home.nix
+  outputs = inputs@{ nixpkgs, hm, ... }: {
+    homeConfigurations = let
+      macUsername = "theodo";
+      macSystem = "x86_64-darwin";
+      macPkgs = import nixpkgs {
+        system = macSystem;
+        config.allowUnfree = true;
+      };
+    in {
+      ${macUsername} = hm.lib.homeManagerConfiguration {
+        pkgs = macPkgs;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [ 
+          ./hosts/mac/x86_64.nix
+          {
+            home = {
+              stateVersion = "23.11";
+              username = "${macUsername}";
+              homeDirectory = "/Users/${macUsername}";
+            };
+          }
         ];
       };
     };
+  };
 }

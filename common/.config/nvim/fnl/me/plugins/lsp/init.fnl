@@ -103,7 +103,6 @@
                                             :settings {:fennel {:diagnostics {:globals [:vim]}}}}
                    :html {}
                    :julials {}
-                   :nixd {}
                    :marksman {}
                    :prismals {}
                    :pyright {}
