@@ -49,5 +49,7 @@
  ;; Git integration for buffers
  {1 :lewis6991/gitsigns.nvim
   :event [:BufNewFile :BufReadPost]
-  :opts {:current_line_blame true}}]
+  :opts {:current_line_blame true}}
+ ;; Remove all background colors to make nvim transparent
+ {1 :xiyaowong/transparent.nvim :opts {}}]
 
