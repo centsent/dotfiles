@@ -3,6 +3,12 @@ mac:
 	nix run home-manager switch -- --flake .\#theodo
 	nix-collect-garbage
 
+.PHONY: wsl
+wsl:
+	nix run home-manager switch -- --flake .\#mafioso
+	nix-collect-garbage
+
+
 .PHONY: gc
 gc:
 	nix-collect-garbage

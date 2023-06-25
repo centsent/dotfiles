@@ -7,16 +7,20 @@
     cmake
     exa
     fd
+    gcc
     git
+    gnumake
     fnlfmt
     httpie
-    luajitPackages.fennel
     lazygit
+    luajitPackages.fennel
     neovim
+    openssh
     procs
     ripgrep
     rm-improved
     scrcpy
+    stow
     tmux
     tokei
     topgrade
@@ -38,6 +42,10 @@
     direnv = {
       enable = true;
       nix-direnv.enable = true; 
+    };
+
+    fish = {
+      enable = true;
     };
 
     fzf = {

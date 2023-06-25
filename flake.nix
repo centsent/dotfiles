@@ -17,6 +17,13 @@
         system = macSystem;
         config.allowUnfree = true;
       };
+      
+      wslUsername = "mafioso";
+      wslSystem = "x86_64-linux";
+      wslPkgs = import nixpkgs {
+        system = wslSystem;
+        config.allowUnfree = true;
+      };
     in {
       ${macUsername} = hm.lib.homeManagerConfiguration {
         pkgs = macPkgs;
@@ -28,6 +35,21 @@
               stateVersion = "23.11";
               username = "${macUsername}";
               homeDirectory = "/Users/${macUsername}";
+            };
+          }
+        ];
+      };
+      
+      ${wslUsername} = hm.lib.homeManagerConfiguration {
+	pkgs = wslPkgs;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [ 
+          ./hosts/wsl/arch.nix
+          {
+            home = {
+              stateVersion = "23.11";
+              username = "${wslUsername}";
+              homeDirectory = "/home/${wslUsername}";
             };
           }
         ];
