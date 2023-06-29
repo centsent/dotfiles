@@ -5,15 +5,18 @@
     android-tools
     broot
     cmake
+    dotnet-sdk_7
     exa
     fd
     gcc
     git
+    go
     gnumake
     fnlfmt
     httpie
     lazygit
     luajitPackages.fennel
+    nodejs
     neovim
     openssh
     procs
@@ -24,7 +27,10 @@
     tmux
     tokei
     topgrade
+    unzip
+    wget
     xcp
+    zellij
   ];
 
   home.sessionVariables = {

@@ -44,7 +44,7 @@
 	pkgs = wslPkgs;
         extraSpecialArgs = { inherit inputs; };
         modules = [ 
-          ./hosts/wsl/arch.nix
+          ./hosts/wsl/default.nix
           {
             home = {
               stateVersion = "23.11";
