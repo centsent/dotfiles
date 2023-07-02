@@ -22,6 +22,7 @@
     procs
     ripgrep
     rm-improved
+    rust
     scrcpy
     stow
     tmux
@@ -32,10 +33,6 @@
     xcp
     zellij
   ];
-
-  home.sessionVariables = {
-    EDITOR = "neovim";
-  };
 
   programs = {
     bat = {
@@ -50,13 +47,24 @@
       nix-direnv.enable = true; 
     };
 
-    fish = {
-      enable = true;
-    };
+    # fish = {
+    #   enable = true;
+    # };
 
     fzf = {
       enable = true;
       enableFishIntegration = true;
+    };
+
+    git = {
+      enable = true;
+      userName = "centsent";
+      userEmail = "centsent@users.noreply.github.com";
+      extraConfig = {
+        init = {
+          defaultBranch = "main";
+        };
+      };
     };
 
     # Let Home Manager install and manage itself.
@@ -73,5 +81,16 @@
       enable = true;
       enableFishIntegration = true;
     };
+  };
+
+  home.file = {
+    ".tmux.conf".source = ../../config/tmux.conf;
+    ".ideavimrc".source = ../../config/.ideavimrc;
+  };
+
+  xdg.configFile = {
+    "alacritty".source = ../../config/alacritty;
+    "starship.toml".source = ../../config/starship.toml;
+    "topgrade.toml".source = ../../config/topgrade.toml;
   };
 }

@@ -1,5 +1,5 @@
 .PHONY: home
-home: gc
+home: 
 	nix run home-manager switch -- --flake .\#$$(whoami)
 
 .PHONY: mac
