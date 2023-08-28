@@ -15,10 +15,10 @@
 (fn config [_ settings]
   "Configure LSP settings and setup servers"
   (local servers settings.servers)
-  (local format (require :me.plugins.lsp.format))
-  (format.setup)
 
   (fn on-attach [client buffer]
+    (local format (require :me.plugins.lsp.format))
+    (format.setup client buffer)
     (local keymaps (require :me.plugins.lsp.keymaps))
     (keymaps.on-attach client buffer))
 
@@ -109,6 +109,7 @@
                    :solargraph {}
                    :tailwindcss {}
                    :taplo {}
+                   :unocss {}
                    :vimls {}
                    :volar {}}}
   : config

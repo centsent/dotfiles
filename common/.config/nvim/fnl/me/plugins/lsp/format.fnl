@@ -19,9 +19,22 @@
     (local formatter (get-formatter))
     (if (not-nil! formatter)
         (vim.cmd :FormatWrite)
-        (vim.lsp.buf.format))))
+        (M.lsp-format M.client))))
 
-(fn M.setup []
+(fn M.lsp-format [client]
+  (when (M.support-format client)
+    (vim.lsp.buf.format)))
+
+(fn M.support-format [client]
+  (if (and (and client.config client.config.capabilities)
+           (= client.config.capabilities.documentFormattingProvider false))
+      false
+      (or (client.supports_method :textDocument/format)
+          (client.supports_method :textDocument/rangeFormatting))))
+
+(fn M.setup [client buffer]
+  (set M.client client)
+  (set M.buffer buffer)
   ;; Attach format on save functionality
   (local augroup (vim.api.nvim_create_augroup :AutoFormatting {}))
   (vim.api.nvim_create_autocmd :BufWritePost

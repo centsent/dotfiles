@@ -24,7 +24,7 @@
                     ;; Quickly close the current window/buffer
                     :<leader>q ":q<cr>"
                     ;; Quickly close the current window/buffer without reminder
-                    :<leader>a ":q!<cr>"
+                    :<leader>a ":qa<cr>"
                     ;; Remap U to <c-r> for easier undo
                     :U :<c-r>
                     ;; Go to home and end using capitalized directions

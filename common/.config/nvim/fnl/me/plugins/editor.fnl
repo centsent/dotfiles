@@ -20,11 +20,20 @@
  {1 :kylechui/nvim-surround :config true :event [:BufNewFile :BufReadPost]}
  ;; The fastest Neovim colorizer.
  {1 :norcalli/nvim-colorizer.lua :opts {} :event [:BufNewFile :BufReadPost]}
- ; Next-generation motion plugin using incremental input processing
- {1 :ggandor/leap.nvim
-  :event [:BufNewFile :BufReadPost]
-  :config #((. (require :leap) :add_default_mappings))}
- ; A markdown preview directly in your neovim
+ ;; Navigate your code with search labels enhanced character motions and Treesitter integration
+ {1 :folke/flash.nvim
+  :opts {:search {:mode :fuzzy} :mode {:char {:enabled false}}}
+  :keys [{1 :s 2 #((. (require :flash) :jump)) :mode [:n :x :o] :desc :Flash}
+         {1 :S
+          2 #((. (require :flash) :treesitter))
+          :mode [:n :o :x]
+          :desc "Flash Treesitter"}
+         {1 :r 2 #((. (require :flash) :remote)) :mode :o :desc "Remote Flash"}
+         {1 :R
+          2 #((. (require :flash) :treesitter_search))
+          :mode [:o :x]
+          :desc "Flash Treesitter Search"}]}
+ ;; A markdown preview directly in your neovim
  {1 :ellisonleao/glow.nvim
   :config true
   :cmd [:Glow]

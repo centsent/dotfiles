@@ -2,8 +2,10 @@
 
   home.packages = with pkgs; [
     alacritty
+    ast-grep
     android-tools
     broot
+    cargo
     cmake
     dotnet-sdk_7
     exa
@@ -11,9 +13,9 @@
     gcc
     git
     go
+    google-java-format
     gnumake
     fnlfmt
-    httpie
     lazygit
     luajitPackages.fennel
     nodejs
@@ -22,7 +24,7 @@
     procs
     ripgrep
     rm-improved
-    rust
+    rustc
     scrcpy
     stow
     tmux
@@ -65,6 +67,10 @@
           defaultBranch = "main";
         };
       };
+      ignores = [
+        ".DS_Store"
+          "*.pyc"
+      ];
     };
 
     # Let Home Manager install and manage itself.

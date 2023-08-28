@@ -51,5 +51,7 @@
   :event [:BufNewFile :BufReadPost]
   :opts {:current_line_blame true}}
  ;; Remove all background colors to make nvim transparent
- {1 :xiyaowong/transparent.nvim :opts {}}]
+ {1 :xiyaowong/transparent.nvim :opts {}}
+ ;; A plugin for neovim that highlights cursor words and lines
+ {1 :yamatsum/nvim-cursorline :opts {:cursorline {:timeout 500}}}]
 

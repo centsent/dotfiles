@@ -38,5 +38,9 @@
   :lazy true}
  {;; Gruvbox with Material Palette
   1 :sainnhe/gruvbox-material
-  :lazy true}]
+  :lazy true}
+ ;; NeoVim dark colorscheme inspired by the colors of the famous painting by Katsushika Hokusai
+ {1 :rebelot/kanagawa.nvim :lazy true}
+ ;; Warm color scheme for Neovim and beyond
+ {1 :savq/melange-nvim :lazy true}]
 

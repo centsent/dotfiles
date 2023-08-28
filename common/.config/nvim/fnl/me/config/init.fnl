@@ -46,6 +46,7 @@
 
 (fn set-colorscheme []
   (local colorscheme-list [:tokyonight
+                           :kanagawa
                            :nightfox
                            :carbonfox
                            :terafox
@@ -53,11 +54,10 @@
                            :nordfox
                            :catppuccin
                            :edge
-                           :nord
-                           :oxocarbon
                            :material
                            :rose-pine
                            :minimal
+                           :melange
                            :minimal-base16
                            :sonokai
                            :gruvbox

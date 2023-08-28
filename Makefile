@@ -1,11 +1,6 @@
 .PHONY: home
 home: 
-	nix run home-manager switch -- --flake .\#$$(whoami)
-
-.PHONY: mac
-mac:
-	nix run home-manager switch -- --flake .\#theodo
-	nix-collect-garbage
+	nix run home-manager switch -- --flake .\#$$(whoami) 
 
 .PHONY: wsl
 wsl:

@@ -41,7 +41,7 @@
       };
       
       ${wslUsername} = hm.lib.homeManagerConfiguration {
-	pkgs = wslPkgs;
+	      pkgs = wslPkgs;
         extraSpecialArgs = { inherit inputs; };
         modules = [ 
           ./hosts/wsl/default.nix
