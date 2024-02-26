@@ -4,7 +4,7 @@
     (local home (os.getenv :HOME))
     (local data-path (vim.fn.stdpath :data))
     (local project-name (vim.fn.fnamemodify (vim.fn.getcwd) ":p:h:t"))
-    (local workspace-dir (.. (.. home :/.cache/jdtls-workspace/) project-name))
+    (local workspace-dir (.. home :/.cache/jdtls-workspace/ project-name))
     (local jdtls-install-dir (.. data-path :/mason/packages/jdtls))
     (local jdtls-jar
            (vim.fn.glob (.. jdtls-install-dir

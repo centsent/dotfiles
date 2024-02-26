@@ -1,0 +1,15 @@
+- name: Set up local workstation
+  hosts: local
+  roles:
+    - role: macos
+      when: is_macos
+      tags:
+        - macos
+    - role: gentoo
+      when: is_gentoo
+      tags:
+        - gentoo
+    - role: windows
+      when: is_windows
+      tags:
+        - windows

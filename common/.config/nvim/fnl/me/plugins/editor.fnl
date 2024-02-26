@@ -1,7 +1,7 @@
-[;; A file explorer tree for neovim written in lua
- {1 :nvim-tree/nvim-tree.lua
-  :keys [{1 :<leader>f 2 ":NvimTreeToggle<cr>" :desc "Explorer NvimTree"}]
-  :opts {:disable_netrw true}}
+[;; Neovim plugin to manage the file system and other tree like structures.
+ {1 :nvim-neo-tree/neo-tree.nvim
+  :keys [{1 :<leader>f 2 ":Neotree toggle=true <cr>" :desc "Explorer Neotree"}]
+  :config true}
  ;; Smart and powerful comment plugin for neovim
  {1 :numToStr/Comment.nvim
   :config true
@@ -20,13 +20,27 @@
  {1 :kylechui/nvim-surround :config true :event [:BufNewFile :BufReadPost]}
  ;; The fastest Neovim colorizer.
  {1 :norcalli/nvim-colorizer.lua :opts {} :event [:BufNewFile :BufReadPost]}
- ; Next-generation motion plugin using incremental input processing
- {1 :ggandor/leap.nvim
-  :event [:BufNewFile :BufReadPost]
-  :config #((. (require :leap) :add_default_mappings))}
- ; A markdown preview directly in your neovim
+ ;; Navigate your code with search labels enhanced character motions and Treesitter integration
+ {1 :folke/flash.nvim
+  :opts {:search {:mode :fuzzy} :mode {:char {:enabled false}}}
+  :keys [{1 :s 2 #((. (require :flash) :jump)) :mode [:n :x :o] :desc :Flash}
+         {1 :S
+          2 #((. (require :flash) :treesitter))
+          :mode [:n :o :x]
+          :desc "Flash Treesitter"}
+         {1 :r 2 #((. (require :flash) :remote)) :mode :o :desc "Remote Flash"}
+         {1 :R
+          2 #((. (require :flash) :treesitter_search))
+          :mode [:o :x]
+          :desc "Flash Treesitter Search"}]}
+ ;; A markdown preview directly in your neovim
  {1 :ellisonleao/glow.nvim
   :config true
   :cmd [:Glow]
-  :keys [{1 :<leader>mp 2 ":Glow<cr>" :desc "Preview Markdown in Glow"}]}]
+  :keys [{1 :<leader>mp 2 ":Glow<cr>" :desc "Preview Markdown in Glow"}]}
+ ;; Neovim plugin for splitting/joining blocks of code
+ {1 :Wansmer/treesj
+  :keys [:<space>m :<space>j :<space>s]
+  :dependencies [:nvim-treesitter/nvim-treesitter]
+  :config true}]
 

@@ -1,0 +1,61 @@
+# ~/.config/yabai/yabairc 
+
+yabai -m config auto_balance off
+
+# bsp, stack or float
+yabai -m config layout bsp
+
+yabai -m config window_placement second_child
+
+# padding
+yabai -m config window_gap 10
+yabai -m config top_padding 5
+yabai -m config bottom_padding 5
+yabai -m config right_padding 5
+yabai -m config left_padding 5
+
+# mouse settings
+yabai -m config mouse_follows_focus on
+yabai -m config mouse_modifier alt
+# left click and drag
+yabai -m config mouse_action1 move  
+# right click and drag
+yabai -m config mouse_action2 resize
+yabai -m config mouse_drop_action swap
+
+# disable yabai for these apps
+yabai -m rule --add app="^Telegram$" manage=off
+yabai -m rule --add app="^Skype$" manage=off
+yabai -m rule --add app="^WeChat$" manage=off
+yabai -m rule --add app="^WeCom$" manage=off
+yabai -m rule --add app="^WhatsApp$" manage=off
+yabai -m rule --add app="^QQ$" manage=off
+yabai -m rule --add app="^Tencent$" manage=off
+yabai -m rule --add app="^Wally$" manage=off
+yabai -m rule --add app="^Pulse Secure$" manage=off
+yabai -m rule --add app="^Shottr$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^System Information$" manage=off
+yabai -m rule --add title='Settings$' manage=off
+yabai -m rule --add title="^Preferences$" manage=off
+yabai -m rule --add title="^Digital Colour Meter$" manage=off
+yabai -m rule --add title="^General.*" manage=off
+
+yabai -m config window_opacity on
+yabai -m config active_window_opacity 1
+yabai -m config normal_window_opacity 0.9
+
+yabai -m space 1 --label 1
+yabai -m space 2 --label 2
+yabai -m space 3 --label 3
+yabai -m space 4 --label 4
+yabai -m space 5 --label 5
+yabai -m space 6 --label 6
+yabai -m space 7 --label 7
+yabai -m space 8 --label 8
+yabai -m space 9 --label 9
+
+yabai -m config window_topmost off
+yabai -m config window_shadow  on

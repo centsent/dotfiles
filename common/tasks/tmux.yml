@@ -1,0 +1,26 @@
+# Check if gpakosz/.tmux is installed
+- name: Check if gpakosz/.tmux is installed
+  command: ls ~/.tmux
+  register: tmux_installed
+  ignore_errors: true
+
+# clone https://github.com/gpakosz/.tmux
+- name: Clone gpakosz/.tmux
+  git:
+    repo: https://github.com/gpakosz/.tmux
+    dest: ~/.tmux
+  when: not tmux_installed.stdout
+
+# Symlink .tmux.conf to ~
+- name: Symlink .tmux.conf to ~
+  file:
+    src: "~/.tmux/.tmux.conf"
+    dest: "~/.tmux.conf"
+    state: link
+
+# Symlink .tmux.conf.local to ~
+- name: Symlink .tmux.conf.local to ~
+  file:
+    src: "{{ playbook_dir }}/common/.tmux.conf.local"
+    dest: "~/.tmux.conf.local"
+    state: link

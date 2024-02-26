@@ -44,28 +44,8 @@
                       :Value " "
                       :Variable " "}})
 
-(fn set-colorscheme []
-  (local colorscheme-list [:tokyonight
-                           :nightfox
-                           :carbonfox
-                           :terafox
-                           :duskfox
-                           :nordfox
-                           :catppuccin
-                           :edge
-                           :nord
-                           :oxocarbon
-                           :material
-                           :rose-pine
-                           :minimal
-                           :minimal-base16
-                           :sonokai
-                           :gruvbox
-                           :gruvbox-material
-                           :OceanicNext])
-  (local index (math.random (length colorscheme-list)))
-  (local colorscheme (. colorscheme-list index))
-  (vim.cmd (.. "colorscheme " colorscheme)))
+(fn set-colorscheme [scheme]
+  (vim.cmd (.. "colorscheme " scheme)))
 
 (fn load-configs []
   (local util (require :me.util))
@@ -75,10 +55,7 @@
     (util.load (.. config-prefix mod))))
 
 (fn M.setup [_opts]
-  (local util (require :me.util))
-  (math.randomseed (os.time))
-  (local sleep (* 1000 60 15))
-  (util.start-timer sleep set-colorscheme)
+  (set-colorscheme :tokyonight)
   (load-configs))
 
 M

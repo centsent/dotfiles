@@ -1,9 +1,0 @@
-[init]
-	defaultBranch = main
-
-[user]
-  name = centsent
-  email = centsent@users.noreply.github.com
-
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
