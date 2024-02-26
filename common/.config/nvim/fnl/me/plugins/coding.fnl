@@ -1,27 +1,15 @@
-[;; A native neovim extension for Codeium
- {1 :Exafunction/codeium.vim
-  :build ":Codeium Auth"
-  :event [:InsertEnter]
-  :keys [{1 :<c-l>
-          2 #((. vim.fn "codeium#Accept"))
-          :mode :i
-          :expr true
-          :desc "Accept Codeium"}
-         {1 "<c-;>"
-          2 #((. vim.fn "codeium#CycleCompletions") 1)
-          :mode :i
-          :expr true
-          :desc "Next Codeium Suggestion"}
-         {1 "<c-,>"
-          2 #((. vim.fn "codeium#CycleCompletions") -1)
-          :mode :i
-          :expr true
-          :desc "Previous Codeium Suggestion"}
-         {1 :<c-x>
-          2 #((. vim.fn "codeium#Clear"))
-          :mode :i
-          :expr true
-          :desc "Clear Codeium Suggestion"}]}
+[;; Fully featured & enhanced replacement for copilot.vim complete with API for interacting with Github Copilot
+ {1 :zbirenbaum/copilot.lua
+  :event [:BufEnter]
+  :opts {:suggestion {:auto_trigger true :keymap {:accept :<c-y>}}
+         :filetypes {:yaml true :markdown true :gitcommit true}}
+  :build ":Copilot auth"}
+ ;; A native neovim extension for Codeium
+ ; {1 :Exafunction/codeium.nvim
+ ;  :config true
+ ;  :dependencies [:nvim-lua/plenary.nvim :hrsh7th/nvim-cmp]
+ ;  :build ":Codeium Auth"
+ ;  :event [:BufEnter]}
  ;; A tree like view for symbols in Neovim using the Language Server Protocol
  {1 :simrat39/symbols-outline.nvim
   :keys [{1 :<leader>cs 2 :<cmd>SymbolsOutline<cr> :desc "Symbols Outline"}]

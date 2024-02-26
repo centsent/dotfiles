@@ -3,6 +3,30 @@
   (when (not (util.has :noice.nvim))
     (util.on-very-lazy #(set vim.notify (require :notify)))))
 
+(fn init-ibl []
+  ;; Multiple indent colors
+  (local highlight [:RainbowRed
+                    :RainbowYellow
+                    :RainbowBlue
+                    :RainbowOrange
+                    :RainbowGreen
+                    :RainbowViolet
+                    :RainbowCyan])
+  (local highlight-colors {:RainbowRed "#E06C75"
+                           :RainbowYellow "#E5C07B"
+                           :RainbowBlue "#61AFEF"
+                           :RainbowOrange "#D19A66"
+                           :RainbowGreen "#98C379"
+                           :RainbowViolet "#C678DD"
+                           :RainbowCyan "#56B6C2"})
+  (local hooks (require :ibl.hooks))
+  (local ibl (require :ibl))
+  (hooks.register hooks.type.HIGHLIGHT_SETUP
+                  (fn []
+                    (each [key value (pairs highlight-colors)]
+                      (vim.api.nvim_set_hl 0 key {:fg value}))))
+  (ibl.setup {:indent {: highlight}}))
+
 [;; A fancy configurable notification manager for NeoVim
  {1 :rcarriga/nvim-notify
   :opts {:timeout 3000 :max_width 80 :background_colour "#121212"}
@@ -12,10 +36,8 @@
           :desc "Delete all notifications"}]}
  ;; Indent guides for Neovim
  {1 :lukas-reineke/indent-blankline.nvim
-  :opts {:show_current_context false
-         :char "│"
-         :filetype_exclude [:help :alpha :dashboard :neo-tree :Trouble :lazy]
-         :show_trailing_blankline_indent false}
+  :main :ibl
+  :init init-ibl
   :event [:BufReadPost :BufNewFile]}
  ;; Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
  {1 :folke/noice.nvim

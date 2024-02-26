@@ -1,7 +1,5 @@
-common/.config/fish/fish_history
-common/.config/fish/fish_variables
-common/.config/fish/fishd.*
 common/.config/nvim/lua
 common/.config/nvim/ftplugin/*.lua
 
 .activationPackage
+.DS_Store

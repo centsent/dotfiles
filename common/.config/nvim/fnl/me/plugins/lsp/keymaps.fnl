@@ -1,31 +1,23 @@
-(import-macros {: tappend!} :macros)
-
 (local M {})
 
-(set M.keys [{1 :ga
-              2 #(vim.lsp.buf.code_action)
-              :desc "Code Action"
-              :mode [:n :v]
-              :has :codeAction}
-             {1 :gd 2 #(vim.lsp.buf.definition) :desc "Go to definition"}
-             {1 :gD
-              2 #(vim.lsp.buf.type_definition)
-              :desc "Go to Type Definition"}
-             {1 :gi
-              2 #(vim.lsp.buf.implementation)
-              :desc "Go to implementation"}
-             ; {1 :gr 2 #(vim.lsp.buf.rename) :desc :Rename :has :rename}
-             {1 :gk 2 #(vim.lsp.buf.hover) :desc :Hover}
-             {1 :gK
-              2 #(vim.lsp.buf.signature_help)
-              :desc "Signature Help"
-              :has :signatureHelp}
-             {1 :ge 2 #(vim.diagnostic.goto_next) :desc "Next diagnostic"}
-             {1 :gE 2 #(vim.diagnostic.goto_prev) :desc "Prev diagnostic"}
-             {1 :gs 2 ":Navbuddy<cr>" :desc "Open Navbuddy"}
-             {1 :gF
-              2 #((. (require :me.plugins.lsp.format) :toggle))
-              :desc "Toggle autoformat"}])
+(set M.keys
+     [{1 :ga
+       2 #(vim.lsp.buf.code_action)
+       :desc "Code Action"
+       :mode [:n :v]
+       :has :codeAction}
+      {1 :gd 2 #(vim.lsp.buf.definition) :desc "Go to definition"}
+      {1 :gD 2 #(vim.lsp.buf.type_definition) :desc "Go to Type Definition"}
+      {1 :gi 2 #(vim.lsp.buf.implementation) :desc "Go to implementation"}
+      {1 :gk 2 #(vim.lsp.buf.hover) :desc :Hover}
+      {1 :gK
+       2 #(vim.lsp.buf.signature_help)
+       :desc "Signature Help"
+       :has :signatureHelp}
+      {1 :ge 2 #(vim.diagnostic.goto_next) :desc "Next diagnostic"}
+      {1 :gE 2 #(vim.diagnostic.goto_prev) :desc "Prev diagnostic"}
+      {1 :gs 2 ":Navbuddy<cr>" :desc "Open Navbuddy"}
+      {1 :gr 2 #(vim.lsp.buf.rename) :desc :Rename :has :rename}])
 
 (fn parse-lazy-keymaps [keys]
   ;; Parse the lazy keymaps and set the appropriate key bindings
@@ -52,14 +44,10 @@
     (set opts.silent true)
     (set opts.buffer buffer)
     (local mode (or lazy-key.mode :n))
-    (local lhs (. lazy-key 1))
-    (local rhs (. lazy-key 2))
-    (vim.keymap.set mode lhs rhs opts)))
-
-(fn get-rename-cmd []
-  (local inc-rename (require :inc_rename))
-  (local cmd (.. ":" inc-rename.config.cmd_name " " (vim.fn.expand :<cword>)))
-  cmd)
+    (local lhs lazy-key.lhs)
+    (local rhs lazy-key.rhs)
+    (when (and (not= lhs nil) (not= rhs nil))
+      (vim.keymap.set mode lhs rhs opts))))
 
 (fn set-keymaps [client buffer lazy-keymaps]
   ;; Set the keymaps for the LSP client and buffer
@@ -68,12 +56,6 @@
 
 (fn M.on-attach [client buffer]
   ;; Set keymaps for the LSP client when it attaches to a buffer
-  (if ((. (require :me.util) :has) :inc-rename.nvim)
-      (tappend! M.keys {1 :gr 2 (get-rename-cmd) :desc :IncRename :has :rename})
-      (tappend! M.keys {1 :gr
-                        2 #(vim.lsp.buf.rename)
-                        :desc :Rename
-                        :has :rename}))
   (local lazy-keymaps (parse-lazy-keymaps M.keys))
   (set-keymaps client buffer lazy-keymaps))
 

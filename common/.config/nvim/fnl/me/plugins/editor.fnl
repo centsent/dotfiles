@@ -1,7 +1,7 @@
-[;; A file explorer tree for neovim written in lua
- {1 :nvim-tree/nvim-tree.lua
-  :keys [{1 :<leader>f 2 ":NvimTreeToggle<cr>" :desc "Explorer NvimTree"}]
-  :opts {:disable_netrw true}}
+[;; Neovim plugin to manage the file system and other tree like structures.
+ {1 :nvim-neo-tree/neo-tree.nvim
+  :keys [{1 :<leader>f 2 ":Neotree toggle=true <cr>" :desc "Explorer Neotree"}]
+  :config true}
  ;; Smart and powerful comment plugin for neovim
  {1 :numToStr/Comment.nvim
   :config true
@@ -37,5 +37,10 @@
  {1 :ellisonleao/glow.nvim
   :config true
   :cmd [:Glow]
-  :keys [{1 :<leader>mp 2 ":Glow<cr>" :desc "Preview Markdown in Glow"}]}]
+  :keys [{1 :<leader>mp 2 ":Glow<cr>" :desc "Preview Markdown in Glow"}]}
+ ;; Neovim plugin for splitting/joining blocks of code
+ {1 :Wansmer/treesj
+  :keys [:<space>m :<space>j :<space>s]
+  :dependencies [:nvim-treesitter/nvim-treesitter]
+  :config true}]
 

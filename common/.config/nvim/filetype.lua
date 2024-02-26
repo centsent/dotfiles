@@ -5,6 +5,7 @@ end
 vim.filetype.add({
   extension = {
     lock = "yaml",
+    zsh = "sh",
   },
   filename = {
     ["go.mod"] = "gomod",

@@ -1,0 +1,59 @@
+---
+---
+- name: Check if homebrew is installed
+  command: brew --version
+  register: homebrew_installed
+  ignore_errors: true
+
+- name: Install homebrew
+  command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  when: not homebrew_installed.stdout
+
+- name: Install packages
+  loop:
+    - age
+    - alacritty
+    - android-studio
+    - android-platform-tools
+    - beekeeper-studio
+    - codewhisperer
+    - copilot-for-xcode
+    - eza
+    - fd
+    - fennel
+    - fnlfmt
+    - fzf
+    - git
+    - glow
+    - hoppscotch
+    - intellij-idea-ce
+    - jq
+    - krita
+    - libreoffice
+    - lazygit
+    - neovim
+    - obsidian
+    - orbstack
+    - pika
+    - raycast
+    - ripgrep
+    - rustdesk
+    - redisinsight
+    - shotcut
+    - shottr
+    - skhd
+    - sops
+    - starship
+    - topgrade
+    - visual-studio-code
+    - vivaldi
+    - volta
+    - wakatime-cli
+    - wormhole
+    - xcodes
+    - yabai
+    - yt-dlp
+    - zsh
+  homebrew:
+    name: "{{ item }}"
+    state: present

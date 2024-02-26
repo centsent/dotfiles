@@ -1,0 +1,32 @@
+- import_tasks: homebrew.yml
+- import_tasks: "{{ playbook_dir }}/common/tasks/zsh.yml"
+- import_tasks: "{{ playbook_dir }}/common/tasks/asdf.yml"
+- import_tasks: "{{ playbook_dir }}/common/tasks/tmux.yml"
+
+- name: Symlink common dotfiles to ~
+  loop:
+    - .ideavimrc
+  file:
+    src: "{{ playbook_dir }}/common/{{ item }}"
+    dest: "~/{{ item }}"
+    state: link
+
+- name: Symlink common dotfiles to ~/.config
+  loop:
+    - nvim
+    - alacritty
+    - starship.toml
+    - topgrade.toml
+  file:
+    src: "{{ playbook_dir }}/common/.config/{{ item }}"
+    dest: "~/.config/{{ item }}"
+    state: link
+
+- name: Symlink macOS dotfiles to ~/.config
+  loop:
+    - skhd
+    - yabai
+  file:
+    src: "{{ playbook_dir }}/macos/.config/{{ item }}"
+    dest: "~/.config/{{ item }}"
+    state: link

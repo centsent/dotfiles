@@ -1,4 +1,5 @@
 (import-macros {: tappend!} :macros)
+
 (local config (require :me.config))
 (local lsp-signs config.icons.diagnostics)
 (local git-icons config.icons.git)
@@ -25,14 +26,13 @@
                     :o colors.cyan
                     :R colors.rose})
 
-;; File format component
-(local fileformat
-       {1 :fileformat :color {:bg colors.bg :fg colors.green :gui bold}})
+(fn create-component [type color fmt]
+  {:1 type :color {:bg colors.bg :fg color :gui bold} : fmt})
 
+;; File format component
+(local fileformat (create-component :fileformat colors.green nil))
 ;; File encoding component
-(local encoding {1 :encoding
-                 :color {:bg colors.bg :fg colors.green :gui bold}
-                 :fmt string.upper})
+(local encoding (create-component :encoding colors.green string.upper))
 
 ;; File name component
 (local filename {1 :filename :color {:fg colors.blue :gui bold}})
@@ -99,11 +99,12 @@
 ;; LSP client name component
 (local lsp {1 get-lsp :color {:fg colors.white :gui bold}})
 ;; Buffer formatter name component
-(local formatter
-       {1 #((. (require :me.util) :get-formatter-name))
-        :color {:fg colors.green}
-        :cond (fn []
-                ((. (require :me.util) :is-loaded) :formatter.nvim))})
+(fn get-formatters []
+  (local formatters ((. (require :conform) :list_formatters_for_buffer)))
+  (if (not= nil formatters)
+      (table.concat formatters ",") ""))
+
+(local formatter {1 get-formatters :color {:fg colors.green}})
 
 ;; Buffer linter name component
 (local linter
