@@ -22,6 +22,7 @@
  {1 :norcalli/nvim-colorizer.lua :opts {} :event [:BufNewFile :BufReadPost]}
  ;; Navigate your code with search labels enhanced character motions and Treesitter integration
  {1 :folke/flash.nvim
+  :event [:VeryLazy]
   :opts {:search {:mode :fuzzy} :mode {:char {:enabled false}}}
   :keys [{1 :s 2 #((. (require :flash) :jump)) :mode [:n :x :o] :desc :Flash}
          {1 :S
@@ -42,5 +43,14 @@
  {1 :Wansmer/treesj
   :keys [:<space>m :<space>j :<space>s]
   :dependencies [:nvim-treesitter/nvim-treesitter]
-  :config true}]
+  :config true}
+ ;; Create key bindings that stick
+ {1 :folke/which-key.nvim
+  :event [:VeryLazy]
+  :opts {:plugins {:spelling true}
+         :defaults {:mode [:n :v] :t {:name :+tabs} :f {:name :+Telescope}}}
+  :config (fn [_ opts]
+            (local wk (require :which-key))
+            (wk.setup opts)
+            (wk.register opts.defaults))}]
 

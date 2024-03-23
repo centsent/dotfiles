@@ -29,11 +29,13 @@
 
 [;; A fancy configurable notification manager for NeoVim
  {1 :rcarriga/nvim-notify
-  :opts {:timeout 3000 :max_width 80 :background_colour "#121212"}
+  :opts {:timeout 3000
+         :max_width #(math.floor (* vim.o.columns 0.75))
+         :max_height #(math.floor (* vim.o.lines 0.75))}
   :init init-notify
   :keys [{1 :<leader>n
           2 #((. (require :notify) :dismiss) {:slient true :pending true})
-          :desc "Delete all notifications"}]}
+          :desc "Dismiss all notifications"}]}
  ;; Indent guides for Neovim
  {1 :lukas-reineke/indent-blankline.nvim
   :main :ibl
