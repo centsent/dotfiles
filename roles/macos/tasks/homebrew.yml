@@ -42,10 +42,10 @@
     - skhd
     - sops
     - starship
+    - stats
     - topgrade
     - visual-studio-code
     - vivaldi
-    - volta
     - wakatime-cli
     - wormhole
     - xcodes

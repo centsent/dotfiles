@@ -12,8 +12,6 @@
 - name: Define asdf languages and versions
   set_fact:
     langs:
-      - name: dart
-        version: latest
       - name: dotnet
         version: latest
       - name: flutter
@@ -25,6 +23,8 @@
       - name: java
         version: graalvm-community-21.0.2
       - name: lua
+        version: latest
+      - name: maven
         version: latest
       - name: nodejs
         version: latest
@@ -44,7 +44,9 @@
 - name: Install languages with asdf
   loop: "{{ langs }}"
   command: asdf install {{ item.name }} {{ item.version }}
+  ignore_errors: true
 
 - name: Set languages version as the global version
   loop: "{{ langs }}"
   command: asdf global {{ item.name }} {{ item.version }}
+  ignore_errors: true
