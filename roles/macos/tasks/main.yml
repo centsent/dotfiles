@@ -5,6 +5,7 @@
 
 - name: Symlink common dotfiles to ~
   loop:
+    - .gitconfig
     - .ideavimrc
   file:
     src: "{{ playbook_dir }}/common/{{ item }}"
