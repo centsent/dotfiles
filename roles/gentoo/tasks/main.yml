@@ -1,0 +1,41 @@
+- import_tasks: portage.yml
+- import_tasks: hyprland.yml
+- import_tasks: "{{ playbook_dir }}/common/tasks/zsh.yml"
+- import_tasks: "{{ playbook_dir }}/common/tasks/asdf.yml"
+- import_tasks: "{{ playbook_dir }}/common/tasks/tmux.yml"
+
+- name: Symlink common dotfiles to ~
+  loop:
+    - .gitconfig
+    - .ideavimrc
+  file:
+    src: "{{ playbook_dir }}/common/{{ item }}"
+    dest: "~/{{ item }}"
+    state: link
+
+- name: Symlink common dotfiles to ~/.config
+  loop:
+    - alacritty
+    - nvim
+    - starship.toml
+    - topgrade.toml
+  file:
+    src: "{{ playbook_dir }}/common/.config/{{ item }}"
+    dest: "~/.config/{{ item }}"
+    state: link
+
+- name: Symlink linux dotfiles to ~/.config
+  loop:
+    - foot
+    - hypr
+    - mako
+    - waybar
+  file:
+    src: "{{ playbook_dir }}/linux/.config/{{ item }}"
+    dest: "~/.config/{{ item }}"
+    state: link
+
+- name: Remove unneeded packages
+  become: true
+  portage:
+    depclean: true

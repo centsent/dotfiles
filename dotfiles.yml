@@ -1,15 +1,16 @@
 - name: Set up local workstation
   hosts: local
+  gather_facts: yes
   roles:
     - role: macos
-      when: is_macos
+      when: ansible_facts['os_family'] == 'Darwin'
       tags:
         - macos
     - role: gentoo
-      when: is_gentoo
+      when: ansible_facts['distribution'] == 'Gentoo'
       tags:
         - gentoo
     - role: windows
-      when: is_windows
+      when: ansible_facts['os_family'] == 'Windows'
       tags:
         - windows
