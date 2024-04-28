@@ -35,7 +35,7 @@
                                 :xml [:prettier]
                                 :yaml [:prettier]
                                 :zig [:zigfmt]}
-             :format_on_save {:timeout_ms 500 :lsp_fallback true}})
+             :format_on_save {:timeout_ms 2000 :lsp_fallback true}})
 
 {1 :stevearc/conform.nvim
  : opts
