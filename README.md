@@ -1,17 +1,19 @@
 # dotfiles
 
-My public dotfiles
+My public dotfiles manage by [ansible](https://www.ansible.com/).
 
 ## Linux
 
-```fish
-$ doas emerge --ask app-misc/broot
-$ doas emerge --ask sys-apps/bat
-$ doas emerge --ask sys-apps/exa
-$ doas emerge --ask sys-apps/ripgrep
-$ doas emerge --ask sys-process/bottom
-$ doas emerge --ask app-shells/starship
-$ doas emerge --ask x11-themes/papirus-icon-theme
+### Gentoo
+
+```zsh
+make gentoo
+```
+
+## MacOS
+
+```zsh
+make macos
 ```
 
 ### Wallpapers

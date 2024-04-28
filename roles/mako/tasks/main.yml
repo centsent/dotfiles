@@ -1,0 +1,5 @@
+- name: Symlink mako to ~/.config
+  file:
+    src: "{{ playbook_dir }}/roles/mako/files/mako"
+    dest: "~/.config/mako"
+    state: link

@@ -1,0 +1,21 @@
+{
+  "network": {
+    "format": "{ifname}",
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      ""
+    ],
+    "format-wifi": "{icon} ",
+    "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+    "format-disconnected": "", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) {icon}",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50,
+    "on-click": "wpa_gui"
+  }
+}

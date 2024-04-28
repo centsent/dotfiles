@@ -1,0 +1,5 @@
+- name: Symlink .ideavimrc to ~
+  file:
+    src: "{{ playbook_dir }}/roles/idea/files/.ideavimrc"
+    dest: "~/.ideavimrc"
+    state: link

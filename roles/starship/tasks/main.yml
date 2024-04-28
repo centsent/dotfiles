@@ -1,0 +1,5 @@
+- name: Symlink starship to ~/.config
+  file:
+    src: "{{ playbook_dir }}/roles/starship/files/starship.toml"
+    dest: "~/.config/starship.toml"
+    state: link

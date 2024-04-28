@@ -1,0 +1,39 @@
+- name: Check if zsh is the default shell
+  command: echo $SHELL
+  register: shell
+
+- name: Sets zsh as the default shell
+  command: chsh -s /bin/zsh "{{ ansible_user_id }}"
+  become: true
+  become_user: root
+  when: shell.stdout != "/bin/zsh"
+
+- name: Check if ohmyzsh is installed
+  command: ls ~/.oh-my-zsh
+  register: ohmyzsh_installed
+  ignore_errors: true
+
+- name: Install ohmyzsh
+  shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  when: not ohmyzsh_installed.stdout
+
+- name: Check if zsh-autosuggestions is installed
+  command: ls ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  register: zsh_autosuggestions_installed
+  ignore_errors: true
+
+- name: Install zsh-autosuggestions
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  when: not zsh_autosuggestions_installed.stdout
+
+- name: Symlink zsh dotfiles to ~
+  loop:
+    - .alias.zsh
+    - .env.zsh
+    - .zshrc
+  file:
+    src: "{{ playbook_dir }}/roles/zsh/files/{{ item }}"
+    dest: "~/{{ item }}"
+    state: link

@@ -1,0 +1,17 @@
+dependencies:
+  - role: grub
+  - role: portage
+  - role: zsh
+  - role: git
+  - role: asdf
+  - role: tmux
+  - role: alacritty
+  - role: neovim
+  - role: starship
+  - role: topgrade
+  - role: idea
+  - role: hypr
+  - role: mako
+  - role: waybar
+  - role: wofi
+  - role: rime

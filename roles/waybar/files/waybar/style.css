@@ -1,0 +1,102 @@
+* {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  min-height: 10px;
+}
+
+window#waybar {
+  padding: 5px;
+}
+
+.modules-right {
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 5px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+@import url('./style/battery.css');
+@import url('./style/custom.css');
+@import url('./style/hyprland.css');
+
+#network {
+  margin-left: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 0px;
+  transition: none;
+}
+
+#pulseaudio {
+  margin-left: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  transition: none;
+}
+
+@keyframes blink {
+  to {
+    background-color: #BF616A;
+    color: #B5E8E0;
+  }
+}
+
+d3d3d3 #backlight {
+  margin-left: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  transition: none;
+}
+
+#clock {
+  margin-left: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  transition: none;
+}
+
+#memory {
+  margin-left: 8px;
+  padding-left: 10px;
+  margin-bottom: 0px;
+  padding-right: 10px;
+  border-radius: 10px;
+  transition: none;
+}
+
+#cpu {
+  margin-left: 8px;
+  padding-left: 10px;
+  margin-bottom: 0px;
+  padding-right: 10px;
+  border-radius: 10px;
+  transition: none;
+}
+
+#disk {
+  margin-left: 8px;
+  padding-left: 10px;
+  margin-bottom: 0px;
+  padding-right: 10px;
+  border-radius: 10px;
+  transition: none;
+}
+
+#tray {
+  margin-left: 8px;
+  padding-left: 10px;
+  margin-bottom: 0px;
+  padding-right: 10px;
+  border-radius: 10px;
+  transition: none;
+  color: #B5E8E0;
+  background: #161320;
+}

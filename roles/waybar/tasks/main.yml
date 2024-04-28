@@ -1,0 +1,5 @@
+- name: Symlink waybar to ~/.config
+  file:
+    src: "{{ playbook_dir }}/roles/waybar/files/waybar"
+    dest: "~/.config/waybar"
+    state: link

@@ -1,0 +1,55 @@
+- name: Check if asdf is installed
+  command: asdf --version
+  register: asdf_installed
+  ignore_errors: true
+
+- name: Clone asdf git repository
+  git:
+    repo: https://github.com/asdf-vm/asdf.git
+    dest: ~/.asdf
+    version: v0.14.0
+  when: not asdf_installed.stdout
+
+- name: Define asdf languages and versions
+  set_fact:
+    langs:
+      - name: dotnet
+        version: latest
+      - name: flutter
+        version: latest
+      - name: golang
+        version: latest
+      - name: haskell
+        version: latest
+      - name: java
+        version: graalvm-community-21.0.2
+      - name: lua
+        version: latest
+      - name: maven
+        version: latest
+      - name: nodejs
+        version: latest
+      - name: pnpm
+        version: latest
+      - name: python
+        version: latest
+      - name: ruby
+        version: latest
+      - name: rust
+        version: latest
+
+- name: Add plugins to asdf
+  loop: "{{ langs }}"
+  command: asdf plugin add {{ item.name }}
+  register: asdf_plugins
+  ignore_errors: true
+
+- name: Install languages with asdf
+  loop: "{{ langs }}"
+  command: asdf install {{ item.name }} {{ item.version }}
+  ignore_errors: true
+
+- name: Set languages version as the global version
+  loop: "{{ langs }}"
+  command: asdf global {{ item.name }} {{ item.version }}
+  ignore_errors: true

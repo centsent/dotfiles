@@ -1,0 +1,38 @@
+{
+  "battery": {
+    "states": {
+      "good": 80,
+      "warning": 20,
+      "critical": 10
+    },
+    "format": "{icon}  {capacity}%",
+    "format-full": " {capacity}%",
+    "format-alt": "{icon}  {time}",
+    "format-icons": {
+      "charging": [
+        "󰢜",
+        "󰂆",
+        "󰂇",
+        "󰂈",
+        "󰢝",
+        "󰂉",
+        "󰢞",
+        "󰂊",
+        "󰂋",
+        "󰂅"
+      ],
+      "default": [
+        "󰁺",
+        "󰁻",
+        "󰁼",
+        "󰁽",
+        "󰁾",
+        "󰁿",
+        "󰂀",
+        "󰂁",
+        "󰂂",
+        "󰁹"
+      ]
+    }
+  }
+}

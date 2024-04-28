@@ -1,5 +1,12 @@
-common/.config/nvim/lua
-common/.config/nvim/ftplugin/*.lua
-
 .activationPackage
 .DS_Store
+
+build
+*.userdb
+user.yaml
+installation.yaml
+
+roles/neovim/files/nvim/lua
+roles/neovim/files/nvim/ftplugin/*.lua
+
+*.log

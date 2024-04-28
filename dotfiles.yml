@@ -10,7 +10,3 @@
       when: ansible_facts['distribution'] == 'Gentoo'
       tags:
         - gentoo
-    - role: windows
-      when: ansible_facts['os_family'] == 'Windows'
-      tags:
-        - windows

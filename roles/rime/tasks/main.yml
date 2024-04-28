@@ -1,0 +1,20 @@
+- name: Symlink rime to ~/.local/share/fcitx5 on Linux
+  file:
+    src: "{{ playbook_dir }}/roles/rime/files/rime"
+    dest: "~/.local/share/fcitx5/rime"
+    state: link
+  when: ansible_system == "Linux"
+
+- name: Symlink rime to ~/Library/Rime on macOS
+  file:
+    src: "{{ playbook_dir }}/roles/rime/files/rime"
+    dest: "~/Library/Rime"
+    state: link
+  when: ansible_os_family == "Darwin"
+
+- name: Symlink rime to ~/AppData/Roaming/Rime on Windows
+  win_file:
+    src: "{{ playbook_dir }}/roles/rime/files/rime"
+    dest: "~/AppData/Roaming/Rime"
+    state: link
+  when: ansible_os_family == "Windows"

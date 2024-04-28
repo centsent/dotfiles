@@ -1,0 +1,64 @@
+{
+  "layer": "top",
+  "reload_style_on_change": true,
+  "margin-top": 5,
+  "include": [
+    "$HOME/.config/waybar/modules/battery.jsonc",
+    "$HOME/.config/waybar/modules/custom.jsonc",
+    "$HOME/.config/waybar/modules/hyprland.jsonc",
+    "$HOME/.config/waybar/modules/network.jsonc",
+    "$HOME/.config/waybar/modules/pulseaudio.jsonc"
+  ],
+  "modules-left": [
+    "custom/launcher",
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "tray",
+    "custom/wallpaper",
+    "backlight",
+    "pulseaudio",
+    "disk",
+    "cpu",
+    "memory",
+    "battery",
+    "network",
+    "clock"
+  ],
+  "disk": {
+    "format": "  {percentage_used}%",
+    "format-alt": "  {percentage_free}%"
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon}  {}%",
+    "format-icons": [
+      "󱩎",
+      "󱩏",
+      "󱩐",
+      "󱩒",
+      "󱩔",
+      "󰛨"
+    ]
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 2
+  },
+  "clock": {
+    "format": "{:%I:%M %p %d/%m/%Y}"
+  },
+  "cpu": {
+    "interval": 15,
+    "format": "  {}%",
+    "max-length": 10
+  },
+  "memory": {
+    "tooltip": true,
+    "interval": 30,
+    "format": "󰍛  {}%",
+    "max-length": 10
+  }
+}

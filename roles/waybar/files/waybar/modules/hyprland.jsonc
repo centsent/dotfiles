@@ -1,0 +1,9 @@
+{
+  "hyprland/workspaces": {
+    "format": "{name}"
+  },
+  "hyprland/window": {
+    "format": "  {initialTitle}",
+    "separate-outputs": true
+  }
+}
