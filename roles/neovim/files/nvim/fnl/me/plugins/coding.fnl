@@ -1,15 +1,9 @@
-[;; Fully featured & enhanced replacement for copilot.vim complete with API for interacting with Github Copilot
- {1 :zbirenbaum/copilot.lua
-  :event [:BufEnter]
-  :opts {:suggestion {:auto_trigger true :keymap {:accept :<c-y>}}
-         :filetypes {:yaml true :markdown true :gitcommit true}}
-  :build ":Copilot auth"}
- ;; A native neovim extension for Codeium
- ; {1 :Exafunction/codeium.nvim
- ;  :config true
- ;  :dependencies [:nvim-lua/plenary.nvim :hrsh7th/nvim-cmp]
- ;  :build ":Codeium Auth"
- ;  :event [:BufEnter]}
+[;; A native neovim extension for Codeium
+ {1 :Exafunction/codeium.nvim
+  :config true
+  :dependencies [:nvim-lua/plenary.nvim :hrsh7th/nvim-cmp]
+  :build ":Codeium Auth"
+  :event [:BufEnter]}
  ;; A tree like view for symbols in Neovim using the Language Server Protocol
  {1 :simrat39/symbols-outline.nvim
   :keys [{1 :<leader>cs 2 :<cmd>SymbolsOutline<cr> :desc "Symbols Outline"}]
