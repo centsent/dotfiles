@@ -1,5 +1,3 @@
-(import-macros {: ieach!} :macros)
-
 (fn augroup [name]
   (vim.api.nvim_create_augroup (.. :me_ name) {:clear true}))
 
@@ -36,5 +34,6 @@
                                    :startuptime]
                          :callback close-with-q}}])
 
-(ieach! autocmds create-autocmd)
+(each [_ autocmd (ipairs autocmds)]
+  (create-autocmd autocmd))
 

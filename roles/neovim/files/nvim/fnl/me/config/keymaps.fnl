@@ -1,6 +1,4 @@
-(import-macros {: not-nil! : g! : each!} :macros)
-
-(g! :mapleader ",")
+(tset vim.g :mapleader ",")
 
 (local mode-adapters {:normal-mode :n
                       :visual-mode :v
@@ -93,9 +91,9 @@
 
 (fn load-mode [mode_key keymaps]
   (local mode (. mode-adapters mode_key))
-  (when (not-nil! mode)
-    (each! keymaps (fn [from to]
-                     (vim.keymap.set mode from to)))))
+  (when (not= nil mode)
+    (each [from to (pairs keymaps)]
+      (vim.keymap.set mode from to))))
 
 (fn load-keymaps [keymaps]
   (each [mode-key mode-keymaps (pairs keymaps)]

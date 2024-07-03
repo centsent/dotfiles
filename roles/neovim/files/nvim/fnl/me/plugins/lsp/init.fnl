@@ -1,5 +1,3 @@
-(import-macros {: tappend!} :macros)
-
 (fn set-diagnostics-icons [icons]
   ;; Set diagnostic icons for each type
   (each [type icon (pairs icons)]
@@ -45,7 +43,7 @@
                    (not (vim.tbl_contains available server))))
         (if is-not-mason-server
             (setup server)
-            (tappend! ensure_installed server))))
+            (tset ensure_installed (+ (length ensure_installed) 1) server))))
     (mlsp.setup {: ensure_installed})
     (mlsp.setup_handlers [setup]))
 
@@ -79,7 +77,7 @@
                              :noice true
                              :padding " "
                              :handler_opts {:border :rounded}}}
-                     ;; Neovim plugin for displaying references and difinition infos upon functions like JB's IDEA.
+                     ;; Neovim plugin for displaying references and definition infos upon functions like JB's IDEA.
                      {1 :VidocqH/lsp-lens.nvim :opts {}}
                      ;; Extensions for the built-in LSP support in Neovim for eclipse.jdt.ls
                      :mfussenegger/nvim-jdtls])

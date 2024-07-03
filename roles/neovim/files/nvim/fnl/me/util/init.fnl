@@ -1,10 +1,8 @@
-(import-macros {: not-nil! : tappend!} :macros)
-
-(local M {:timer nil})
+(local M {})
 
 (fn M.has [plugin]
   (local lazy (require :lazy.core.config))
-  (not-nil! (. lazy.plugins plugin)))
+  (not= nil (. lazy.plugins plugin)))
 
 (fn M.on-very-lazy [callback]
   (vim.api.nvim_create_autocmd :User {:pattern :VeryLazy :callback #(callback)}))
@@ -28,30 +26,6 @@
                                                    (vim.lsp.get_client_by_id args.data.client_id))
                                             (on-attach client buffer))}))
 
-(fn M.start-timer [sleep callback]
-  (set M.timer (vim.loop.new_timer))
-  (M.timer:start 0 sleep (vim.schedule_wrap callback)))
-
-(fn M.get-formatter []
-  (let [(ok? formatter-config) (pcall require :formatter.config)]
-    (when ok?
-      (local formatters formatter-config.values.filetype)
-      (local ft vim.bo.filetype)
-      (. formatters ft))))
-
-(fn M.get-formatter-name []
-  (local formatter (M.get-formatter))
-  (if formatter
-      (do
-        (local names {})
-        (each [_ fmt-fn (ipairs formatter)]
-          (local formatter (fmt-fn))
-          (when formatter
-            (local name (or formatter.name formatter.exe))
-            (tappend! names name)))
-        (table.concat names ", "))
-      ""))
-
 (fn M.get-linter []
   (let [(has-lint? lint) (pcall require :lint)]
     (if has-lint?
@@ -64,7 +38,7 @@
       (table.concat linter ", ") ""))
 
 (fn M.is-loaded [plugin]
-  (not-nil! (. (require :lazy.core.config) :plugins plugin "_" :loaded)))
+  (not= nil (. (require :lazy.core.config) :plugins plugin "_" :loaded)))
 
 M
 
