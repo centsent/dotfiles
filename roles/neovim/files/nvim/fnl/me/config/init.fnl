@@ -44,6 +44,16 @@
                       :Value " "
                       :Variable " "}})
 
+(set M.autoformat true)
+
+(fn M.toggle-autoformat []
+  ;; Toggle autoformatting on save
+  (set M.autoformat (not M.autoformat))
+  (local lazy-util (require :lazy.core.util))
+  (if M.autoformat
+      (lazy-util.info "Enabled format on save" {:title :LspFormat})
+      (lazy-util.warn "Disabled format on save" {:title :LspFormat})))
+
 (fn set-colorscheme [scheme]
   (vim.cmd (.. "colorscheme " scheme)))
 

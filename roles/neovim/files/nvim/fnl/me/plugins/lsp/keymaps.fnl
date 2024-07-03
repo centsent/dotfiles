@@ -1,23 +1,29 @@
 (local M {})
 
-(set M.keys
-     [{1 :ga
-       2 #(vim.lsp.buf.code_action)
-       :desc "Code Action"
-       :mode [:n :v]
-       :has :codeAction}
-      {1 :gd 2 #(vim.lsp.buf.definition) :desc "Go to definition"}
-      {1 :gD 2 #(vim.lsp.buf.type_definition) :desc "Go to Type Definition"}
-      {1 :gi 2 #(vim.lsp.buf.implementation) :desc "Go to implementation"}
-      {1 :gk 2 #(vim.lsp.buf.hover) :desc :Hover}
-      {1 :gK
-       2 #(vim.lsp.buf.signature_help)
-       :desc "Signature Help"
-       :has :signatureHelp}
-      {1 :ge 2 #(vim.diagnostic.goto_next) :desc "Next diagnostic"}
-      {1 :gE 2 #(vim.diagnostic.goto_prev) :desc "Prev diagnostic"}
-      {1 :gs 2 ":Navbuddy<cr>" :desc "Open Navbuddy"}
-      {1 :gr 2 #(vim.lsp.buf.rename) :desc :Rename :has :rename}])
+(set M.keys [{1 :ga
+              2 #(vim.lsp.buf.code_action)
+              :desc "Code Action"
+              :mode [:n :v]
+              :has :codeAction}
+             {1 :gd 2 #(vim.lsp.buf.definition) :desc "Go to definition"}
+             {1 :gD
+              2 #(vim.lsp.buf.type_definition)
+              :desc "Go to Type Definition"}
+             {1 :gi
+              2 #(vim.lsp.buf.implementation)
+              :desc "Go to implementation"}
+             {1 :gk 2 #(vim.lsp.buf.hover) :desc :Hover}
+             {1 :gK
+              2 #(vim.lsp.buf.signature_help)
+              :desc "Signature Help"
+              :has :signatureHelp}
+             {1 :ge 2 #(vim.diagnostic.goto_next) :desc "Next diagnostic"}
+             {1 :gE 2 #(vim.diagnostic.goto_prev) :desc "Prev diagnostic"}
+             {1 :gs 2 ":Navbuddy<cr>" :desc "Open Navbuddy"}
+             {1 :gr 2 #(vim.lsp.buf.rename) :desc :Rename :has :rename}
+             {1 :gF
+              2 #((. (require :me.config) :toggle-autoformat))
+              :desc "Toggle autoformat"}])
 
 (fn parse-lazy-keymaps [keys]
   ;; Parse the lazy keymaps and set the appropriate key bindings

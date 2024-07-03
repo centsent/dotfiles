@@ -61,7 +61,7 @@
                      ;; Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim
                      :williamboman/mason-lspconfig.nvim
                      ;; Standalone UI for nvim-lsp progress
-                     {1 :j-hui/fidget.nvim :opts {} :tag :legacy}
+                     {1 :j-hui/fidget.nvim :opts {}}
                      ;; Dev setup for init.lua and plugin development with full signature help docs and completion for the nvim lua API.
                      {1 :folke/lazydev.nvim :ft :lua :cmd :LazyDev :opts {}}
                      ;; A simple popup display that provides breadcrumbs feature using LSP server
