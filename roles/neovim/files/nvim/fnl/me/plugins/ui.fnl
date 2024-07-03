@@ -62,9 +62,9 @@
  ;; A pretty list for showing diagnostics references telescope results quickfix and location lists 
  ;; to help you solve all the trouble your code is causing.
  {1 :folke/trouble.nvim
-  :opts {:position :right :use_diagnostic_signs true}
+  :opts {:win {:position :right}}
   :keys [{1 :gt
-          2 ":TroubleToggle<cr>"
+          2 ":Trouble diagnostics toggle<cr>"
           :desc "Open trouble list (Trouble.nvim)"}]}
  ;; lua `fork` of vim-web-devicons for neovim
  {1 :kyazdani42/nvim-web-devicons :lazy true}
