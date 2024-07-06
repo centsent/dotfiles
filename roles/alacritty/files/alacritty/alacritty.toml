@@ -1,15 +1,15 @@
 [colors.bright]
-black = "#444b6a"
-blue = "#7da6ff"
-cyan = "#0db9d7"
-green = "#b9f27c"
-magenta = "#bb9af7"
-red = "#ff7a93"
-white = "#acb0d0"
-yellow = "#ff9e64"
+black = "#27272a"
+blue = "#aca1cf"
+cyan = "#ea83a5"
+green = "#90b99f"
+magenta = "#e29eca"
+red = "#f5a191"
+white = "#c1c0d4"
+yellow = "#e6b99d"
 
 [colors.cursor]
-cursor = "#03ac13"
+cursor = "#757581"
 text = "#c9c7cd"
 
 [colors.normal]
@@ -23,8 +23,8 @@ white = "#9699a8"
 yellow = "#e0af68"
 
 [colors.primary]
-background = "#24283b"
-foreground = "#a9b1d6"
+background = "#161617"
+foreground = "#c9c7cd"
 
 [env]
 TERM = "xterm-256color"
@@ -39,6 +39,8 @@ style = "Regular"
 [window]
 opacity = 0.75
 option_as_alt = "Both"
+decorations = "buttonless"
+startup_mode = "Windowed"
 
 [window.padding]
 x = 12
