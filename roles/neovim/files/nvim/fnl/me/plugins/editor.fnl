@@ -48,9 +48,7 @@
  {1 :folke/which-key.nvim
   :event [:VeryLazy]
   :opts {:plugins {:spelling true}
-         :defaults {:mode [:n :v] :t {:name :+tabs} :f {:name :+Telescope}}}
-  :config (fn [_ opts]
-            (local wk (require :which-key))
-            (wk.setup opts)
-            (wk.register opts.defaults))}]
+         :defaults [{1 :t :mode [:n :v] :group :Tabs}
+                    {1 :f :group :Fzf :mode [:n :v]}]}
+  :config true}]
 
