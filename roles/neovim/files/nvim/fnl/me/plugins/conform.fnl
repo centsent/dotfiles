@@ -45,7 +45,5 @@
 
 (local opts {: formatters_by_ft : format_on_save})
 
-{1 :stevearc/conform.nvim
- : opts
- :event [:BufReadPost :BufNewFile :BufWritePre]}
+{1 :stevearc/conform.nvim : opts :event [:BufWritePre]}
 
