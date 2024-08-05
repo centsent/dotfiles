@@ -10,3 +10,18 @@
       when: ansible_facts['distribution'] == 'Gentoo'
       tags:
         - gentoo
+    - role: rime
+      tags:
+        - rime
+    - role: wlogout
+      tags:
+        - wlogout
+    - role: portage
+      tags:
+        - portage
+    - role: greetd
+      tags:
+        - greetd
+    - role: grub
+      tags:
+        - grub

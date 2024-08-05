@@ -1,0 +1,8 @@
+- name: Configure /etc/greetd/config.toml
+  become: true
+  template:
+    src: greetd-config.toml.j2
+    dest: /etc/greetd/config.toml
+    owner: root
+    group: root
+    mode: 0644

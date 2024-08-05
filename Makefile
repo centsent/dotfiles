@@ -2,9 +2,9 @@
 install:
 	ansible-playbook -i ./hosts ./dotfiles.yml
 
-gentoo:
-	ansible-playbook -i ./hosts ./dotfiles.yml --tags gentoo
-	
-
+.PHONY: macos
 macos:
-	ansible-playbook -i ./hosts ./dotfiles.yml --tags macos
+	ansible-playbook -i ./hosts ./dotfiles.yml --tags macos --ask-become-pass
+
+%:
+	ansible-playbook -i ./hosts ./dotfiles.yml --tags $@

@@ -47,12 +47,15 @@
     - dev-util/android-studio
     - gui-apps/mako
     - gui-apps/waybar
+    - gui-apps/tuigreet
+    - gui-libs/greetd
     - kde-apps/dolphin
     - media-fonts/font-isas-misc
     - media-fonts/arphicfonts
     - media-fonts/opendesktop-fonts
     - media-fonts/wqy-zenhei
     - media-fonts/zh-kcfonts
+    - media-libs/nvidia-vaapi-driver
     - media-sound/pavucontrol
     - media-sound/playerctl
     - media-video/ffmpeg
@@ -64,6 +67,7 @@
     - sys-process/bottom
     - sys-kernel/dkms
     - www-client/vivaldi
+    - x11-drivers/nvidia-drivers
     - x11-terms/alacritty
   portage:
     name: "{{ item }}"

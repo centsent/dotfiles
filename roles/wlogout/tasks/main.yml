@@ -1,0 +1,5 @@
+- name: Symlink wlogout to ~/.config
+  file:
+    src: "{{ playbook_dir }}/roles/wlogout/files/wlogout"
+    dest: "~/.config/wlogout"
+    state: link
