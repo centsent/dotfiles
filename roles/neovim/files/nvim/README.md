@@ -24,7 +24,7 @@
   - `tn`: next tab
   - `tp`: previous tab
 - prefix `g` for `lspconfig` keymaps
-  - `gd`: go to definiton `vim.lsp.buf.definition()`.
+  - `gd`: go to definition `vim.lsp.buf.definition()`.
   - `gi`: `vim.lsp.buf.implementation()`
   - `gr`: `vim.lsp.buf.rename()`
   - `gy`: `vim.lsp.buf.type_definition()`
@@ -32,13 +32,13 @@
   - `gn`: `vim.diagnostic.goto_next()`
   - `gp`: `vim.diagnostic.goto_prev()`
   - `ge`: `vim.diagnostic.open_float()`
-- prefix `f` for `telescope` keymaps
+- prefix `f` for `fzf-lua` keymaps
   - `ff`: list files in current project.
   - `fb`: list buffers.
-  - `fg`: `Telescope live_grep`
-  - `fm`: `Telescope keymaps`
-  - `fd`: `Telescope lsp_document_symbols`
-  - `fr`: `Telescope lsp_references`
+  - `fg`: `fzf-lua live_grep`
+  - `fm`: `fzf-lua keymaps`
+  - `fd`: `fzf-lua lsp_document_symbols`
+  - `fr`: `fzf-lua lsp_references`
 
 ### Visual Mode
 
