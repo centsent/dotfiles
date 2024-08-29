@@ -33,6 +33,7 @@
 - name: Install packages
   become: true
   loop:
+    - app-office/obsidian
     - app-editors/neovim
     - app-misc/jq
     - app-misc/tmux
@@ -59,6 +60,7 @@
     - media-sound/pavucontrol
     - media-sound/playerctl
     - media-video/ffmpeg
+    - net-vpn/tailscale
     - net-wireless/wpa_supplicant
     - sys-apps/bat
     - sys-apps/eza
