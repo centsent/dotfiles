@@ -25,8 +25,8 @@
   "Get treesitter dependencies"
   [;; Use treesitter to autoclose and autorename html tag
    :windwp/nvim-ts-autotag
-   ;; Rainbow parentheses for neovim using tree-sitter
-   :p00f/nvim-ts-rainbow
+   ;; Rainbow delimiters for Neovim with Tree-sitter
+   :HiPhish/rainbow-delimiters.nvim
    ;; Neovim treesitter plugin for setting the commentstring based on the cursor location in a file
    :JoosepAlviste/nvim-ts-context-commentstring
    ;; Show code context
