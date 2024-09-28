@@ -2,21 +2,22 @@
   (local phpcs (require :lint.linters.phpcs))
   (set phpcs.args [:-q :--report=json :--standard=PSR12 "-"]))
 
+(fn create-lint-autocmd []
+  (local lint (require :lint))
+  (local events [:BufEnter :BufWritePost :BufLeave])
+  (local augroup (vim.api.nvim_create_augroup :NvimLint {:clear true}))
+  (local opts {:group augroup :callback #(lint.try_lint)})
+  (vim.api.nvim_create_autocmd events opts))
+
 (fn config []
   (local lint (require :lint))
-
-  (fn create-lint-autocmd []
-    (local events [:BufEnter :BufWritePost :BufLeave])
-    (local augroup (vim.api.nvim_create_augroup :NvimLint {:clear true}))
-    (local opts {:group augroup :callback #(lint.try_lint)})
-    (vim.api.nvim_create_autocmd events opts))
-
   (local linters {:lua [:luacheck :codespell]
                   :clojure [:clj-kondo]
                   :sh [:shellcheck]
                   :java [:codespell]
                   :javascript [:biomejs]
                   :typescript [:biomejs]
+                  :typescriptreact [:biomejs]
                   :vue [:eslint]
                   :go [:golangcilint]
                   :python [:ruff]
