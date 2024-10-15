@@ -1,5 +1,5 @@
 # Amazon Q pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
+# [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -70,12 +70,12 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git 
+	git
 	zsh-autosuggestions
 	tmux
 )
 # ZSH_TMUX_AUTOSTART=true
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#97969e,bg=#ededa1,bold,underline"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#97969e,bg=#ededa1,bold,underline"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
 source $ZSH/oh-my-zsh.sh
 
@@ -109,4 +109,4 @@ source $ZSH/oh-my-zsh.sh
 [[ -f ~/.env.zsh ]] && source ~/.env.zsh
 
 # Amazon Q post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+# [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
