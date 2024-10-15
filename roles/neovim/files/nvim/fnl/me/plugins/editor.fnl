@@ -19,7 +19,10 @@
  ;; Add/change/delete surrounding delimiter pairs with ease.
  {1 :kylechui/nvim-surround :config true :event [:BufNewFile :BufReadPost]}
  ;; The fastest Neovim colorizer.
- {1 :norcalli/nvim-colorizer.lua :opts {} :event [:BufNewFile :BufReadPost]}
+ {1 :norcalli/nvim-colorizer.lua
+  :event [:BufNewFile :BufReadPost]
+  :config (fn []
+            ((. (require :colorizer) :setup)))}
  ;; Navigate your code with search labels enhanced character motions and Treesitter integration
  {1 :folke/flash.nvim
   :event [:VeryLazy]
@@ -50,5 +53,17 @@
   :opts {:plugins {:spelling true}
          :defaults [{1 :t :mode [:n :v] :group :Tabs}
                     {1 :f :group :Fzf :mode [:n :v]}]}
-  :config true}]
+  :config true}
+ {1 :aznhe21/actions-preview.nvim
+  :config (fn []
+            (local actions-preview (require :actions-preview))
+            (vim.keymap.set [:v :n] :ga actions-preview.code_actions))}
+ ;; Establish good command workflow and quit bad habit
+ {1 :m4xshen/hardtime.nvim
+  :dependencies [:MunifTanjim/nui.nvim :nvim-lua/plenary.nvim]
+  :opts {}}
+ ;; Smooth cursor
+ {1 :gen740/SmoothCursor.nvim :config true :opts {:fancy {:enable true}}}
+ ;; Peek lines just when you intend
+ {1 :nacro90/numb.nvim :config true :event [:BufReadPost]}]
 
