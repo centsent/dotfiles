@@ -14,7 +14,7 @@
                          :javascriptreact [:biome :biome-check]
                          :json [:biome]
                          :jsonc [:prettier]
-                         :kotlin [:ktlint]
+                         :kotlin [:ktlint :ktfmt]
                          :lua [:stylua]
                          :markdown [:prettier]
                          :markdown.mdx [:prettier]
@@ -35,7 +35,6 @@
                          :xml [:prettier]
                          :yaml [:prettier]
                          :zig [:zigfmt]
-                         :* [:codespell]
                          :_ [:trim_whitespace]})
 
 (fn format_on_save [_]
@@ -46,4 +45,3 @@
 (local opts {: formatters_by_ft : format_on_save})
 
 {1 :stevearc/conform.nvim : opts :event [:BufWritePre]}
-
