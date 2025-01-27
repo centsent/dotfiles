@@ -1,3 +1,4 @@
+---
 - name: Configure portage files
   become: true
   register: portage_files
@@ -33,7 +34,6 @@
 - name: Install packages
   become: true
   loop:
-    - app-office/obsidian
     - app-editors/neovim
     - app-misc/jq
     - app-misc/tmux
@@ -46,11 +46,12 @@
     - dev-qt/qtwayland
     - dev-vcs/git
     - dev-util/android-studio
+    - dev-util/android-sdk-cmdline-tools
+    - dev-util/idea-community
     - gui-apps/mako
     - gui-apps/waybar
     - gui-apps/tuigreet
     - gui-libs/greetd
-    - kde-apps/dolphin
     - media-fonts/font-isas-misc
     - media-fonts/arphicfonts
     - media-fonts/opendesktop-fonts
@@ -60,11 +61,16 @@
     - media-sound/pavucontrol
     - media-sound/playerctl
     - media-video/ffmpeg
+    - net-misc/chrony
+    - net-misc/networkmanager
     - net-vpn/tailscale
     - net-wireless/wpa_supplicant
+    - net-wireless/iw
+    - net-wireless/wireless-tools
     - sys-apps/bat
     - sys-apps/eza
     - sys-apps/fd
+    - sys-apps/flatpak
     - sys-apps/ripgrep
     - sys-process/bottom
     - sys-kernel/dkms
@@ -122,6 +128,19 @@
     name: "{{ item }}"
     verbose: true
     state: present
+
+- name: Enable Miezhiko repository
+  become: true
+  command:
+    cmd: eselect repository enable miezhiko
+  register: miezhiko_repo
+  changed_when: "'enabled' in miezhiko_repo.stdout"
+
+- name: Sync the Miezhiko repository
+  become: true
+  command:
+    cmd: emaint sync -r miezhiko
+  when: miezhiko_repo.changed
 
 - name: Install packages from the Guru overlay
   become: true

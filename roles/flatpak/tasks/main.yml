@@ -1,0 +1,13 @@
+---
+- name: Install packages with flatpak
+  loop:
+    - com.bitwarden.desktop
+    - com.synology.SynologyDrive
+    - io.beekeeperstudio.Studio
+    - md.obsidian.Obsidian
+    - one.ablaze.floorp
+    - org.telegram.desktop
+  flatpak:
+    name: "{{ item }}"
+    state: present
+    method: user
