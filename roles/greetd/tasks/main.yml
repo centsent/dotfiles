@@ -1,3 +1,4 @@
+---
 - name: Configure /etc/greetd/config.toml
   become: true
   template:
