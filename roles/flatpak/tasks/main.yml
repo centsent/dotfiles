@@ -3,9 +3,14 @@
   loop:
     - com.bitwarden.desktop
     - com.synology.SynologyDrive
+    - com.usebruno.Bruno
+    - com.visualstudio.code
     - io.beekeeperstudio.Studio
+    - io.httpie.Httpie
+    - io.missioncenter.MissionCenter
     - md.obsidian.Obsidian
     - one.ablaze.floorp
+    - org.kde.dolphin
     - org.telegram.desktop
   flatpak:
     name: "{{ item }}"

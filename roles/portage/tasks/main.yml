@@ -62,19 +62,16 @@
     - media-sound/playerctl
     - media-video/ffmpeg
     - net-misc/chrony
-    - net-misc/networkmanager
     - net-vpn/tailscale
     - net-wireless/wpa_supplicant
-    - net-wireless/iw
-    - net-wireless/wireless-tools
     - sys-apps/bat
     - sys-apps/eza
     - sys-apps/fd
     - sys-apps/flatpak
     - sys-apps/ripgrep
+    - sys-fs/gdu
     - sys-process/bottom
     - sys-kernel/dkms
-    - www-client/vivaldi
     - x11-drivers/nvidia-drivers
     - x11-terms/alacritty
   portage:
@@ -121,6 +118,7 @@
     - gui-apps/hyprlock
     - gui-apps/hyprpaper
     - gui-apps/hyprpicker
+    - gui-apps/hyprshot
     - gui-libs/xdg-desktop-portal-hyprland
     - gui-wm/hyprland
     - gui-wm/hyprland-contrib
