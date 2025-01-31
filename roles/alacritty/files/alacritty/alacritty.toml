@@ -45,3 +45,7 @@ startup_mode = "Windowed"
 [window.padding]
 x = 12
 y = 12
+
+[shell]
+program = "zsh"
+args = ["-l", "-c", "tmux attach || tmux"]

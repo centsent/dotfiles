@@ -1,3 +1,4 @@
+---
 - name: Symlink alacritty to ~/.config
   file:
     src: "{{ playbook_dir }}/roles/alacritty/files/alacritty"
