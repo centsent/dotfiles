@@ -3,6 +3,7 @@
 
 build
 *.userdb
+*.userdb.txt
 user.yaml
 installation.yaml
 
