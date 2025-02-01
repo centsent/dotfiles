@@ -71,6 +71,7 @@
     - sys-apps/ripgrep
     - sys-fs/gdu
     - sys-process/bottom
+    - sys-process/procs
     - sys-kernel/dkms
     - x11-drivers/nvidia-drivers
     - x11-terms/alacritty
@@ -116,9 +117,9 @@
   loop:
     - gui-apps/hypridle
     - gui-apps/hyprlock
-    - gui-apps/hyprpaper
     - gui-apps/hyprpicker
     - gui-apps/hyprshot
+    - gui-apps/swww
     - gui-libs/xdg-desktop-portal-hyprland
     - gui-wm/hyprland
     - gui-wm/hyprland-contrib
@@ -126,19 +127,6 @@
     name: "{{ item }}"
     verbose: true
     state: present
-
-- name: Enable Miezhiko repository
-  become: true
-  command:
-    cmd: eselect repository enable miezhiko
-  register: miezhiko_repo
-  changed_when: "'enabled' in miezhiko_repo.stdout"
-
-- name: Sync the Miezhiko repository
-  become: true
-  command:
-    cmd: emaint sync -r miezhiko
-  when: miezhiko_repo.changed
 
 - name: Install packages from the Guru overlay
   become: true

@@ -1,16 +1,13 @@
 #!/bin/bash
 
 directory=~/Wallpapers
-monitor=$(hyprctl monitors | grep Monitor | awk '{print $2}')
 
 if [ -d "$directory" ]; then
   while true; do
-    random_background=$(find $directory/* | shuf -n 1)
+    random_background=$(find "$directory" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) | shuf -n 1)
+    swww img "$random_background"
 
-    hyprctl hyprpaper unload all
-    hyprctl hyprpaper preload "$random_background"
-    hyprctl hyprpaper wallpaper "$monitor, $random_background"
-
+    # Wait for 600 seconds (10 minutes) before changing the wallpaper again
     sleep 600
   done
 fi

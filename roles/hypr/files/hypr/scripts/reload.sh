@@ -3,5 +3,5 @@
 killall waybar
 waybar &
 hyprctl reload
-killall hyprpaper
-hyprpaper
+killall swww-daemon
+swww-daemon
