@@ -1,3 +1,4 @@
+---
 - name: Check if asdf is installed
   command: asdf --version
   register: asdf_installed
@@ -20,7 +21,7 @@
       - name: golang
         version: latest
       - name: haskell
-        version: latest
+        version: 9.12.1
       - name: java
         version: graalvm-community-21.0.2
       - name: lua
@@ -40,7 +41,7 @@
 
 - name: Add plugins to asdf
   loop: "{{ langs }}"
-  command: asdf plugin add {{ item.name }}
+  command: asdf plugin-add {{ item.name }}
   register: asdf_plugins
   ignore_errors: true
 
