@@ -14,3 +14,6 @@ eval "$(zoxide init zsh)"
 # asdf
 . "$HOME/.asdf/asdf.sh"
 . "$HOME/.asdf/plugins/java/set-java-home.zsh"
+
+# flutter
+export PATH="$PATH:$HOME/.pub-cache/bin"
