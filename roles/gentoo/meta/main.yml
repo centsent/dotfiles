@@ -12,7 +12,7 @@ dependencies:
   - role: topgrade
   - role: idea
   - role: hypr
-  - role: mako
+  - role: swaync
   - role: waybar
   - role: wofi
   - role: rime
