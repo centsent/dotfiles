@@ -30,3 +30,7 @@ fi
 if type procs > /dev/null; then
     alias ps="procs"
 fi
+
+if type pnpm > /dev/null; then
+  alias pn=pnpm
+fi
