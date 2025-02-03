@@ -12,7 +12,16 @@
     (pcall vim.api.nvim_win_set_cursor 0 mark)))
 
 (fn close-with-q [event]
-  (. vim.bo event.buf :buflisted))
+  (. vim.bo event.buf :buflisted)
+  (vim.schedule (fn []
+                  (vim.keymap.set :n :q
+                                  (fn []
+                                    (vim.cmd :close)
+                                    (pcall vim.api.nvim_buf_delete event.buf
+                                           {:force true}))
+                                  {:buffer event.buf
+                                   :silent true
+                                   :desc "Quit buffer"}))))
 
 (local autocmds [;; Highlight on yank
                  {:events [:TextYankPost]
@@ -25,15 +34,22 @@
                  {:events [:FileType]
                   :opts {:group (augroup :close_with_q)
                          :pattern [:PlenaryTestPopup
+                                   :checkhealth
+                                   :dbout
+                                   :gitsigns-blame
+                                   :grug-far
                                    :help
                                    :lspinfo
+                                   :neotest-output
+                                   :neotest-output-panel
+                                   :neotest-summary
                                    :man
                                    :notify
                                    :qf
                                    :spectre_panel
-                                   :startuptime]
+                                   :startuptime
+                                   :tsplayground]
                          :callback close-with-q}}])
 
 (each [_ autocmd (ipairs autocmds)]
   (create-autocmd autocmd))
-
