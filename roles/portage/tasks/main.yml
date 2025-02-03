@@ -48,7 +48,6 @@
     - dev-util/android-studio
     - dev-util/android-sdk-cmdline-tools
     - dev-util/idea-community
-    - gui-apps/mako
     - gui-apps/waybar
     - gui-apps/tuigreet
     - gui-libs/greetd
@@ -119,6 +118,7 @@
     - gui-apps/hyprlock
     - gui-apps/hyprpicker
     - gui-apps/hyprshot
+    - gui-apps/swaync
     - gui-apps/swww
     - gui-libs/xdg-desktop-portal-hyprland
     - gui-wm/hyprland
