@@ -3,30 +3,6 @@
   (when (not (util.has :noice.nvim))
     (util.on-very-lazy #(set vim.notify (require :notify)))))
 
-(fn init-ibl []
-  ;; Multiple indent colors
-  (local highlight [:RainbowRed
-                    :RainbowYellow
-                    :RainbowBlue
-                    :RainbowOrange
-                    :RainbowGreen
-                    :RainbowViolet
-                    :RainbowCyan])
-  (local highlight-colors {:RainbowRed "#E06C75"
-                           :RainbowYellow "#E5C07B"
-                           :RainbowBlue "#61AFEF"
-                           :RainbowOrange "#D19A66"
-                           :RainbowGreen "#98C379"
-                           :RainbowViolet "#C678DD"
-                           :RainbowCyan "#56B6C2"})
-  (local hooks (require :ibl.hooks))
-  (local ibl (require :ibl))
-  (hooks.register hooks.type.HIGHLIGHT_SETUP
-                  (fn []
-                    (each [key value (pairs highlight-colors)]
-                      (vim.api.nvim_set_hl 0 key {:fg value}))))
-  (ibl.setup {:indent {: highlight}}))
-
 [;; A fancy configurable notification manager for NeoVim
  {1 :rcarriga/nvim-notify
   :opts {:timeout 3000
@@ -34,12 +10,12 @@
          :max_height #(math.floor (* vim.o.lines 0.75))}
   :init init-notify
   :keys [{1 :<leader>n
-          2 #((. (require :notify) :dismiss) {:slient true :pending true})
+          2 #((. (require :notify) :dismiss) {:silent true :pending true})
           :desc "Dismiss all notifications"}]}
  ;; Indent guides for Neovim
  {1 :lukas-reineke/indent-blankline.nvim
   :main :ibl
-  :init init-ibl
+  :opts {}
   :event [:BufReadPost :BufNewFile]}
  ;; Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
  {1 :folke/noice.nvim
@@ -48,10 +24,14 @@
                           :vim.lsp.util.stylize_markdown true
                           :cmp.entry.get_documentation true}
                :signature {:enabled false}}
+         :routes [{:filter {:event :msg_show
+                            :any [{:find "%d+L, %d+B"}
+                                  {:find "; after #%d+"}
+                                  {:find "; before #%d+"}]}
+                   :view :mini}]
          :presets {:command_palette true
                    :long_message_to_split true
-                   :bottom_search true
-                   :inc_rename true}}}
+                   :bottom_search true}}}
  ;; A snazzy bufferline for Neovim
  {1 :akinsho/bufferline.nvim
   :event :VeryLazy
@@ -78,4 +58,3 @@
  {1 :xiyaowong/transparent.nvim :opts {}}
  ;; A plugin for neovim that highlights cursor words and lines
  {1 :yamatsum/nvim-cursorline :opts {:cursorline {:timeout 500}}}]
-

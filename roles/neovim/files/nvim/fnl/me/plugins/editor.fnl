@@ -7,11 +7,6 @@
   :config true
   :lazy true
   :event [:BufReadPost :BufNewFile]}
- ;; Treesitter based structural search and replace plugin for Neovim
- {1 :cshuaimin/ssr.nvim
-  :keys [{1 :<leader>sr
-          2 #((. (require :ssr) :open))
-          :desc "Replace in files (ssr.nvim)"}]}
  ;; EditorConfig plugin for Neovim
  {1 :gpanders/editorconfig.nvim :event [:BufNewFile :BufReadPost]}
  ;; A super powerful autopair plugin for Neovim that supports multiple characters
@@ -65,5 +60,19 @@
  ;; Smooth cursor
  {1 :gen740/SmoothCursor.nvim :config true :opts {:fancy {:enable true}}}
  ;; Peek lines just when you intend
- {1 :nacro90/numb.nvim :config true :event [:BufReadPost]}]
-
+ {1 :nacro90/numb.nvim :config true :event [:BufReadPost]}
+ ;; search/replace in multiple files
+ {1 :MagicDuck/grug-far.nvim
+  :opts {:headerMaxWidth 80}
+  :cmd :GrugFar
+  :keys [{1 :<leader>sr
+          2 (fn []
+              (local grug (require :grug-far))
+              (local ext (and (= vim.bo.buftype "") (vim.fn.expand "%:e")))
+              (local files-filter (if (and ext (not= ext ""))
+                                      (.. "*." ext)
+                                      nil))
+              (grug.open {:transient true
+                          :prefills {:filesFilter files-filter}}))
+          :mode [:n :v]
+          :desc "Search and Replace in multiple files"}]}]
