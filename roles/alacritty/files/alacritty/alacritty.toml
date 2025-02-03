@@ -46,8 +46,6 @@ startup_mode = "Windowed"
 x = 12
 y = 12
 
-[terminal]
-
 [terminal.shell]
 program = "zsh"
 args = ["-l", "-c", "tmux attach || tmux"]
