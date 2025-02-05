@@ -1,18 +1,21 @@
 ---
 - name: Install packages with flatpak
-  loop:
-    - com.bitwarden.desktop
-    - com.synology.SynologyDrive
-    - com.usebruno.Bruno
-    - com.visualstudio.code
-    - io.beekeeperstudio.Studio
-    - io.httpie.Httpie
-    - io.missioncenter.MissionCenter
-    - md.obsidian.Obsidian
-    - one.ablaze.floorp
-    - org.kde.dolphin
-    - org.telegram.desktop
   flatpak:
-    name: "{{ item }}"
+    name:
+      - com.bitwarden.desktop
+      - com.rustdesk.RustDesk
+      - com.slack.Slack
+      - com.synology.SynologyDrive
+      - com.usebruno.Bruno
+      - com.visualstudio.code
+      - io.beekeeperstudio.Studio
+      - io.httpie.Httpie
+      - io.missioncenter.MissionCenter
+      - md.obsidian.Obsidian
+      - one.ablaze.floorp
+      - org.deskflow.deskflow
+      - org.kde.dolphin
+      - org.jupyter.JupyterLab
+      - org.telegram.desktop
     state: present
     method: user
