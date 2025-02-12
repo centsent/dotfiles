@@ -1,7 +1,0 @@
-__patch:
-patch:
-  "menu/page_size": 9
-  switches:
-    - name: simplification
-      reset: 1
-      states: ["漢字", "汉字"]

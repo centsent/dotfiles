@@ -1,8 +1,0 @@
-# Rime user dictionary
-#@/db_name	luna_pinyin
-#@/db_type	userdb
-#@/rime_version	1.8.5
-#@/tick	4
-#@/user_id	f0f17d41-97b2-4dca-ad5e-3e828221d473
-bo le 	伯樂	c=2 d=1.98506 t=4
-qian li 	千里	c=2 d=1.98511 t=4
