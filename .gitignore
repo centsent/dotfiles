@@ -1,13 +1,15 @@
 .activationPackage
 .DS_Store
 
+
+roles/neovim/files/nvim/lua
+roles/neovim/files/nvim/ftplugin/*.lua
+
+sync
 build
 *.userdb
 *.userdb.txt
 user.yaml
 installation.yaml
-
-roles/neovim/files/nvim/lua
-roles/neovim/files/nvim/ftplugin/*.lua
 
 *.log
