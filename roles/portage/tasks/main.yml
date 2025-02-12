@@ -33,50 +33,48 @@
 
 - name: Install packages
   become: true
-  loop:
-    - app-editors/neovim
-    - app-misc/jq
-    - app-misc/tmux
-    - app-portage/gentoolkit
-    - app-shells/fzf
-    - app-shells/starship
-    - app-shells/zoxide
-    - app-shells/zsh
-    - dev-lang/fennel
-    - dev-qt/qtwayland
-    - dev-vcs/git
-    - dev-util/android-studio
-    - dev-util/android-sdk-cmdline-tools
-    - dev-util/idea-community
-    - gui-apps/waybar
-    - gui-apps/tuigreet
-    - gui-libs/greetd
-    - media-fonts/font-isas-misc
-    - media-fonts/arphicfonts
-    - media-fonts/opendesktop-fonts
-    - media-fonts/wqy-zenhei
-    - media-fonts/zh-kcfonts
-    - media-libs/nvidia-vaapi-driver
-    - media-sound/pavucontrol
-    - media-sound/playerctl
-    - media-video/ffmpeg
-    - net-misc/chrony
-    - net-vpn/tailscale
-    - net-wireless/wpa_supplicant
-    - sys-apps/bat
-    - sys-apps/eza
-    - sys-apps/fd
-    - sys-apps/flatpak
-    - sys-apps/ripgrep
-    - sys-fs/gdu
-    - sys-process/bottom
-    - sys-process/procs
-    - sys-kernel/dkms
-    - x11-drivers/nvidia-drivers
-    - x11-terms/alacritty
   portage:
-    name: "{{ item }}"
-    verbose: true
+    name:
+      - app-editors/neovim
+      - app-misc/jq
+      - app-misc/tmux
+      - app-portage/gentoolkit
+      - app-shells/fzf
+      - app-shells/starship
+      - app-shells/zoxide
+      - app-shells/zsh
+      - dev-lang/fennel
+      - dev-qt/qtwayland
+      - dev-vcs/git
+      - dev-util/android-studio
+      - dev-util/android-sdk-cmdline-tools
+      - dev-util/idea-community
+      - gui-apps/waybar
+      - gui-apps/tuigreet
+      - gui-libs/greetd
+      - media-fonts/font-isas-misc
+      - media-fonts/arphicfonts
+      - media-fonts/opendesktop-fonts
+      - media-fonts/wqy-zenhei
+      - media-fonts/zh-kcfonts
+      - media-libs/nvidia-vaapi-driver
+      - media-sound/pavucontrol
+      - media-sound/playerctl
+      - media-video/ffmpeg
+      - net-misc/chrony
+      - net-vpn/tailscale
+      - net-wireless/wpa_supplicant
+      - sys-apps/bat
+      - sys-apps/eza
+      - sys-apps/fd
+      - sys-apps/flatpak
+      - sys-apps/ripgrep
+      - sys-fs/gdu
+      - sys-process/bottom
+      - sys-process/procs
+      - sys-kernel/dkms
+      - x11-drivers/nvidia-drivers
+      - x11-terms/alacritty
     state: present
 
 - name: Ensure eselect-repository is installed
@@ -113,43 +111,40 @@
 
 - name: Install Hyprland and the addition packages in the GURU overlay
   become: true
-  loop:
-    - gui-apps/hypridle
-    - gui-apps/hyprlock
-    - gui-apps/hyprpicker
-    - gui-apps/hyprshot
-    - gui-apps/swaync
-    - gui-apps/swww
-    - gui-libs/xdg-desktop-portal-hyprland
-    - gui-wm/hyprland
-    - gui-wm/hyprland-contrib
   portage:
-    name: "{{ item }}"
+    name:
+      - gui-apps/hypridle
+      - gui-apps/hyprlock
+      - gui-apps/hyprpicker
+      - gui-apps/hyprshot
+      - gui-apps/swaync
+      - gui-apps/swww
+      - gui-libs/xdg-desktop-portal-hyprland
+      - gui-wm/hyprland
+      - gui-wm/hyprland-contrib
     verbose: true
     state: present
 
 - name: Install packages from the Guru overlay
   become: true
-  loop:
-    - dev-util/wakatime-cli
-    - dev-vcs/lazygit
-    - gui-apps/wlogout
-    - gui-apps/wofi
   portage:
-    name: "{{ item }}"
+    name:
+      - dev-util/wakatime-cli
+      - dev-vcs/lazygit
+      - gui-apps/wlogout
+      - gui-apps/wofi
     verbose: true
     state: present
 
 - name: Install packages from the Gentoo-ZH overlay
   become: true
-  loop:
-    - app-i18n/fcitx
-    - app-i18n/fcitx-rime
-    - app-i18n/fcitx-qt
-    - app-i18n/fcitx-gtk
-    - app-i18n/fcitx-configtool
   portage:
-    name: "{{ item }}"
+    name:
+      - app-i18n/fcitx
+      - app-i18n/fcitx-rime
+      - app-i18n/fcitx-qt
+      - app-i18n/fcitx-gtk
+      - app-i18n/fcitx-configtool
     verbose: true
     state: present
 
