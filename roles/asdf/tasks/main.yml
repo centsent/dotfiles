@@ -1,16 +1,4 @@
 ---
-- name: Check if asdf is installed
-  command: asdf --version
-  register: asdf_installed
-  ignore_errors: true
-
-- name: Clone asdf git repository
-  git:
-    repo: https://github.com/asdf-vm/asdf.git
-    dest: ~/.asdf
-    version: v0.14.0
-  when: not asdf_installed.stdout
-
 - name: Define asdf languages and versions
   set_fact:
     langs:
@@ -41,7 +29,7 @@
 
 - name: Add plugins to asdf
   loop: "{{ langs }}"
-  command: asdf plugin-add {{ item.name }}
+  command: asdf plugin add {{ item.name }}
   register: asdf_plugins
   ignore_errors: true
 

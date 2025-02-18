@@ -12,8 +12,12 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
 # asdf
-. "$HOME/.asdf/asdf.sh"
-. "$HOME/.asdf/plugins/java/set-java-home.zsh"
+export ASDF_DATA_DIR="$HOME/.asdf"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+# append completions to fpath
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
 
 # flutter
 export PATH="$PATH:$HOME/.pub-cache/bin"
