@@ -3,7 +3,7 @@
   margin-right: 10px;
   margin-bottom: 0px;
   border-radius: 10px;
-  background: #161320;
+  background: linear-gradient(to top, rgba(44, 45, 58, 0.6) 0%, rgba(44, 45, 58, 0.8) 100%);
   transition: none;
 }
 
@@ -15,27 +15,35 @@
 }
 
 #workspaces button.active {
-  color: #ABE9B3;
-  border-top: 2px solid #ABE9B3;
-  border-bottom: 2px solid #ABE9B3;
+  color: #E8A2AF;
+  border-bottom: 2px solid #B5E8E0;
 }
 
+/* Hover effect for workspace button */
 #workspaces button:hover {
   transition: none;
   box-shadow: inherit;
   text-shadow: inherit;
-  color: #FAE3B0;
   border-color: #E8A2AF;
   color: #E8A2AF;
 }
 
+/* Active workspace button on hover */
 #workspaces button.active:hover {
   color: #E8A2AF;
 }
 
+/* Window container styles */
 #window {
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 10px;
   transition: none;
+  background: #161320;
+  color: #B5E8E0;
+}
+
+#workspaces button:hover,
+#workspaces button.active:hover {
+  text-shadow: 0 0 5px rgba(230, 162, 175, 0.7);
 }

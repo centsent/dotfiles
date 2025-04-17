@@ -3,7 +3,8 @@
     "format": "{name}"
   },
   "hyprland/window": {
-    "format": "  {initialTitle}",
-    "separate-outputs": true
+    "format": "{initialTitle}",
+    "separate-outputs": true,
+    "icon": true
   }
 }

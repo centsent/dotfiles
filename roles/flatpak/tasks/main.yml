@@ -3,6 +3,7 @@
   flatpak:
     name:
       - com.bitwarden.desktop
+      - com.github.tchx84.Flatseal
       - com.rustdesk.RustDesk
       - com.slack.Slack
       - com.synology.SynologyDrive
