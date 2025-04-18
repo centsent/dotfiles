@@ -1,6 +1,6 @@
 (fn get-lsp []
   (local bufnr (vim.api.nvim_get_current_buf))
-  (local clients (vim.lsp.get_active_clients {: bufnr}))
+  (local clients (vim.lsp.get_clients {: bufnr}))
 
   (fn get-lsp-client-name []
     (local names {})

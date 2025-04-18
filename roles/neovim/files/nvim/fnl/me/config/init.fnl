@@ -65,8 +65,7 @@
     (util.load (.. config-prefix mod))))
 
 (fn M.setup [_opts]
-  (set-colorscheme :tokyonight)
+  (set-colorscheme :kanagawa)
   (load-configs))
 
 M
-

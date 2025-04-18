@@ -14,5 +14,6 @@
   :keys [{1 :<leader>cc
           2 #((. (require :neogen) :generate) {})
           :desc "Neogen Comment"}]
-  :opts {:snippet_engine :luasnip}}]
+  :opts {:snippet_engine :luasnip}}
+ {1 :yetone/avante.nvim :event [:VeryLazy] :build :make}]
 

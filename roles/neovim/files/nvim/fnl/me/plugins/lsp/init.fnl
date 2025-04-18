@@ -60,8 +60,6 @@
                      :williamboman/mason-lspconfig.nvim
                      ;; Standalone UI for nvim-lsp progress
                      {1 :j-hui/fidget.nvim :opts {}}
-                     ;; Dev setup for init.lua and plugin development with full signature help docs and completion for the nvim lua API.
-                     {1 :folke/lazydev.nvim :ft :lua :cmd :LazyDev :opts {}}
                      ;; A simple popup display that provides breadcrumbs feature using LSP server
                      {1 :SmiteshP/nvim-navbuddy
                       :cmd :Navbuddy
@@ -86,7 +84,8 @@
   1 :neovim/nvim-lspconfig
   :opts {:autoformat true
          :setup {}
-         :servers {:bashls {}
+         :servers {:astro {}
+                   :bashls {}
                    :clangd {}
                    :clojure_lsp {}
                    :csharp_ls {}
@@ -111,4 +110,3 @@
   :event [:BufReadPost :BufNewFile]}
  ;; import extra lsp plugin specs
  {:import :me.plugins.extras.lsp}]
-
