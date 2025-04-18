@@ -1,3 +1,4 @@
+---
 dependencies:
   - role: homebrew
   - role: zsh
@@ -12,3 +13,4 @@ dependencies:
   - role: yabai
   - role: skhd
   - role: rime
+  - role: obsidian

@@ -1,3 +1,4 @@
+---
 - name: Check if homebrew is installed
   command: brew --version
   register: homebrew_installed
@@ -14,8 +15,6 @@
     - android-studio
     - android-platform-tools
     - beekeeper-studio
-    - codewhisperer
-    - copilot-for-xcode
     - eza
     - fd
     - fennel
@@ -35,8 +34,6 @@
     - pika
     - raycast
     - ripgrep
-    - rustdesk
-    - shotcut
     - shottr
     - skhd
     - sops
@@ -47,7 +44,6 @@
     - vivaldi
     - wakatime-cli
     - wormhole
-    - xcodes
     - yabai
     - yt-dlp
     - zsh

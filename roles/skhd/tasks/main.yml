@@ -1,3 +1,4 @@
+---
 - name: Symlink skhd to ~/.config
   file:
     src: "{{ playbook_dir }}/roles/skhd/files/skhd"
