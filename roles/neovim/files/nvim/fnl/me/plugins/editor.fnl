@@ -1,8 +1,4 @@
-[;; Neovim plugin to manage the file system and other tree like structures.
- {1 :nvim-neo-tree/neo-tree.nvim
-  :keys [{1 :<leader>f 2 ":Neotree toggle=true <cr>" :desc "Explorer Neotree"}]
-  :config true}
- ;; Smart and powerful comment plugin for neovim
+[;; Smart and powerful comment plugin for neovim
  {1 :numToStr/Comment.nvim
   :config true
   :lazy true

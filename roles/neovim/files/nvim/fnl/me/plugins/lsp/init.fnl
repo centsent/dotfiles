@@ -5,10 +5,8 @@
     (vim.fn.sign_define name {:text icon :texthl name :numhl name})))
 
 (fn get-capabilities []
-  ;; Get the capabilities of the LSP client
-  (local capabilities (vim.lsp.protocol.make_client_capabilities))
-  (local cmp (require :cmp_nvim_lsp))
-  (cmp.default_capabilities capabilities))
+  (local blink (require :blink.cmp))
+  (blink.get_lsp_capabilities))
 
 (fn config [_ settings]
   "Configure LSP settings and setup servers"

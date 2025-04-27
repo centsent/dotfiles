@@ -5,7 +5,6 @@
               :desc "Code Action"
               :mode [:n :v]
               :has :codeAction}
-             {1 :gd 2 #(vim.lsp.buf.definition) :desc "Go to definition"}
              {1 :gD
               2 #(vim.lsp.buf.type_definition)
               :desc "Go to Type Definition"}
@@ -66,4 +65,3 @@
   (set-keymaps client buffer lazy-keymaps))
 
 M
-

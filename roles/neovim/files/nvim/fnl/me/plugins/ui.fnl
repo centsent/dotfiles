@@ -1,24 +1,4 @@
-(fn init-notify []
-  (local util (require :me.util))
-  (when (not (util.has :noice.nvim))
-    (util.on-very-lazy #(set vim.notify (require :notify)))))
-
-[;; A fancy configurable notification manager for NeoVim
- {1 :rcarriga/nvim-notify
-  :opts {:timeout 3000
-         :max_width #(math.floor (* vim.o.columns 0.75))
-         :max_height #(math.floor (* vim.o.lines 0.75))}
-  :init init-notify
-  :keys [{1 :<leader>n
-          2 #((. (require :notify) :dismiss) {:silent true :pending true})
-          :desc "Dismiss all notifications"}]}
- ;; Indent guides for Neovim
- {1 :lukas-reineke/indent-blankline.nvim
-  :main :ibl
-  :opts {}
-  :event [:BufReadPost :BufNewFile]}
- ;; Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
- {1 :folke/noice.nvim
+[{1 :folke/noice.nvim
   :event :VeryLazy
   :opts {:lsp {:override {:vim.lsp.util.convert_input_to_markdown_lines true
                           :vim.lsp.util.stylize_markdown true
@@ -50,5 +30,54 @@
   :opts {:current_line_blame true}}
  ;; Remove all background colors to make nvim transparent
  {1 :xiyaowong/transparent.nvim :opts {}}
- ;; A plugin for neovim that highlights cursor words and lines
- {1 :yamatsum/nvim-cursorline :opts {:cursorline {:timeout 500}}}]
+ {1 :folke/snacks.nvim
+  :opts {:bigfile {:enabled true}
+         :explorer {:enabled true}
+         :indent {:enabled true}
+         :input {:enabled true}
+         :notifier {:enabled true :timeout 3000}
+         :picker {:enabled true}
+         :scroll {:enabled true}
+         :statuscolumn {:enabled true}
+         :words {:enabled true}}
+  :keys [;; Top Pickers & Explorer
+         {1 :<space><space>
+          2 #((. (require :snacks) :picker :smart))
+          :desc "Smart Find Files"}
+         {1 :<leader>e
+          2 #((. (require :snacks) :explorer))
+          :desc "File Explorer"}
+         {1 :<leader>n
+          2 #((. (require :snacks) :picker :notifications))
+          :desc "Notification History"}
+         ;; Terminal
+         {1 :<leader>tt
+          2 #((. (require :snacks) :terminal))
+          :desc "Toggle Terminal"}
+         {1 :<leader>tg
+          2 #((. (require :snacks) :lazygit))
+          :desc "Toggle Terminal"}
+         ;; Find
+         {1 :<leader>ff
+          2 #((. (require :snacks) :picker :files))
+          :desc "Find files"}
+         {1 :<leader>fr
+          2 #((. (require :snacks) :picker :recent))
+          :desc "Recent files"}
+         {1 :<leader>fp
+          2 #((. (require :snacks) :picker :projects))
+          :desc :Projects}
+         ;; Grep
+         {1 :<leader>sg 2 #((. (require :snacks) :picker :grep)) :desc :Grep}
+         {1 :<leader>sw
+          2 #((. (require :snacks) :picker :grep_word))
+          :desc "Visual selection or word"}
+         ;; Search
+         {1 :<leader>sd
+          2 #((. (require :snacks) :picker :diagnostics))
+          :desc :Diagnostics}
+         {1 :<leader>sj 2 #((. (require :snacks) :picker :jumps)) :desc :Jumps}
+         ;; LSP
+         {1 :gd
+          2 #((. (require :snacks) :picker :lsp_definitions))
+          :desc "Goto definition"}]}]

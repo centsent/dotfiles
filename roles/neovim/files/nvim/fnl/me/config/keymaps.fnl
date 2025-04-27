@@ -1,3 +1,4 @@
+;; Set leader key
 (tset vim.g :mapleader ",")
 
 (local mode-adapters {:normal-mode :n
@@ -100,4 +101,3 @@
     (load-mode mode-key mode-keymaps)))
 
 (load-keymaps default-keymaps)
-
