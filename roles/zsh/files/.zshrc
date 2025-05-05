@@ -4,8 +4,8 @@ ZSH_THEME="robbyrussell"
 
 plugins=(
 	git
-	zsh-autosuggestions
 	tmux
+	zsh-autosuggestions
 )
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#7dcfff,bg=#1a1b26,underline"

@@ -32,5 +32,10 @@ if type procs >/dev/null; then
 fi
 
 if type pnpm >/dev/null; then
-  alias pn=pnpm
+  alias pn="pnpm"
+fi
+
+if type emerge >/dev/null; then
+  alias seup="sudo emerge --ask --verbose --update --deep --newuse @world"
+  alias se="sudo emerge --ask --verbose"
 fi
