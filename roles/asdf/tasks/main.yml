@@ -2,6 +2,8 @@
 - name: Define asdf languages and versions
   set_fact:
     langs:
+      - name: bun
+        version: latest
       - name: dotnet
         version: latest
       - name: flutter
