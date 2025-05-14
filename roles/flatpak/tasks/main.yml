@@ -5,7 +5,6 @@
       - com.bitwarden.desktop
       - com.github.tchx84.Flatseal
       - com.rustdesk.RustDesk
-      - com.slack.Slack
       - com.synology.SynologyDrive
       - com.tencent.WeChat
       - com.usebruno.Bruno
@@ -15,9 +14,9 @@
       - io.missioncenter.MissionCenter
       - md.obsidian.Obsidian
       - one.ablaze.floorp
-      - org.deskflow.deskflow
       - org.kde.dolphin
       - org.jupyter.JupyterLab
       - org.telegram.desktop
+      - rest.insomnia.Insomnia
     state: present
     method: user
