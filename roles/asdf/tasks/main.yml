@@ -42,5 +42,5 @@
 
 - name: Set languages version as the global version
   loop: "{{ langs }}"
-  command: asdf global {{ item.name }} {{ item.version }}
+  command: asdf set -u {{ item.name }} {{ item.version }}
   ignore_errors: true
