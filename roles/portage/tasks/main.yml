@@ -38,6 +38,7 @@
       - app-editors/neovim
       - app-misc/jq
       - app-misc/tmux
+      - app-office/obsidian
       - app-portage/gentoolkit
       - app-shells/fzf
       - app-shells/starship

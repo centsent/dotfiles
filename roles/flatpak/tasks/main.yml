@@ -12,7 +12,6 @@
       - io.beekeeperstudio.Studio
       - io.httpie.Httpie
       - io.missioncenter.MissionCenter
-      - md.obsidian.Obsidian
       - one.ablaze.floorp
       - org.kde.dolphin
       - org.jupyter.JupyterLab
