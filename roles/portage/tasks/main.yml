@@ -25,6 +25,8 @@
       dest: /etc/portage/package.accept_keywords/cli
     - src: package.accept_keywords/gui.j2
       dest: /etc/portage/package.accept_keywords/gui
+    - src: package.unmask.j2
+      dest: /etc/portage/package.unmask
 
 - name: Update portage
   become: true
@@ -36,6 +38,7 @@
   portage:
     name:
       - app-editors/neovim
+      - app-editors/vscode
       - app-misc/jq
       - app-misc/tmux
       - app-office/obsidian
@@ -74,6 +77,7 @@
       - sys-process/bottom
       - sys-process/procs
       - sys-kernel/dkms
+      - www-client/firefox
       - x11-drivers/nvidia-drivers
       - x11-terms/alacritty
     state: present
