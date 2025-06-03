@@ -4,5 +4,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
-  config = true,
+  opts = {
+    flutter_lookup_cmd = "asdf where flutter",
+  },
 }
