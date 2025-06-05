@@ -13,4 +13,3 @@ dependencies:
   - role: yabai
   - role: skhd
   - role: rime
-  - role: obsidian

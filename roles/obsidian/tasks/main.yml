@@ -1,5 +1,0 @@
-- name: Symlink .obsidian.vimrc to ~
-  file:
-    src: "{{ playbook_dir }}/roles/obsidian/files/.obsidian.vimrc"
-    dest: "~/.obsidian.vimrc"
-    state: link
