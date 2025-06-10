@@ -33,7 +33,8 @@
   ],
   "disk": {
     "format": "  {percentage_used}%",
-    "format-alt": "  {percentage_free}%"
+    "format-alt": "  {percentage_free}%",
+    "on-click": "kitty yazi"
   },
   "backlight": {
     "device": "intel_backlight",
