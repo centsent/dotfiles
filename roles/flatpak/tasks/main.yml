@@ -8,7 +8,6 @@
       - com.synology.SynologyDrive
       - com.tencent.WeChat
       - io.beekeeperstudio.Studio
-      - io.missioncenter.MissionCenter
       - org.kde.dolphin
       - org.jupyter.JupyterLab
       - org.telegram.desktop
