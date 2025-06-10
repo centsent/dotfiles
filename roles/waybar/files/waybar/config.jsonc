@@ -4,6 +4,7 @@
   "margin-top": 5,
   "include": [
     "$HOME/.config/waybar/modules/battery.jsonc",
+    "$HOME/.config/waybar/modules/bluetooth.jsonc",
     "$HOME/.config/waybar/modules/custom.jsonc",
     "$HOME/.config/waybar/modules/hyprland.jsonc",
     "$HOME/.config/waybar/modules/network.jsonc",
@@ -12,19 +13,23 @@
   "modules-left": [
     "custom/launcher",
     "hyprland/workspaces",
-    "hyprland/window"
+    "disk",
+    "cpu",
+    "memory",
+    "network#speed"
+  ],
+  "modules-center": [
+    "clock"
   ],
   "modules-right": [
+    "hyprland/window",
     "tray",
     "custom/wallpaper",
     "backlight",
     "pulseaudio",
-    "disk",
-    "cpu",
-    "memory",
     "battery",
-    "network",
-    "clock"
+    "bluetooth",
+    "network"
   ],
   "disk": {
     "format": "  {percentage_used}%",
@@ -47,17 +52,21 @@
     "spacing": 10
   },
   "clock": {
-    "format": "{:%I:%M %p %d/%m/%Y}"
+    "format": "{:%I:%M:%S %p ☲ %a %Y/%m/%d}",
+    "tooltip": true,
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "interval": 1
   },
   "cpu": {
-    "interval": 15,
-    "format": "  {}%",
-    "max-length": 10
+    "interval": 1,
+    "format": "{usage}% <span font='Font Awesome 6 Free-Solid'>\uf2db</span>",
+    "on-click": "kitty btop"
   },
   "memory": {
     "tooltip": true,
-    "interval": 30,
-    "format": "󰍛  {}%",
-    "max-length": 10
+    "interval": 1,
+    "format": "{percentage}% <span font='Font Awesome 5 Free'>\uf538</span>",
+    "tooltip-format": "{used}/{total} GiB",
+    "on-click": "kitty btop"
   }
 }

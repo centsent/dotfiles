@@ -3,8 +3,17 @@
     "format": "{name}"
   },
   "hyprland/window": {
-    "format": "{initialTitle}",
-    "separate-outputs": true,
-    "icon": true
+    "format": "{initialClass}",
+    "icon": true,
+    "icon-size": 18,
+    "seperate-outputs": true,
+    "rewrite": {
+      "": "󰣨 Gentoo",
+      "firefox-esr": "Firefox",
+      "jetbrains-studio": "Android Studio",
+      "(.*)obsidian(.*)": "Obsidian",
+      "wechat": "WeChat"
+    },
+    "on-click-middle": "pkill waybar && hyprctl dispatch exec waybar"
   }
 }

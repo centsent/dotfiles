@@ -1,31 +1,19 @@
 #custom-launcher {
-  font-size: 16px;
-  margin-left: 8px;
-  padding-left: 10px;
-  padding-right: 12px;
-  border-radius: 10px;
+  font-size: 18px;
   transition: none;
+  padding: 0px 10px;
+  margin-right: 2px;
+  background: @raisin-black;
   color: #a7a8e9;
-  background: #2E3440;
-}
-
-#custom-launcher:hover {
-  background: #3B4252;
-  color: #F4B6C2;
-  text-shadow: 0 0 5px rgba(230, 162, 175, 0.7);
-}
-
-#custom-launcher:focus {
-  border: 2px solid #A3BE8C;
-  color: #A3BE8C;
-  background: #434C5E;
+  border-radius: 0 6px 6px 0;
 }
 
 #custom-wallpaper {
-  margin-left: 8px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 0px;
-  border-radius: 10px;
-  transition: none;
+  font-size: 20px;
+  font-family: 'Font Awesome 5 Free';
+  padding: 0px 8px;
+  margin-right: 1px;
+  color: #f38ba8;
+  background: @raisin-black;
+  border-radius: 6px;
 }

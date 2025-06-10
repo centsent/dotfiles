@@ -1,35 +1,45 @@
 #battery {
-  margin-left: 8px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 0px;
-  border-radius: 10px;
-  transition: none;
+  color: @mint;
+  min-width: 30px;
+  padding-left: 5px;
+  margin-left: 1px;
+  margin-right: 3px;
+  /* margin: 0 1px; */
+  padding-right: 5px;
+  border-radius: 6px;
 }
 
-#battery.charging,
-#battery.plugged {
-  color: #99cc99;
+#battery.charging {
+  color: #33ae18; /* Text */
+  background: @raisin-black;
+  border-radius: 6px;
 }
 
-#battery.full {
-  color: green;
+#battery.good:not(.charging) {
+  color: #f8d589;
+  background: @raisin-black;
+  border-radius: 6px;
 }
 
-#battery.warning {
-  color: yellow;
-  animation-name: blink;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+#battery.warning:not(.charging) {
+  color: #e0a858; /* Text */
+  background: @raisin-black;
+  border-radius: 6px;
+}
+
+#battery.low:not(.charging) {
+  color: #d20f39; /* Text */
+  background: @raisin-black;
+  border-radius: 6px;
 }
 
 #battery.critical:not(.charging) {
-  color: red;
+  color: #d20f39; /* Text */
+  background: @raisin-black;
   animation-name: blink;
-  animation-duration: 0.5s;
+  animation-duration: 0.75s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  border-radius: 6px;
 }
