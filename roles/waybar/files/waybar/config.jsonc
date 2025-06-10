@@ -60,13 +60,13 @@
   },
   "cpu": {
     "interval": 1,
-    "format": "{usage}% <span font='Font Awesome 6 Free-Solid'>\uf2db</span>",
+    "format": "{usage}% ",
     "on-click": "kitty btop"
   },
   "memory": {
     "tooltip": true,
     "interval": 1,
-    "format": "{percentage}% <span font='Font Awesome 5 Free'>\uf538</span>",
+    "format": "{percentage}% ",
     "tooltip-format": "{used}/{total} GiB",
     "on-click": "kitty btop"
   }
