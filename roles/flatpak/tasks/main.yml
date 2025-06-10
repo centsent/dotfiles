@@ -7,9 +7,7 @@
       - com.rustdesk.RustDesk
       - com.synology.SynologyDrive
       - com.tencent.WeChat
-      - com.usebruno.Bruno
       - io.beekeeperstudio.Studio
-      - io.httpie.Httpie
       - io.missioncenter.MissionCenter
       - org.kde.dolphin
       - org.jupyter.JupyterLab
