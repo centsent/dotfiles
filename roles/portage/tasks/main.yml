@@ -48,6 +48,7 @@
       - app-emulation/virt-viewer
       - app-misc/jq
       - app-misc/tmux
+      - app-misc/yazi
       - app-office/libreoffice
       - app-portage/gentoolkit
       - app-shells/fzf
@@ -84,7 +85,7 @@
       - sys-apps/flatpak
       - sys-apps/ripgrep
       - sys-fs/fuse
-      - sys-process/bottom
+      - sys-process/btop
       - sys-process/procs
       - sys-kernel/dkms
       - virtual/opengl
