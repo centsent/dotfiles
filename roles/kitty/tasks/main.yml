@@ -1,0 +1,6 @@
+---
+- name: Symlink kitty to ~/.config
+  file:
+    src: "{{ playbook_dir }}/roles/kitty/files/kitty"
+    dest: "~/.config/kitty"
+    state: link

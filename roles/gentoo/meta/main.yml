@@ -19,3 +19,4 @@ dependencies:
   - role: wlogout
   - role: greetd
   - role: flatpak
+  - role: kitty
