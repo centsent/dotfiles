@@ -12,6 +12,7 @@
       "firefox-esr": "Firefox",
       "jetbrains-studio": "Android Studio",
       "(.*)obsidian(.*)": "Obsidian",
+      "(.*)telegram(.*)": "Telegram",
       "wechat": "WeChat"
     },
     "on-click-middle": "pkill waybar && hyprctl dispatch exec waybar"

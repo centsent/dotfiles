@@ -59,8 +59,6 @@
       - dev-vcs/git
       - dev-util/android-studio
       - dev-util/android-sdk-cmdline-tools
-      - dev-util/idea-community
-      - gui-apps/swappy
       - gui-apps/tuigreet
       - gui-apps/waybar
       - gui-libs/greetd
@@ -75,9 +73,11 @@
       - media-sound/pavucontrol
       - media-sound/playerctl
       - media-video/ffmpeg
+      - net-im/telegram-desktop
       - net-misc/chrony
       - net-misc/spice-gtk
       - net-vpn/tailscale
+      - net-wireless/blueman
       - net-wireless/wpa_supplicant
       - sys-apps/bat
       - sys-apps/eza
@@ -87,7 +87,6 @@
       - sys-fs/fuse
       - sys-process/btop
       - sys-process/procs
-      - sys-kernel/dkms
       - virtual/opengl
       - www-client/firefox
       - x11-drivers/nvidia-drivers
@@ -150,7 +149,7 @@
   become: true
   portage:
     name:
-      - app-misc/ngw-look
+      - app-misc/nwg-look
       - dev-util/wakatime-cli
       - dev-vcs/lazygit
       - gui-apps/wlogout
