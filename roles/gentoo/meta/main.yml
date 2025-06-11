@@ -20,3 +20,4 @@ dependencies:
   - role: greetd
   - role: flatpak
   - role: kitty
+  - role: desktop_launchers
