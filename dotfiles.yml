@@ -38,3 +38,6 @@
     - role: kitty
       tags:
         - kitty
+    - role: desktop_launchers
+      tags:
+        - desktop_launchers
