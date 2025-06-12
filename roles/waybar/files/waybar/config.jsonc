@@ -25,7 +25,6 @@
     "hyprland/window",
     "tray",
     "custom/wallpaper",
-    "backlight",
     "pulseaudio",
     "battery",
     "bluetooth",
@@ -34,18 +33,6 @@
   "disk": {
     "format": "{percentage_used}% ",
     "on-click": "kitty yazi"
-  },
-  "backlight": {
-    "device": "intel_backlight",
-    "format": "{icon}  {}%",
-    "format-icons": [
-      "󱩎",
-      "󱩏",
-      "󱩐",
-      "󱩒",
-      "󱩔",
-      "󰛨"
-    ]
   },
   "tray": {
     "icon-size": 18,

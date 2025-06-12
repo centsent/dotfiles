@@ -38,6 +38,7 @@ window#waybar {
 
 /* Pulseaudio */
 #pulseaudio {
+  background-color: @raisin-black;
   margin-left: 8px;
   padding-left: 10px;
   padding-right: 10px;
@@ -147,7 +148,9 @@ menu,
 
 @keyframes blink {
   to {
-    color: #d20f39; /* Red */
-    background: #eff1f5; /* Text */
+    color: #d20f39;
+    /* Red */
+    background: #eff1f5;
+    /* Text */
   }
 }
