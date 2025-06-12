@@ -4,14 +4,12 @@
     name:
       - com.bitwarden.desktop
       - com.github.tchx84.Flatseal
-      - com.rustdesk.RustDesk
       - com.synology.SynologyDrive
       - com.tencent.WeChat
       - io.beekeeperstudio.Studio
       - org.gnome.Calendar
       - org.kde.dolphin
       - org.jupyter.JupyterLab
-      - org.telegram.desktop
       - rest.insomnia.Insomnia
     state: present
     method: user
