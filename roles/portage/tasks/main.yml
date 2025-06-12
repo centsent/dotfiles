@@ -169,6 +169,7 @@
       - app-i18n/fcitx-qt
       - app-i18n/fcitx-gtk
       - app-i18n/fcitx-configtool
+      - net-misc/rustdesk
     verbose: true
     state: present
 
