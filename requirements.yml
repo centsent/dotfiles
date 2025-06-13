@@ -1,0 +1,5 @@
+---
+roles:
+  - name: rime
+    src: git+https://github.com/centsent/ansible-role-rime.git
+    version: main
