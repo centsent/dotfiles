@@ -13,17 +13,22 @@ ifeq ($(INVENTORY),)
     endif
 endif
 
+.PHONY: deps
+deps:
+	@echo "==> Installing Ansible Galaxy role dependencies..."
+	ansible-galaxy install -r requirements.yml
+
 .PHONY: install all
 all: install
 install:
 	ansible-playbook -i $(INVENTORY) ./dotfiles.yml
 
 .PHONY: macos
-macos:
+macos: deps
 	ansible-playbook -i $(INVENTORY) ./macos.yml --ask-become-pass
 
 .PHONY: gentoo
-gentoo:
+gentoo: deps
 	ansible-playbook -i $(INVENTORY) ./gentoo.yml
 
 .PHONY: update
@@ -31,12 +36,12 @@ update:
 	ansible-playbook -i $(INVENTORY) ./update.yml
 
 .PHONY: archlinux
-archlinux:
+archlinux: deps
 	ansible-playbook -i $(INVENTORY) ./archlinux.yml
 
 .PHONY: run
 TAGS ?= all
-run:
+run: deps
 	ansible-playbook -i $(INVENTORY) ./dotfiles.yml --tags "$(TAGS)"
 
 %:
