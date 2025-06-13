@@ -26,6 +26,10 @@ macos:
 gentoo:
 	ansible-playbook -i $(INVENTORY) ./gentoo.yml
 
+.PHONY: update
+update:
+	ansible-playbook -i $(INVENTORY) ./update.yml
+
 .PHONY: archlinux
 archlinux:
 	ansible-playbook -i $(INVENTORY) ./archlinux.yml
