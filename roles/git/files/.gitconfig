@@ -1,8 +1,8 @@
 [core]
   editor = nvim
 
-[branch]
-  default = main
+[init]
+  defaultBranch = main
 
 [user]
   name = "centsent"

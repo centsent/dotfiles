@@ -1,43 +1,6 @@
 ---
-- name: Set up local workstation
-  hosts: local
-  gather_facts: true
-  roles:
-    - role: macos
-      when: ansible_facts['os_family'] == 'Darwin'
-      tags:
-        - macos
-    - role: gentoo
-      when: ansible_facts['distribution'] == 'Gentoo'
-      tags:
-        - gentoo
-    - role: rime
-      tags:
-        - rime
-    - role: wlogout
-      tags:
-        - wlogout
-    - role: portage
-      tags:
-        - portage
-    - role: greetd
-      tags:
-        - greetd
-    - role: grub
-      tags:
-        - grub
-    - role: portage
-      tags:
-        - portage
-    - role: asdf
-      tags:
-        - asdf
-    - role: flatpak
-      tags:
-        - flatpak
-    - role: kitty
-      tags:
-        - kitty
-    - role: desktop_launchers
-      tags:
-        - desktop_launchers
+- name: Import macOS Playbook
+  import_playbook: macos.yml
+
+- name: Import Gentoo Playbook
+  import_playbook: gentoo.yml

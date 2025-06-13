@@ -1,15 +1,6 @@
 ---
 - name: Install packages with flatpak
   flatpak:
-    name:
-      - com.bitwarden.desktop
-      - com.github.tchx84.Flatseal
-      - com.synology.SynologyDrive
-      - com.tencent.WeChat
-      - io.beekeeperstudio.Studio
-      - org.gnome.Calendar
-      - org.kde.dolphin
-      - org.jupyter.JupyterLab
-      - rest.insomnia.Insomnia
+    name: "{{ flatpak_packages }}"
     state: present
     method: user

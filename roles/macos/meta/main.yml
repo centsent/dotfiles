@@ -1,15 +1,9 @@
 ---
 dependencies:
+  - role: common
   - role: homebrew
-  - role: zsh
-  - role: git
-  - role: asdf
-  - role: tmux
-  - role: alacritty
-  - role: neovim
-  - role: starship
-  - role: topgrade
-  - role: idea
+    tags: homebrew
   - role: yabai
+    tags: yabai
   - role: skhd
-  - role: rime
+    tags: skhd

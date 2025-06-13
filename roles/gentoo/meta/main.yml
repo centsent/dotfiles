@@ -1,23 +1,23 @@
 ---
 dependencies:
+  - role: common
   - role: grub
+    tags: grub
   - role: portage
-  - role: zsh
-  - role: git
-  - role: asdf
-  - role: tmux
-  - role: alacritty
-  - role: neovim
-  - role: starship
-  - role: topgrade
-  - role: idea
+    tags: portage
   - role: hypr
+    tags: hypr
   - role: swaync
+    tags: swaync
   - role: waybar
+    tags: waybar
   - role: wofi
-  - role: rime
+    tags: wofi
   - role: wlogout
+    tags: wlogout
   - role: greetd
+    tags: greetd
   - role: flatpak
-  - role: kitty
+    tags: flatpak
   - role: desktop_launchers
+    tags: desktop_launchers

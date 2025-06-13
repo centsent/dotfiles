@@ -1,34 +1,23 @@
 ---
-- name: Check if gpakosz/.tmux is installed
-  command: ls ~/.tmux
-  register: tmux_installed
-  ignore_errors: true
+- name: Include role variables
+  ansible.builtin.include_vars: vars/main.yml
 
-- name: Clone gpakosz/.tmux
-  git:
-    repo: https://github.com/gpakosz/.tmux
-    dest: ~/.tmux
-  when: not tmux_installed.stdout
+- name: Clone tmux configuration and plugin repositories
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    version: master
+    update: yes
+  loop: "{{ tmux_git_repos }}"
+  loop_control:
+    label: "{{ item.dest }}"
 
-- name: Check if tpm is installed
-  command: ls ~/.tmux/plugins/tpm
-  register: tpm_installed
-  ignore_errors: true
-
-- name: Clone tpm
-  git:
-    repo: https://github.com/tmux-plugins/tpm
-    dest: ~/.tmux/plugins/tpm
-  when: not tpm_installed.stdout
-
-- name: Symlink .tmux.conf to ~
-  file:
-    src: "~/.tmux/.tmux.conf"
-    dest: "~/.tmux.conf"
+- name: Symlink tmux configuration files
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
     state: link
-
-- name: Symlink .tmux.conf.local to ~
-  file:
-    src: "{{ playbook_dir }}/roles/tmux/files/.tmux.conf.local"
-    dest: "~/.tmux.conf.local"
-    state: link
+    force: true
+  loop: "{{ tmux_symlinks }}"
+  loop_control:
+    label: "{{ item.dest }}"

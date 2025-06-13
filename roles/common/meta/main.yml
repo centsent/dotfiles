@@ -1,0 +1,24 @@
+---
+dependencies:
+  - role: git
+    tags: git
+  - role: zsh
+    tags: zsh
+  - role: asdf
+    tags: asdf
+  - role: tmux
+    tags: tmux
+  - role: alacritty
+    tags: alacritty
+  - role: neovim
+    tags: neovim
+  - role: starship
+    tags: starship
+  - role: topgrade
+    tags: topgrade
+  - role: idea
+    tags: idea
+  - role: rime
+    tags: rime
+  - role: kitty
+    tags: kitty

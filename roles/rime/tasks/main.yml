@@ -1,20 +1,18 @@
-- name: Symlink rime to ~/.local/share/fcitx5 on Linux
-  file:
-    src: "{{ playbook_dir }}/roles/rime/files/rime"
-    dest: "~/.local/share/fcitx5/rime"
-    state: link
-  when: ansible_system == "Linux"
+---
+- name: Include OS-specific variables
+  ansible.builtin.include_vars: vars/main.yml
 
-- name: Symlink rime to ~/Library/Rime on macOS
-  file:
+- name: Symlink Rime config for Unix-like systems (Linux, macOS)
+  ansible.builtin.file:
     src: "{{ playbook_dir }}/roles/rime/files/rime"
-    dest: "~/Library/Rime"
+    dest: "{{ rime_destination_paths[ansible_os_family] }}"
     state: link
-  when: ansible_os_family == "Darwin"
+    force: true
+  when: ansible_os_family in ['Linux', 'Darwin']
 
-- name: Symlink rime to ~/AppData/Roaming/Rime on Windows
-  win_file:
+- name: Symlink Rime config for Windows
+  ansible.windows.win_file:
     src: "{{ playbook_dir }}/roles/rime/files/rime"
-    dest: "~/AppData/Roaming/Rime"
-    state: link
+    dest: "{{ rime_destination_paths[ansible_os_family] }}"
+    state: junction
   when: ansible_os_family == "Windows"

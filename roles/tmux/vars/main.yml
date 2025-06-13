@@ -1,0 +1,12 @@
+---
+tmux_git_repos:
+  - repo: https://github.com/gpakosz/.tmux
+    dest: "{{ ansible_env.HOME }}/.tmux"
+  - repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
+
+tmux_symlinks:
+  - src: "{{ ansible_env.HOME }}/.tmux/.tmux.conf"
+    dest: "{{ ansible_env.HOME }}/.tmux.conf"
+  - src: "{{ playbook_dir }}/roles/tmux/files/.tmux.conf.local"
+    dest: "{{ ansible_env.HOME }}/.tmux.conf.local"

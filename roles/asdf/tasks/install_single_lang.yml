@@ -1,0 +1,18 @@
+---
+- name: "Check if {{ item.name }} plugin is already installed"
+  ansible.builtin.command: "asdf plugin list | grep '{{ item.name }}'"
+  register: plugin_check
+  changed_when: false
+  failed_when: false
+
+- name: "Add {{ item.name }} plugin"
+  ansible.builtin.command: "asdf plugin add {{ item.name }}"
+  when: plugin_check.rc != 0
+
+- name: "Install {{ item.name }} {{ item.version }}"
+  ansible.builtin.command: "asdf install {{ item.name }} {{ item.version }}"
+  ignore_errors: true
+
+- name: "Set global version for {{ item.name }}"
+  ansible.builtin.command: "asdf set -u {{ item.name }} {{ item.version }}"
+  ignore_errors: true

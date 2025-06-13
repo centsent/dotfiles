@@ -1,52 +1,30 @@
 ---
-- name: Check if homebrew is installed
-  command: brew --version
-  register: homebrew_installed
-  ignore_errors: true
+- name: Check if Homebrew is installed
+  ansible.builtin.stat:
+    path: /opt/homebrew/bin/brew
+  register: homebrew_stat_apple
 
-- name: Install homebrew
-  command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  when: not homebrew_installed.stdout
+- name: Check if Homebrew is installed (Intel)
+  ansible.builtin.stat:
+    path: /usr/local/bin/brew
+  register: homebrew_stat_intel
+  when: not homebrew_stat_apple.stat.exists
 
-- name: Install packages
-  loop:
-    - age
-    - alacritty
-    - android-studio
-    - android-platform-tools
-    - beekeeper-studio
-    - eza
-    - fd
-    - fennel
-    - fnlfmt
-    - fzf
-    - git
-    - glow
-    - hoppscotch
-    - intellij-idea-ce
-    - jq
-    - krita
-    - libreoffice
-    - lazygit
-    - neovim
-    - obsidian
-    - orbstack
-    - pika
-    - raycast
-    - ripgrep
-    - shottr
-    - skhd
-    - sops
-    - starship
-    - stats
-    - topgrade
-    - visual-studio-code
-    - vivaldi
-    - wakatime-cli
-    - wormhole
-    - yabai
-    - yt-dlp
-    - zsh
-  homebrew:
-    name: "{{ item }}"
+- name: Install Homebrew
+  ansible.builtin.shell:
+    cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    warn: false
+  environment:
+    NONINTERACTIVE: "1"
+  when: not homebrew_stat_apple.stat.exists and not homebrew_stat_intel.stat.exists
+
+- name: Install Homebrew packages (Formulas)
+  community.general.homebrew:
+    name: "{{ homebrew_packages }}"
     state: present
+  
+- name: Install Homebrew packages (Casks)
+  community.general.homebrew:
+    name: "{{ homebrew_casks }}"
+    state: present
+    cask: true

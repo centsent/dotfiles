@@ -1,0 +1,31 @@
+portage_overlays:
+  - name: guru
+    packages:
+      - app-office/obsidian
+      - gui-apps/hypridle
+      - gui-apps/hyprlock
+      - gui-apps/hyprpicker
+      - gui-apps/hyprshot
+      - gui-apps/swaync
+      - gui-apps/swww
+      - gui-libs/xdg-desktop-portal-hyprland
+      - gui-wm/hyprland
+      - gui-wm/hyprland-contrib
+      - app-misc/nwg-look
+      - dev-util/wakatime-cli
+      - dev-vcs/lazygit
+      - gui-apps/wlogout
+      - gui-apps/wofi
+      - media-fonts/source-han-serif
+      - x11-themes/apple-cursor
+      - x11-themes/materia-theme
+
+  - name: gentoo-zh
+    packages:
+      - app-i18n/fcitx
+      - app-i18n/fcitx-rime
+      - app-i18n/fcitx-qt
+      - app-i18n/fcitx-gtk
+      - app-i18n/fcitx-configtool
+      - dev-util/asdf-vm
+      - net-misc/rustdesk
