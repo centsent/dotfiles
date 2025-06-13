@@ -11,3 +11,4 @@ installation.yaml
 *.log
 
 roles/rime/
+roles/neovim/

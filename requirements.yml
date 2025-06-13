@@ -3,3 +3,7 @@ roles:
   - name: rime
     src: git+https://github.com/centsent/ansible-role-rime.git
     version: main
+
+  - name: neovim
+    src: git+https://github.com/centsent/ansible-role-neovim.git
+    version: main
