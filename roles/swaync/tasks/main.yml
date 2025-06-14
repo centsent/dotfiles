@@ -1,5 +1,5 @@
 ---
-- name: Symlink nvim to ~/.config
+- name: Symlink swaync to ~/.config
   file:
     src: "{{ playbook_dir }}/roles/swaync/files/swaync"
     dest: "~/.config/swaync"
