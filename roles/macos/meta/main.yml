@@ -1,6 +1,7 @@
 ---
 dependencies:
   - role: common
+    tags: common
   - role: homebrew
     tags: homebrew
   - role: yabai

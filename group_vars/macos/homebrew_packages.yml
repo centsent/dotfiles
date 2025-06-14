@@ -1,6 +1,10 @@
 ---
 homebrew_packages:
   - age
+  - alacritty
+  - android-studio
+  - android-platform-tools
+  - beekeeper-studio
   - eza
   - fd
   - fennel
@@ -8,34 +12,28 @@ homebrew_packages:
   - fzf
   - git
   - glow
+  - hoppscotch
+  - intellij-idea-ce
   - jq
+  - krita
   - lazygit
+  - libreoffice
   - neovim
+  - obsidian
+  - orbstack
+  - pika
+  - raycast
   - ripgrep
   - sops
+  - shottr
   - starship
+  - stats
   - topgrade
+  - visual-studio-code
+  - vivaldi
   - wakatime-cli
   - wormhole
   - yabai
   - yt-dlp
   - zsh
   - skhd
-
-homebrew_casks:
-  - alacritty
-  - android-studio
-  - android-platform-tools
-  - beekeeper-studio
-  - hoppscotch
-  - intellij-idea-ce
-  - krita
-  - libreoffice
-  - obsidian
-  - orbstack
-  - pika
-  - raycast
-  - shottr
-  - stats
-  - visual-studio-code
-  - vivaldi

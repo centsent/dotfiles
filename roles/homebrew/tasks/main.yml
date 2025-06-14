@@ -18,13 +18,7 @@
     NONINTERACTIVE: "1"
   when: not homebrew_stat_apple.stat.exists and not homebrew_stat_intel.stat.exists
 
-- name: Install Homebrew packages (Formulas)
+- name: Install Homebrew packages
   community.general.homebrew:
     name: "{{ homebrew_packages }}"
     state: present
-  
-- name: Install Homebrew packages (Casks)
-  community.general.homebrew:
-    name: "{{ homebrew_casks }}"
-    state: present
-    cask: true
