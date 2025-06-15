@@ -23,13 +23,19 @@
   loop_control:
     label: "{{ item.name }}"
 
+- name: Deploy .env.zsh from template
+  ansible.builtin.template:
+    src: .env.zsh.j2
+    dest: "{{ ansible_env.HOME }}/.env.zsh"
+    mode: '0644'
+
 - name: Symlink zsh dotfiles to home directory
   ansible.builtin.file:
     src: "{{ playbook_dir }}/roles/zsh/files/{{ item }}"
     dest: "{{ ansible_env.HOME }}/{{ item }}"
     state: link
     force: true
+    follow: false
   loop:
     - .alias.zsh
-    - .env.zsh
     - .zshrc
