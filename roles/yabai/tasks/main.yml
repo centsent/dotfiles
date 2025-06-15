@@ -1,6 +1,0 @@
----
-- name: Symlink yabai to ~/.config
-  file:
-    src: "{{ playbook_dir }}/roles/yabai/files/yabai"
-    dest: "~/.config/yabai"
-    state: link

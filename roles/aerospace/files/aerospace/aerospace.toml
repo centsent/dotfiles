@@ -1,0 +1,173 @@
+# =============================================================================
+# === MAIN SETTINGS
+# =============================================================================
+start-at-login = true
+default-root-container-layout = 'tiles'
+
+# Normalizations
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = false
+
+# Mouse behavior
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# =============================================================================
+# === GAPS
+# =============================================================================
+[gaps]
+inner.horizontal = 5
+inner.vertical = 5
+outer.left = 5
+outer.bottom = 5
+outer.top = 5
+outer.right = 5
+
+
+# =============================================================================
+# === KEYBINDINGS
+# =============================================================================
+
+# --- Main Mode Bindings ---
+[mode.main.binding]
+# Focus navigation
+alt-j = 'focus --boundaries-action wrap-around-the-workspace left'
+alt-k = 'focus --boundaries-action wrap-around-the-workspace down'
+alt-l = 'focus --boundaries-action wrap-around-the-workspace up'
+alt-semicolon = 'focus --boundaries-action wrap-around-the-workspace right'
+
+# Move windows
+alt-shift-j = 'move left'
+alt-shift-k = 'move down'
+alt-shift-l = 'move up'
+alt-shift-semicolon = 'move right'
+
+# Layout and splitting
+alt-h = 'split horizontal'
+alt-v = 'split vertical'
+alt-f = 'fullscreen'
+alt-s = 'layout v_accordion'
+alt-w = 'layout h_accordion'
+alt-e = 'layout tiles horizontal vertical'
+alt-shift-space = 'layout floating tiling'
+
+# Workspace navigation
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+alt-0 = 'workspace 10'
+
+# Move window to workspace
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-0 = 'move-node-to-workspace 10'
+
+# Workspace utilities
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+alt-ctrl-l = "workspace next"
+alt-ctrl-h = "workspace prev"
+
+# System
+alt-shift-c = 'reload-config'
+alt-r = 'mode resize'
+
+# --- Resize Mode Bindings ---
+[mode.resize.binding]
+h = 'resize width -50'
+j = 'resize height +50'
+k = 'resize height -50'
+l = 'resize width +50'
+enter = 'mode main'
+esc = 'mode main'
+
+# =============================================================================
+# === WINDOW & WORKSPACE RULES
+# =============================================================================
+
+# Assign specific workspaces to the built-in monitor
+[workspace-to-monitor-force-assignment]
+1 = 'built-in'
+2 = 'built-in'
+3 = 'built-in'
+4 = 'built-in'
+5 = 'built-in'
+
+# --- Window Detection Rules ---
+
+# Floating window rules
+[[on-window-detected]]
+if.window-title-regex-substring = 'setting'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iphonesimulator'
+run = ['layout floating', 'move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.AppStore'
+run = ['layout floating', 'move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.window-title-regex-substring = 'Picture-in-Picture'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.window-title-regex-substring = '^Extension.*$'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'cc.ffitch.shottr'
+if.window-title-regex-substring = 'shottr'
+run = 'layout floating'
+
+# Application-to-workspace rules
+[[on-window-detected]]
+if.app-id = 'org.alacritty'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = "md.obsidian"
+run = "move-node-to-workspace 3"
+
+[[on-window-detected]]
+if.app-id = "com.google.android.studio"
+run = "move-node-to-workspace 4"
+
+[[on-window-detected]]
+if.app-id = "com.microsoft.VSCode"
+run = "move-node-to-workspace 4"
+
+[[on-window-detected]]
+if.app-id = "dev.zed.Zed"
+run = "move-node-to-workspace 4"
+
+[[on-window-detected]]
+if.app-id = 'ru.keepcoder.Telegram'
+run = ['layout floating', 'move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.tencent.xinWeChat'
+if.window-title-regex-substring = '^(?!WeChat \(Chats\)|微信 \(聊天\)).*$'
+run = ['layout floating', 'move-node-to-workspace 5']

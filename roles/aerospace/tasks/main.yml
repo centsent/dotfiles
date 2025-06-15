@@ -1,0 +1,6 @@
+---
+- name: Symlink aerospace to ~/.config
+  file:
+    src: "{{ playbook_dir }}/roles/aerospace/files/aerospace"
+    dest: "~/.config/aerospace"
+    state: link
