@@ -1,11 +1,11 @@
 ---
-- name: "Check if {{ item.name }} plugin is already installed"
+- name: "Check if plugin is already installed: {{ item.name }}"
   ansible.builtin.command: "asdf plugin list | grep '{{ item.name }}'"
   register: plugin_check
   changed_when: false
   failed_when: false
 
-- name: "Add {{ item.name }} plugin"
+- name: "Add plugin: {{ item.name }}"
   ansible.builtin.command: "asdf plugin add {{ item.name }}"
   when: plugin_check.rc != 0
 

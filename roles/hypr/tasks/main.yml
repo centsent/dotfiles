@@ -1,5 +1,5 @@
 - name: Symlink hypr to ~/.config
-  file:
+  ansible.builtin.file:
     src: "{{ playbook_dir }}/roles/hypr/files/hypr"
     dest: "~/.config/hypr"
     state: link

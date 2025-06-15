@@ -1,7 +1,7 @@
 ---
 - name: Configure /etc/greetd/config.toml
   become: true
-  template:
+  ansible.builtin.template:
     src: greetd-config.toml.j2
     dest: /etc/greetd/config.toml
     owner: root

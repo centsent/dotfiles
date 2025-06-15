@@ -1,5 +1,5 @@
 --- 
-- name: "Check if plugin '{{ item.name }}' is installed"
+- name: "Check if plugin is installed '{{ item.name }}'"
   ansible.builtin.stat:
     path: "{{ item.path }}"
   register: plugin_stat
