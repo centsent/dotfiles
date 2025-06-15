@@ -1,5 +1,5 @@
 - name: Symlink wlogout to ~/.config
-  ansilble.builtin.file:
+  ansible.builtin.file:
     src: "{{ playbook_dir }}/roles/wlogout/files/wlogout"
     dest: "~/.config/wlogout"
     state: link

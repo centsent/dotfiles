@@ -2,7 +2,7 @@
 - name: Configure /etc/default/grub
   become: true
   register: grub_template
-  ansilble.builtin.template:
+  ansible.builtin.template:
     src: grub.j2
     dest: /etc/default/grub
     owner: root

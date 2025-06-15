@@ -10,5 +10,5 @@
 
 - name: Remove unneeded packages
   become: true
-  pansible.builtin.portage:
+  ansible.builtin.portage:
     depclean: true
