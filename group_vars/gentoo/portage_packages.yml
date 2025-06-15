@@ -54,5 +54,3 @@ portage_packages:
   - x11-terms/alacritty
   - x11-terms/kitty
   - x11-themes/papirus-icon-theme
-
-

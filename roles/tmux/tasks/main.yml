@@ -7,7 +7,7 @@
     repo: "{{ item.repo }}"
     dest: "{{ item.dest }}"
     version: master
-    update: yes
+    update: true
   loop: "{{ tmux_git_repos }}"
   loop_control:
     label: "{{ item.dest }}"

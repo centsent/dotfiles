@@ -2,7 +2,7 @@
 - name: Sync the Portage tree
   become: true
   ansible.builtin.portage:
-    sync: yes
+    sync: true
   tags:
     - gentoo_update
     - skip_ansible_lint
@@ -11,16 +11,16 @@
   become: true
   ansible.builtin.portage:
     package: "@world"
-    update: yes
-    newuse: yes
-    deep: yes
-    verbose: yes
+    update: true
+    newuse: true
+    deep: true
+    verbose: true
   tags:
     - gentoo_update
 
 - name: Run depclean to remove obsolete packages
   become: true
   ansible.builtin.portage:
-    depclean: yes
+    depclean: true
   tags:
     - gentoo_update

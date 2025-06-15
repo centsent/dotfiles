@@ -1,6 +1,6 @@
 ---
 - name: Install packages with flatpak
-  flatpak:
+  community.general.flatpak:
     name: "{{ flatpak_packages }}"
     state: present
     method: user

@@ -29,8 +29,5 @@
       dest: /etc/portage/package.unmask
   loop_control:
     label: "{{ item.dest }}"
-
-- name: Sync portage tree if config files changed
-  become: true
-  ansible.builtin.command: emerge --sync
-  when: portage_files.changed
+  notify:
+    - sync portage tree

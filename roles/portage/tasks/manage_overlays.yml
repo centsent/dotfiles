@@ -6,7 +6,7 @@
     state: present
   run_once: true
 
-- name: Enable {{ item.name }} repository
+- name: Enable repository {{ item.name }}
   become: true
   ansible.builtin.command:
     cmd: eselect repository enable {{ item.name }}
@@ -16,7 +16,7 @@
   loop_control:
     label: "{{ item.name }}"
 
-- name: Sync the {{ item.name }} repository
+- name: Sync the repository {{ item.name }} 
   become: true
   ansible.builtin.command:
     cmd: emaint sync -r {{ item.name }}
