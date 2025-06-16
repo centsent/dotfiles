@@ -11,3 +11,5 @@
   ansible.builtin.command:
     cmd: "emaint sync -r {{ item.name }}"
   when: enable_result.changed
+  tags:
+    - skip_ansible_lint

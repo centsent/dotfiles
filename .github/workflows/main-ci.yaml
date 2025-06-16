@@ -20,7 +20,9 @@ jobs:
         run: ansible-galaxy install -r requirements.yml
 
       - name: Install required Ansible Collections
-        run: ansible-galaxy collection install community.general
+        run: |
+          ansible-galaxy collection install community.general
+          ansible-galaxy collection install ansible.windows
 
       - name: Run ansible-lint
         uses: ansible/ansible-lint@main

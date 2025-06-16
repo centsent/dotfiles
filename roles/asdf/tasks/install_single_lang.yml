@@ -8,10 +8,15 @@
 - name: "Add plugin: {{ item.name }}"
   ansible.builtin.command: "asdf plugin add {{ item.name }}"
   when: plugin_check.rc != 0
+  changed_when: true
 
-- name: "Install {{ item.name }} {{ item.version }}"
+- name: "Install language: {{ item.name }} {{ item.version }}"
   ansible.builtin.command: "asdf install {{ item.name }} {{ item.version }}"
-  ignore_errors: true
+  register: install_result
+  changed_when: "'is not installed. Installing' in install_result.stdout"
+  failed_when:
+    - install_result.rc != 0
+    - "'is already installed' not in install_result.stderr"
 
 - name: "Set global version for {{ item.name }}"
   ansible.builtin.command: "asdf set -u {{ item.name }} {{ item.version }}"
