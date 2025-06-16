@@ -6,21 +6,8 @@
     state: present
   run_once: true
 
-- name: Enable repository {{ item.name }}
-  become: true
-  ansible.builtin.command:
-    cmd: eselect repository enable {{ item.name }}
-  register: repo_status
-  changed_when: "'enabled' in repo_status.stdout"
-  loop: "{{ portage_overlays }}"
-  loop_control:
-    label: "{{ item.name }}"
-
-- name: Sync the repository {{ item.name }} 
-  become: true
-  ansible.builtin.command:
-    cmd: emaint sync -r {{ item.name }}
-  when: repo_status.changed
+- name: Enable and sync overlays
+  ansible.builtin.include_tasks: manage_single_overlay.yml
   loop: "{{ portage_overlays }}"
   loop_control:
     label: "{{ item.name }}"

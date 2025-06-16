@@ -6,7 +6,7 @@
     state: present
     verbose: true
 
-- name: Install packages from {{ item.name }} overlay
+- name: Install packages from overlays
   become: true
   ansible.builtin.portage:
     name: "{{ item.packages }}"
