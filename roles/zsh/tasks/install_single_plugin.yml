@@ -1,4 +1,4 @@
---- 
+---
 - name: "Check if plugin is installed '{{ item.name }}'"
   ansible.builtin.stat:
     path: "{{ item.path }}"
