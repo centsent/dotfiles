@@ -1,13 +1,12 @@
 ---
-- name: "Check if plugin is already installed: {{ item.name }}"
-  ansible.builtin.command: "asdf plugin list | grep '{{ item.name }}'"
-  register: plugin_check
+- name: "Check if plugin is installed: {{ item.name }}"
+  ansible.builtin.command: "asdf plugin list"
+  register: asdf_plugin_list
   changed_when: false
-  failed_when: false
 
 - name: "Add plugin: {{ item.name }}"
   ansible.builtin.command: "asdf plugin add {{ item.name }}"
-  when: plugin_check.rc != 0
+  when: "item.name not in asdf_plugin_list.stdout"
   changed_when: true
 
 - name: "Install language: {{ item.name }} {{ item.version }}"
@@ -18,6 +17,7 @@
     - install_result.rc != 0
     - "'is already installed' not in install_result.stderr"
 
-- name: "Set global version for {{ item.name }}"
+- name: "Set global version: {{ item.name }} to {{ item.version }}"
   ansible.builtin.command: "asdf set -u {{ item.name }} {{ item.version }}"
-  ignore_errors: true
+  register: global_result
+  changed_when: "global_result.rc == 0 and 'not installed' not in global_result.stderr"
