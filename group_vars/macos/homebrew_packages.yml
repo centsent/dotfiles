@@ -1,39 +1,41 @@
 ---
 homebrew_packages:
   - age
-  - alacritty
-  - android-studio
-  - android-platform-tools
-  - beekeeper-studio
   - eza
   - fd
-  - fennel
-  - fnlfmt
+  - felixkratz/formulae/sketchybar
   - fzf
   - git
   - glow
-  - hoppscotch
-  - intellij-idea-ce
   - jq
-  - krita
   - lazygit
-  - libreoffice
-  - neovim
+  - neovim  
+  - ripgrep
+  - sops
+  - starship
+  - topgrade
+  - wakatime-cli
+  - yt-dlp
+  - zsh
+
+homebrew_casks:
+  - alacritty
+  - android-commandlinetools 
+  - android-studio
+  - android-platform-tools
+  - beekeeper-studio
+  - firefox
+  - flux-app
+  - font-hack-nerd-font
+  - iina
+  - insomnia
+  - kitty
+  - nikitabobko/tap/aerospace
   - obsidian
   - orbstack
   - pika
   - raycast
-  - ripgrep
-  - sops
   - shottr
-  - starship
-  - stats
-  - topgrade
-  - visual-studio-code
-  - vivaldi
-  - wakatime-cli
+  - squirrel
   - wormhole
-  - yabai
-  - yt-dlp
-  - zsh
-  - skhd
+  - zed
