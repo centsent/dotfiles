@@ -1,5 +1,0 @@
-- name: Sync portage tree if config files changed
-  ansible.builtin.command: emerge --sync
-  become: true
-  changed_when: true
-  listen: "sync portage tree"

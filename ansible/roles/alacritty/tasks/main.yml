@@ -1,0 +1,6 @@
+---
+- name: Symlink alacritty to ~/.config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/alacritty"
+    dest: "~/.config/alacritty"
+    state: link

@@ -1,0 +1,53 @@
+---
+- name: Check if Nix is installed
+  ansible.builtin.command: command -v nix
+  register: nix_installed
+  changed_when: false
+  ignore_errors: true
+
+- name: Set should_install_nix fact
+  ansible.builtin.set_fact:
+    should_install_nix: "{{ nix_installed.rc != 0 }}"
+
+- name: Create /nix bind mount
+  when:
+    - ansible_os_family != "Darwin"
+    - nix_bind_mount != ""
+  block:
+    - name: Check if bind mount target directory is present
+      ansible.builtin.stat:
+        path: "{{ nix_bind_mount }}"
+      register: nix_bind_mount_stat
+
+    - name: Create bind mount target directory
+      become: true
+      ansible.builtin.file:
+        path: "{{ nix_bind_mount }}"
+        owner: "{{ nix_user }}"
+        state: directory
+        mode: "0755"
+      when: not nix_bind_mount_stat.stat.exists
+
+    - name: "Bind mount /nix to {{ nix_bind_mount }}"
+      become: true
+      ansible.posix.mount:
+        path: "/nix"
+        src: "{{ nix_bind_mount }}"
+        opts: bind
+        state: mounted
+        fstype: none
+
+- name: Install Nix
+  when: should_install_nix
+  block:
+    - name: Download installer script
+      ansible.builtin.get_url:
+        url: "https://nixos.org/nix/install"
+        dest: "{{ nix_script_dir }}/install_nix.sh"
+        mode: "0755"
+
+    - name: Run installer script
+      become: true
+      become_user: "{{ nix_user }}"
+      ansible.builtin.command: "{{ nix_script_dir }}/install_nix.sh"
+      changed_when: true

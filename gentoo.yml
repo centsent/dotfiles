@@ -1,6 +1,0 @@
----
-- name: Set up Gentoo workstation
-  hosts: gentoo
-  gather_facts: true
-  roles:
-    - role: gentoo

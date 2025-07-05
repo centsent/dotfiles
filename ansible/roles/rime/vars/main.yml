@@ -1,0 +1,5 @@
+---
+rime_destination_paths:
+  Linux: "{{ ansible_env.HOME }}/.local/share/fcitx5/rime"
+  Darwin: "{{ ansible_env.HOME }}/Library/Rime"
+  Windows: "{{ ansible_env.HOME }}/AppData/Roaming/Rime"

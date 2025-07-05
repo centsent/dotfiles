@@ -1,6 +1,0 @@
----
-- name: Symlink aerospace to ~/.config
-  ansible.builtin.file:
-    src: "{{ role_path }}/roles/aerospace/files/aerospace"
-    dest: "~/.config/aerospace"
-    state: link

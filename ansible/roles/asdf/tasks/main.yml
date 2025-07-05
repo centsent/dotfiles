@@ -1,0 +1,6 @@
+---
+- name: Add, install, and set global versions for each asdf language
+  ansible.builtin.include_tasks: install_single_lang.yml
+  loop: "{{ asdf_packages }}"
+  loop_control:
+    label: "{{ item.name }} {{ item.version }}"

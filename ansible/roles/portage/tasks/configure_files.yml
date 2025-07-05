@@ -1,0 +1,33 @@
+---
+- name: Configure portage files from templates
+  become: true
+  register: portage_files
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - src: make.conf.j2
+      dest: /etc/portage/make.conf
+    - src: package.license.j2
+      dest: /etc/portage/package.license
+    - src: package.use/sys.j2
+      dest: /etc/portage/package.use/sys
+    - src: package.use/cli.j2
+      dest: /etc/portage/package.use/cli
+    - src: package.use/gui.j2
+      dest: /etc/portage/package.use/gui
+    - src: package.accept_keywords/sys.j2
+      dest: /etc/portage/package.accept_keywords/sys
+    - src: package.accept_keywords/cli.j2
+      dest: /etc/portage/package.accept_keywords/cli
+    - src: package.accept_keywords/gui.j2
+      dest: /etc/portage/package.accept_keywords/gui
+    - src: package.unmask.j2
+      dest: /etc/portage/package.unmask
+  loop_control:
+    label: "{{ item.dest }}"
+  notify:
+    - sync portage tree

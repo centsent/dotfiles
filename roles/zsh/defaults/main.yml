@@ -1,5 +1,0 @@
----
-zsh_plugins:
-  - name: zsh-autosuggestions
-    repo: https://github.com/zsh-users/zsh-autosuggestions
-    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"

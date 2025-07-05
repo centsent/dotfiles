@@ -1,0 +1,5 @@
+- name: Symlink wofi to ~/.config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/wofi"
+    dest: "~/.config/wofi"
+    state: link

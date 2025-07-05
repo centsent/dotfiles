@@ -1,0 +1,5 @@
+- name: Symlink .ideavimrc to ~
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/.ideavimrc"
+    dest: "~/.ideavimrc"
+    state: link

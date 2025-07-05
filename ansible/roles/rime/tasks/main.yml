@@ -1,0 +1,16 @@
+---
+- name: Include OS-specific variables
+  ansible.builtin.include_vars: vars/main.yml
+
+- name: Deploy Rime configuration files
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/rime/"
+    dest: "{{ rime_destination_paths[ansible_system] }}"
+    force: true
+  when: ansible_system in ['Linux', 'Darwin']
+
+- name: Deploy Rime configuration files to Windows
+  ansible.windows.win_copy:
+    src: "{{ role_path }}/files/rime"
+    dest: "{{ rime_destination_paths[ansible_os_family] }}"
+  when: ansible_os_family == "Windows"

@@ -1,0 +1,6 @@
+---
+- name: Symlink swaync to ~/.config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/swaync"
+    dest: "~/.config/swaync"
+    state: link

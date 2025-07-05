@@ -1,0 +1,11 @@
+---
+- name: "Check if plugin is installed '{{ item.name }}'"
+  ansible.builtin.stat:
+    path: "{{ item.path }}"
+  register: plugin_stat
+
+- name: "Clone plugin '{{ item.name }}'"
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.path }}"
+  when: not plugin_stat.stat.exists

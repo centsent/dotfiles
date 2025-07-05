@@ -1,6 +1,0 @@
----
-- name: Update Gentoo System
-  hosts: gentoo
-  gather_facts: true
-  roles:
-    - role: update_gentoo

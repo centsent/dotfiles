@@ -1,0 +1,10 @@
+{
+  "custom/launcher": {
+    "format": "",
+    "on-click": "wlogout"
+  },
+  "custom/wallpaper": {
+    "format": " ",
+    "on-click": "~/.config/hypr/scripts/wallpaper.sh"
+  }
+}

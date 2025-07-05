@@ -1,0 +1,16 @@
+galaxy_info:
+  author: "centsent"
+  description: "A role to deploy my personal neovim configuration."
+  license: "MIT"
+  min_ansible_version: "2.9"
+  namespace: "centsent"
+  role_name: "neovim"
+  platforms:
+    - name: "Gentoo"
+      versions:
+        - all
+    - name: macOS
+      versions:
+        - all
+
+dependencies: []

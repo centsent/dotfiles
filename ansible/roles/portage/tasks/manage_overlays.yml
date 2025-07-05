@@ -1,0 +1,13 @@
+---
+- name: Ensure eselect-repository is installed
+  become: true
+  ansible.builtin.portage:
+    name: app-eselect/eselect-repository
+    state: present
+  run_once: true
+
+- name: Enable and sync overlays
+  ansible.builtin.include_tasks: manage_single_overlay.yml
+  loop: "{{ portage_overlays }}"
+  loop_control:
+    label: "{{ item.name }}"

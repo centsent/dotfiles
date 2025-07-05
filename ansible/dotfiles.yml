@@ -1,0 +1,6 @@
+---
+- name: Import macOS Playbook
+  import_playbook: macos.yml
+
+- name: Import Gentoo Playbook
+  import_playbook: gentoo.yml
