@@ -23,13 +23,10 @@
     state: directory
     mode: '0755'
 
-- name: Copy home.nix configuration
-  ansible.builtin.copy:
-    src: home.nix
-    dest: ~/.config/nixpkgs/home.nix
-    mode: '0644'
-
-- name: Apply home-manager configuration
-  ansible.builtin.command: home-manager switch
+- name: Apply the Home-Manager configuration using Flakes
+  ansible.builtin.command:
+    cmd: "home-manager switch --flake {{ playbook_dir }}/../nix/#{{ ansible_distribution | lower }}"
+  args:
+    chdir: "{{ ansible_env.HOME }}"
   register: home_manager_switch
-  changed_when: "'these changes will be activated' in home_manager_switch.stdout"
+  changed_when: "'activating' in home_manager_switch.stdout or 'building' in home_manager_switch.stdout"
