@@ -22,3 +22,7 @@ dependencies:
     tags: flatpak
   - role: desktop_launchers
     tags: desktop_launchers
+  - role: nix_installer
+    tags: nix_installer
+  - role: home_manager
+    tags: home_manager
