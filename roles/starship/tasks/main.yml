@@ -1,6 +1,6 @@
 ---
 - name: Symlink starship to ~/.config
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/roles/starship/files/starship.toml"
+    src: "{{ role_path }}/roles/starship/files/starship.toml"
     dest: "~/.config/starship.toml"
     state: link

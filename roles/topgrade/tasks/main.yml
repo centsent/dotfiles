@@ -1,5 +1,5 @@
 - name: Symlink topgrade.toml to ~/.config
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/roles/topgrade/files/topgrade.toml"
+    src: "{{ role_path }}/roles/topgrade/files/topgrade.toml"
     dest: "~/.config/topgrade.toml"
     state: link

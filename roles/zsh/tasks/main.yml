@@ -31,7 +31,7 @@
 
 - name: Symlink zsh dotfiles to home directory
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/roles/zsh/files/{{ item }}"
+    src: "{{ role_path }}/roles/zsh/files/{{ item }}"
     dest: "{{ ansible_env.HOME }}/{{ item }}"
     state: link
     force: true

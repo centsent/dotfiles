@@ -1,5 +1,5 @@
 - name: Symlink waybar to ~/.config
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/roles/waybar/files/waybar"
+    src: "{{ role_path }}/roles/waybar/files/waybar"
     dest: "~/.config/waybar"
     state: link

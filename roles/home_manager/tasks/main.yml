@@ -5,7 +5,7 @@
     creates: "{{ ansible_env.HOME }}/.nix-defexpr/channels/nixpkgs"
   register: add_nixpkgs
   changed_when: add_nixpkgs.rc == 0
-  
+
 - name: Add the home-manager channel
   ansible.builtin.command: nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
   args:
