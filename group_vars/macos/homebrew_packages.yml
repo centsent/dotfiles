@@ -20,7 +20,7 @@ homebrew_packages:
 
 homebrew_casks:
   - alacritty
-  - android-commandlinetools 
+  - android-commandlinetools
   - android-studio
   - android-platform-tools
   - beekeeper-studio
@@ -38,4 +38,3 @@ homebrew_casks:
   - shottr
   - squirrel
   - wormhole
-  - zed

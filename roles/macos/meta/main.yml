@@ -6,3 +6,5 @@ dependencies:
     tags: common
   - role: aerospace
     tags: aerospace
+  - role: nix_installer
+    tags: nix_installer

@@ -1,0 +1,19 @@
+---
+- name: Ensure Nix user exists
+  become: true
+  ansible.builtin.user:
+    name: "{{ nix_user }}"
+    state: present
+  register: nix_user_details
+
+- name: Set fact for Nix config directory path
+  ansible.builtin.set_fact:
+    nix_config_dir_path: "{{ lookup('env', 'XDG_CONFIG_HOME') | default(nix_user_details.home + '/.config', true) }}/nix"
+
+- name: Ensure Nix user config directory exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ nix_config_dir_path }}"
+    state: directory
+    owner: "{{ nix_user }}"
+    mode: "0755"
