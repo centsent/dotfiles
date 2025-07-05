@@ -6,6 +6,7 @@
 
   imports = [
     ../modules/core
+    ../modules/dev
   ];
 
   home.stateVersion = "24.05";

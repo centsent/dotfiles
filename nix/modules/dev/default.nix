@@ -1,0 +1,5 @@
+{ ... }: {
+  imports = [
+    ./langs.nix
+  ];
+}
