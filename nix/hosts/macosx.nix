@@ -4,8 +4,8 @@
   home.username = "theodo";
   home.homeDirectory = "/Users/theodo";
 
-  home.packages = with pkgs; [
-    git
+  imports = [
+    ../modules/core
   ];
 
   home.stateVersion = "24.05";

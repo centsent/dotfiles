@@ -9,17 +9,15 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, inputs, ... }: {
+  outputs = { self, nixpkgs, home-manager, ... }: {
     homeConfigurations = {
       "macosx" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-        extraSpecialArgs = { inherit inputs; };
+        pkgs = nixpkgs.legacyPackages.x86_64-darwin;
         modules = [ ./hosts/macosx.nix ];
       };
 
       "gentoo" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = { inherit inputs; };
         modules = [ ./hosts/gentoo.nix ];
       };
     };
