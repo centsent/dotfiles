@@ -4,6 +4,8 @@
   home.username = "theodo";
   home.homeDirectory = "/Users/theodo";
 
+  nixpkgs.config.allowUnfree = true;
+
   imports = [
     ../modules/core
     ../modules/dev

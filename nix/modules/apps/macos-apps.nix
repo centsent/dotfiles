@@ -1,10 +1,8 @@
 { pkgs, ... }:
 
 {
-  home.casks = with pkgs; [
-    flux-app
+  home.packages = with pkgs; [
     iina
-    orbstack
     pika
     raycast
     shottr
