@@ -9,7 +9,8 @@
     ../modules/dev
     ../modules/apps
     ../modules/apps/aerospace.nix
+    ../modules/apps/macos-apps.nix
   ];
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "25.05";
 }
