@@ -4,5 +4,3 @@ dependencies:
     tags: zsh
   - role: tmux
     tags: tmux
-  - role: idea
-    tags: idea

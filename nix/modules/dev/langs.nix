@@ -11,7 +11,7 @@
     ghc
     gnumake
     go
-    lua
+    luajit
     jdk
     nodejs
     pnpm
