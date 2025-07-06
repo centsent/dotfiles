@@ -1,5 +1,0 @@
-- name: Symlink .gitconfig to ~
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/.gitconfig"
-    dest: "~/.gitconfig"
-    state: link

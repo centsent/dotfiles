@@ -18,14 +18,9 @@ endif
 
 INVENTORY = $(ANSIBLE_DIR)/$(INVENTORY_FILE)
 
-.PHONY: deps
-deps:
-	@echo "==> Installing Ansible Galaxy role dependencies..."
-	ansible-galaxy install -r $(ANSIBLE_DIR)/requirements.yml
-
 .PHONY: install all
 all: install
-install: deps
+install:
 	@echo "==> Running main installation playbook..."
 	ansible-playbook -i $(INVENTORY) $(ANSIBLE_DIR)/dotfiles.yml --ask-become-pass
 

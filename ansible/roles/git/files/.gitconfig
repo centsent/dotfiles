@@ -1,9 +1,0 @@
-[core]
-  editor = nvim
-
-[init]
-  defaultBranch = main
-
-[user]
-  name = "centsent"
-  email = 2985258+centsent@users.noreply.github.com
