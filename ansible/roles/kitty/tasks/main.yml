@@ -1,6 +1,0 @@
----
-- name: Symlink kitty to ~/.config
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/kitty"
-    dest: "~/.config/kitty"
-    state: link

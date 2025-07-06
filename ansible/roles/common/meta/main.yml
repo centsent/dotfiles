@@ -2,15 +2,9 @@
 dependencies:
   - role: zsh
     tags: zsh
-  - role: asdf
-    tags: asdf
   - role: tmux
     tags: tmux
-  - role: alacritty
-    tags: alacritty
   - role: topgrade
     tags: topgrade
   - role: idea
     tags: idea
-  - role: kitty
-    tags: kitty
