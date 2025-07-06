@@ -2,10 +2,12 @@
 { pkgs, ... }:
 
 {
-  home.fonts.fontconfig.enable = true;
+  fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Hack" "FiraCode" "JetBrainsMono" ]; })
+    nerd-fonts.fira-code
+    nerd-fonts.hack
+    nerd-fonts.jetbrains-mono
 
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
