@@ -10,5 +10,5 @@ installation.yaml
 
 *.log
 
-roles/rime/
-roles/neovim/
+ansible/roles/rime/
+ansible/roles/neovim/
