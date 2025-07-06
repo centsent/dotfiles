@@ -5,5 +5,6 @@
     ./neovim.nix
     ./rime.nix
     ./starship.nix
+    ./topgrade.nix
   ];
 }

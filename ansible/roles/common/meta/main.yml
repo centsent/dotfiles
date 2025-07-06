@@ -4,7 +4,5 @@ dependencies:
     tags: zsh
   - role: tmux
     tags: tmux
-  - role: topgrade
-    tags: topgrade
   - role: idea
     tags: idea
