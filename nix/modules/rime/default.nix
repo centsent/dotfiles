@@ -1,14 +1,16 @@
 { pkgs, ... }:
 
 let
-  rimePath =
-    if pkgs.stdenv.isDarwin then "/Library/Rime"
-    else if pkgs.stdenv.isLinux then "/.local/share/fcitx5/rime"
+  rimeDestPath =
+    if pkgs.stdenv.isDarwin then "Library/Rime"
+    else if pkgs.stdenv.isLinux then ".local/share/fcitx5/rime"
     else null;
 in
 {
-  home.file.".config/rime" = {
-    source = ../../.config/rime;
-    recursive = true;
-  };
+  home.file = if rimeDestPath != null then {
+    "${rimeDestPath}" = {
+      source = ../../.config/rime;
+      recursive = true;
+    };
+  } else {};
 }
