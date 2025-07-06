@@ -17,4 +17,6 @@
     wakatime-cli
     zoxide
   ];
+
+  programs.zoxide.enableZshIntegration = true;
 }

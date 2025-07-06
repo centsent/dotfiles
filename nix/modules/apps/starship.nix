@@ -6,7 +6,5 @@
     source = ../../.config/starship.toml;
   };
 
-  # programs.zsh.initExtra = ''
-  #   eval "$(starship init zsh)"
-  # '';
+  programs.starship.enableZshIntegration = true;
 }
