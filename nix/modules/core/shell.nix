@@ -12,7 +12,7 @@
     jq
     lazygit
     ripgrep
-  - sops
+    sops
     tokei
     wakatime-cli
     zoxide
