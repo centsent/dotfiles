@@ -9,6 +9,3 @@ user.yaml
 installation.yaml
 
 *.log
-
-ansible/roles/rime/
-ansible/roles/neovim/
