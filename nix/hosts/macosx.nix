@@ -11,6 +11,7 @@
     ../modules/dev
     ../modules/apps
     ../modules/apps/macos-apps.nix
+    ../modules/rime
   ];
 
   home.stateVersion = "25.05";
