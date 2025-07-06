@@ -1,5 +1,5 @@
 { ... }: {
   imports = [
-    ./doom-emacs.nix
+    ./starship.nix
   ];
 }
