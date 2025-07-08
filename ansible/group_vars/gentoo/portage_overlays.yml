@@ -27,5 +27,4 @@ portage_overlays:
       - app-i18n/fcitx-qt
       - app-i18n/fcitx-gtk
       - app-i18n/fcitx-configtool
-      - dev-util/asdf-vm
       - net-misc/rustdesk
