@@ -1,6 +1,6 @@
 ---
 - name: Check if Nix is installed
-  ansible.builtin.command: command -v nix
+  ansible.builtin.shell: command -v nix
   register: nix_installed
   changed_when: false
   ignore_errors: true

@@ -1,32 +1,65 @@
 ---
-- name: Add nixpkgs channel if missing
-  ansible.builtin.command: nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+- name: Ensure correct ownership of .nix-defexpr
+  become: true
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.nix-defexpr"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    state: directory
+    recurse: true
+
+- name: Add the nixpkgs channel for the user
+  ansible.builtin.shell:
+    cmd: |
+      . {{ ansible_env.HOME }}/.nix-profile/etc/profile.d/nix.sh
+      nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+    executable: /bin/zsh
   args:
     creates: "{{ ansible_env.HOME }}/.nix-defexpr/channels/nixpkgs"
-  register: add_nixpkgs
-  changed_when: add_nixpkgs.rc == 0
 
 - name: Add the home-manager channel
-  ansible.builtin.command: nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+  ansible.builtin.shell:
+    cmd: |
+      . {{ ansible_env.HOME }}/.nix-profile/etc/profile.d/nix.sh
+      nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+    executable: /bin/zsh
   args:
-    creates: ~/.nix-defexpr/channels/home-manager
+    creates: "{{ ansible_env.HOME }}/.nix-defexpr/channels/home-manager"
 
 - name: Update Nix channels
-  ansible.builtin.command: nix-channel --update
+  ansible.builtin.shell:
+    cmd: ". {{ ansible_env.HOME }}/.nix-profile/etc/profile.d/nix.sh && nix-channel --update"
+    executable: /bin/zsh
+  changed_when: true
 
-- name: Ensure home-manager is installed
-  ansible.builtin.command: nix-shell '<home-manager>' -A install
+- name: Install Home Manager
+  ansible.builtin.shell:
+    cmd: |
+      nix-shell '<home-manager>' -A install
+    executable: /bin/zsh
+  args:
+    creates: "{{ ansible_env.HOME }}/.nix-profile/bin/home-manager"
 
-- name: Ensure nixpkgs config directory exists
+- name: Ensure user's Nix config directory exists
   ansible.builtin.file:
-    path: ~/.config/nixpkgs
+    path: "{{ ansible_env.HOME }}/.config/nix"
     state: directory
     mode: '0755'
 
+- name: Enable Flakes in the user's nix.conf
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_env.HOME }}/.config/nix/nix.conf"
+    create: true
+    mode: '0644'
+    block: |
+      experimental-features = nix-command flakes
+      accept-flake-config = true
+
 - name: Apply the Home-Manager configuration using Flakes
-  ansible.builtin.command:
-    cmd: "home-manager switch --flake {{ playbook_dir }}/../nix/#{{ ansible_distribution | lower }}"
-  args:
-    chdir: "{{ ansible_env.HOME }}"
+  ansible.builtin.shell:
+    cmd: |
+      . {{ ansible_env.HOME }}/.nix-profile/etc/profile.d/nix.sh
+      home-manager switch --flake {{ playbook_dir }}/../nix/#{{ ansible_distribution | lower }}
+    executable: /bin/zsh
   register: home_manager_switch
   changed_when: "'activating' in home_manager_switch.stdout or 'building' in home_manager_switch.stdout"
