@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
-  home.username = "theodo";
-  home.homeDirectory = "/Users/theodo";
+  home.username = username;
+  home.homeDirectory = "/Users/${username}";
 
   nixpkgs.config.allowUnfree = true;
 

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, flake, ... }:
 
 let
   doom-src = pkgs.fetchFromGitHub {
@@ -14,7 +14,7 @@ in
   };
 
   home.file.".doom.d" = {
-    source = ../../.config/doom.d;
+    source = "${flake}/.config/doom.d";
     recursive = true;
   };
 

@@ -1,17 +1,17 @@
-{ pkgs, ... }:
+{ pkgs, flake, username, ... }:
 
 {
-  home.username = "gentty";
-  home.homeDirectory = "/home/gentty";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   nixpkgs.config.allowUnfree = true;
 
   imports = [
-    ../modules/core
-    ../modules/dev
-    ../modules/apps
-    ../modules/rime
-    ../modules/apps/linux-apps.nix
+    "${flake}/modules/core"
+    "${flake}/modules/dev"
+    "${flake}/modules/apps"
+    "${flake}/modules/rime"
+    "${flake}/modules/apps/linux-apps.nix"
   ];
 
   home.stateVersion = "25.05";

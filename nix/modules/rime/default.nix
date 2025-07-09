@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, flake, ... }:
 
 let
   rimeDestPath =
@@ -9,7 +9,7 @@ in
 {
   home.file = if rimeDestPath != null then {
     "${rimeDestPath}" = {
-      source = ../../.config/rime;
+      source = "${flake}/.config/rime";
       recursive = true;
     };
   } else {};

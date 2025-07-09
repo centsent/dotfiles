@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, flake, ... }:
 {
   home.file.".ideavimrc" = {
-    source = ../../.ideavimrc;
+    source = "${flake}/.ideavimrc";
   };
 }
