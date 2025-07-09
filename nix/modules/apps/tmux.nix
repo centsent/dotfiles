@@ -5,14 +5,19 @@ let
     owner = "gpakosz";
     repo = ".tmux";
     rev = "master";
-    hash = "sha256-2KFT9v/PGb2K8Vd2eL=";
+    hash = "sha256-4Mvq3bJMnnUBclj7Ld6mPRsgzqdm9gubFMKTXcDIvu0=";
   };
 in
 {
   home.packages = [ pkgs.tmux ];
 
-  home.file.".tmux" = {
-    source = tmux-src;
-    recursive = true;
+  home.file = {
+    ".config/tmux/tmux.conf" = {
+      source = "${tmux-src}/.tmux.conf";
+    };
+
+    ".config/tmux/tmux.conf.local" = {
+      source = "${flake}/.config/.tmux.conf.local";
+    };
   };
 }

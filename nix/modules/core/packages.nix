@@ -16,5 +16,6 @@
     sops
     tokei
     wakatime-cli
+    xcp
   ];
 }
