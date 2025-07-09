@@ -6,8 +6,6 @@ dependencies:
     tags: portage
   - role: common
     tags: common
-  - role: hypr
-    tags: hypr
   - role: swaync
     tags: swaync
   - role: waybar
