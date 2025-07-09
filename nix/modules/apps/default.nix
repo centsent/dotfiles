@@ -7,6 +7,7 @@
     ./neovim.nix
     ./starship.nix
     ./topgrade.nix
+    ./tmux.nix
   ];
 
   home.packages = with pkgs; [];
