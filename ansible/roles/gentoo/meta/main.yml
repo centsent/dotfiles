@@ -6,8 +6,6 @@ dependencies:
     tags: portage
   - role: swaync
     tags: swaync
-  - role: waybar
-    tags: waybar
   - role: wofi
     tags: wofi
   - role: greetd
