@@ -10,8 +10,6 @@ dependencies:
     tags: waybar
   - role: wofi
     tags: wofi
-  - role: wlogout
-    tags: wlogout
   - role: greetd
     tags: greetd
   - role: flatpak
