@@ -40,4 +40,5 @@ portage_packages:
   - virtual/opengl
   - www-client/firefox
   - x11-drivers/nvidia-drivers
+  - x11-terms/alacritty
   - x11-themes/papirus-icon-theme
