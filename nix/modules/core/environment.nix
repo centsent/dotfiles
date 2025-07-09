@@ -1,13 +1,17 @@
 { pkgs, ... }:
 
+let
+  # Dynamically set ANDROID_HOME based on the OS
+  androidHome = if pkgs.stdenv.isDarwin 
+               then "$HOME/Library/Android/Sdk"
+               else "$HOME/Android/Sdk";
+in
 {
   # --- Environment Variables ---
   home.sessionVariables = {
     BUN_INSTALL = "$HOME/.bun";
     GOPATH = "$HOME/go";
-
-    # Dynamically set ANDROID_HOME based on the OS
-    ANDROID_HOME = if pkgs.stdenv.isDarwin then "$HOME/Library/Android/Sdk" else "$HOME/Android/Sdk";
+    ANDROID_HOME = androidHome;
   };
 
   # --- PATH Modifications ---
@@ -15,9 +19,9 @@
     "$HOME/.bun/bin"
     "$HOME/go/bin"
     "$HOME/.pub-cache/bin"
-    "$ANDROID_HOME/platform-tools"
-    "$ANDROID_HOME/tools"
-    "$ANDROID_HOME/tools/bin"
-    "$ANDROID_HOME/emulator"
+    "${androidHome}/platform-tools"
+    "${androidHome}/tools"
+    "${androidHome}/tools/bin"
+    "${androidHome}/emulator"
   ];
 }
