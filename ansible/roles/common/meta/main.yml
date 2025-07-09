@@ -1,6 +1,4 @@
 ---
 dependencies:
-  - role: zsh
-    tags: zsh
   - role: tmux
     tags: tmux

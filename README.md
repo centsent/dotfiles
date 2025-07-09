@@ -4,9 +4,9 @@ This repository contains my personal `dotfiles` and workstation setup, managed e
 
 This project goes beyond simple `dotfile` symlinking and handles full system provisioning, including:
 
-- System package installation (via `Homebrew`, `Portage`, `Pacman`).
+- System package installation (via `Homebrew`, `Portage`, `Pacman`, `Nix`).
 - Application configuration.
-- Development environment setup (via `asdf`).
+- Development environment setup (via `Nix`).
 - System updates and maintenance tasks.
 
 ## Features
@@ -18,7 +18,7 @@ This Ansible setup manages the configuration for the following platforms and app
 - **Terminal**: Alacritty, Kitty.
 - **Window Managers**: Hyprland (Linux), AeroSpace (macOS).
 - **Editors**: Neovim (with a custom LazyVim setup), VS Code, IntelliJ IDEA.
-- **Tools**: Git, Tmux, asdf, Topgrade, Flatpak.
+- **Tools**: Git, Tmux, Nix, Topgrade, Flatpak.
 - **Input Methods**: Rime (managed as an external role).
 
 ## Prerequisites

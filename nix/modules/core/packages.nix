@@ -12,6 +12,7 @@
     jq
     lazygit
     ripgrep
+    rm-improved
     sops
     tokei
     wakatime-cli

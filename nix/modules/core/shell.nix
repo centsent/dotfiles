@@ -3,14 +3,21 @@
 {
   imports = [
     ./zsh-aliases.nix
-    ./zsh-init.nix
-    ./packages.nix
-    ./environment.nix
   ];
 
-   # --- Zsh Program Configuration ---
+  # --- Zsh Program Configuration ---
   programs.zsh = {
     enable = true;
+    autosuggestion = {
+      enable = true;
+      strategy = [
+        "history" 
+        "completion" 
+        "match_prev_cmd"
+      ];
+      highlight = "fg=#7dcfff,bg=#1a1b26,underline";
+    };
+    syntaxHighlighting.enable = true;
 
     # --- Oh My Zsh Configuration ---
     oh-my-zsh = {
@@ -22,6 +29,10 @@
         "tmux"
       ];
     };
+
+    initContent = ''
+      if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
+    '';
   };
 
   programs.zoxide = {
