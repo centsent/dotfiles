@@ -5,6 +5,7 @@
     ./kitty.nix
     ./neovim.nix
     ./starship.nix
+    ./topgrade.nix
   ];
 
   home.packages = with pkgs; [

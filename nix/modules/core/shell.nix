@@ -55,8 +55,4 @@ in
     enable = true;
     enableZshIntegration = true;
   };
-
-  home.file.".config/topgrade.toml" = {
-    source = "${flake}/.config/topgrade.toml";
-  };
 }
