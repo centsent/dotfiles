@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Android Studio
-Type=Application
-Comment=Android development environment based on IntelliJ IDEA
-Exec=sh -c 'export _JAVA_AWT_WM_NONREPARENTING=1; export ANDROID_HOME="$HOME/Android/Sdk"; export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$PATH"; exec android-studio'
-TryExec=android-studio
-Icon=android-studio
-Categories=Development;IDE;
-StartupWMClass=jetbrains-studio

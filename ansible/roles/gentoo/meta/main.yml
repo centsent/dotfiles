@@ -8,8 +8,6 @@ dependencies:
     tags: greetd
   - role: flatpak
     tags: flatpak
-  - role: desktop_launchers
-    tags: desktop_launchers
   - role: nix_installer
     tags: nix_installer
   - role: home_manager
