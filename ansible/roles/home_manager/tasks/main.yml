@@ -40,21 +40,6 @@
   args:
     creates: "{{ ansible_env.HOME }}/.nix-profile/bin/home-manager"
 
-- name: Ensure user's Nix config directory exists
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/nix"
-    state: directory
-    mode: '0755'
-
-- name: Enable Flakes in the user's nix.conf
-  ansible.builtin.blockinfile:
-    path: "{{ ansible_env.HOME }}/.config/nix/nix.conf"
-    create: true
-    mode: '0644'
-    block: |
-      experimental-features = nix-command flakes
-      accept-flake-config = true
-
 - name: Apply the Home-Manager configuration using Flakes
   ansible.builtin.shell:
     cmd: |
