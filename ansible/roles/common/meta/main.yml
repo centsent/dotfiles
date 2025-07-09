@@ -1,4 +1,0 @@
----
-dependencies:
-  - role: tmux
-    tags: tmux

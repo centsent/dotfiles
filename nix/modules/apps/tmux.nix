@@ -1,4 +1,4 @@
-{ pkgs, flake, lib, ... }:
+{ pkgs, flake, ... }:
 
 let
   tmux-src = pkgs.fetchFromGitHub {
@@ -19,5 +19,14 @@ in
     ".config/tmux/tmux.conf.local" = {
       source = "${flake}/.config/.tmux.conf.local";
     };
+  };
+
+  programs.tmux = {
+    plugins = with pkgs.tmuxPlugins; [
+      resurrect
+      continuum
+      fzf
+      tpm
+    ];
   };
 }
