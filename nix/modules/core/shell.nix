@@ -1,4 +1,4 @@
-{ pkgs, flake, ... }:
+{ pkgs, ... }:
 
 let
   # Dynamically set ANDROID_HOME based on the OS

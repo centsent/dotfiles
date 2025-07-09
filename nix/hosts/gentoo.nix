@@ -1,4 +1,4 @@
-{ pkgs, flake, username, ... }:
+{ flake, username, ... }:
 
 {
   home.username = username;

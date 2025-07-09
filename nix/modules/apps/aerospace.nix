@@ -1,4 +1,5 @@
 { pkgs, flake, ... }:
+
 {
   home.packages = [ pkgs.aerospace ];
 

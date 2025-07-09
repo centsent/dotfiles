@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./alacritty.nix
+    ./doom-emacs.nix
     ./ideavimrc.nix
     ./kitty.nix
     ./neovim.nix
@@ -8,7 +9,5 @@
     ./topgrade.nix
   ];
 
-  home.packages = with pkgs; [
-    wechat
-  ];
+  home.packages = with pkgs; [];
 }

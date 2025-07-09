@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   programs.zsh.shellAliases = {
@@ -12,7 +12,6 @@
     ps = "procs";
     pn = "pnpm";
 
-    seup = "sudo emerge --ask --verbose --update --deep --newuse @world";
     se = "sudo emerge --ask --verbose";
   };
 }
