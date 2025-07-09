@@ -4,8 +4,6 @@ dependencies:
     tags: grub
   - role: portage
     tags: portage
-  - role: swaync
-    tags: swaync
   - role: greetd
     tags: greetd
   - role: flatpak
