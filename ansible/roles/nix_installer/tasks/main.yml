@@ -8,3 +8,12 @@
 - name: Configure Nix Flakes
   ansible.builtin.include_tasks: setup-flakes.yml
   when: nix_flakes | default(false)
+
+- name: Apply the Home-Manager configuration using Flakes
+  ansible.builtin.shell:
+    cmd: |
+      . {{ ansible_env.HOME }}/.nix-profile/etc/profile.d/nix.sh
+      nix run home-manager switch --flake {{ playbook_dir }}/../nix/#{{ ansible_distribution | lower }}
+    executable: /bin/zsh
+  register: home_manager_switch
+  changed_when: "'activating' in home_manager_switch.stdout or 'building' in home_manager_switch.stdout"

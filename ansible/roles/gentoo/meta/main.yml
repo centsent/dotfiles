@@ -8,5 +8,3 @@ dependencies:
     tags: greetd
   - role: nix_installer
     tags: nix_installer
-  - role: home_manager
-    tags: home_manager
