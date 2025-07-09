@@ -11,6 +11,7 @@
     ../modules/dev
     ../modules/apps
     ../modules/rime
+    ../modules/apps/linux-apps.nix
   ];
 
   home.stateVersion = "25.05";
