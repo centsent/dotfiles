@@ -1,5 +1,0 @@
-{ ... }:
-
-{
-  home.profile.enable = true;
-}
