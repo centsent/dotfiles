@@ -6,8 +6,6 @@ dependencies:
     tags: portage
   - role: greetd
     tags: greetd
-  - role: flatpak
-    tags: flatpak
   - role: nix_installer
     tags: nix_installer
   - role: home_manager

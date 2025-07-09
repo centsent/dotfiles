@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   flatpakApps = [
@@ -17,9 +17,7 @@ in
   home.packages = [ pkgs.flatpak ];
 
   home.activation = {
-    installFlatpakApps = pkgs.lib.hm.dag.entryAfter ["writeBoundary"] ''
-      # The 'pkgs.lib.escapeShellArg' is used for security and correctness.
-      # This command will install all apps from the list above.
+    installFlatpakApps = lib.hm.dag.entryAfter ["writeBoundary"] ''
       ${pkgs.flatpak}/bin/flatpak install --user --noninteractive -y \
         ${builtins.concatStringsSep " " (map (x: pkgs.lib.escapeShellArg x) flatpakApps)}
     '';
