@@ -6,8 +6,6 @@ dependencies:
     tags: portage
   - role: swaync
     tags: swaync
-  - role: wofi
-    tags: wofi
   - role: greetd
     tags: greetd
   - role: flatpak
