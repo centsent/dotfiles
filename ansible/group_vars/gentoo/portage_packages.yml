@@ -5,6 +5,7 @@ portage_packages:
   - app-emulation/spice
   - app-emulation/virt-manager
   - app-emulation/virt-viewer
+  - app-misc/tmux
   - app-portage/gentoolkit
   - app-shells/zsh
   - dev-qt/qtwayland
