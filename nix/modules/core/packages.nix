@@ -8,6 +8,7 @@
     eza
     fd
     fzf
+    gdu
     glow
     jq
     lazygit
