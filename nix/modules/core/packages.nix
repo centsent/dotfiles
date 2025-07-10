@@ -13,9 +13,11 @@
     lazygit
     ripgrep
     rm-improved
+    procs
     sops
     tokei
     wakatime-cli
     xcp
+    yazi
   ];
 }

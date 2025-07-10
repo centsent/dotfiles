@@ -1,16 +1,9 @@
 ---
 homebrew_packages:
-  - age
-  - felixkratz/formulae/sketchybar
-  - glow
-  - lazygit
-  - sops
-  - topgrade
-  - wakatime-cli
-  - yt-dlp
   - zsh
 
 homebrew_casks:
+  - alacritty
   - android-commandlinetools
   - android-studio
   - android-platform-tools

@@ -33,10 +33,6 @@ macos:
 gentoo:
 	ansible-playbook -i $(INVENTORY) $(ANSIBLE_DIR)/gentoo.yml
 
-.PHONY: update
-update:
-	ansible-playbook -i $(INVENTORY) $(ANSIBLE_DIR)/update.yml
-
 .PHONY: archlinux
 archlinux:
 	ansible-playbook -i $(INVENTORY) $(ANSIBLE_DIR)/archlinux.yml

@@ -1,9 +1,12 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    swww
+  ];
+
   imports = [
     ./desktop-entries.nix
-    ./flatpak.nix
     ./hyprland.nix
     ./swaync.nix
     ./waybar.nix

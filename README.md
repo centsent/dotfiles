@@ -40,10 +40,10 @@ The `Makefile` provides a simple, intelligent interface for setting up a machine
    cd dotfiles
    ```
 
-2. **Install Ansible dependencies:**
+2. **Run the playbooks:**
 
    ```bash
-   ansible-galaxy install -r requirements.yml
+   make gentoo # Or make macos
    ```
 
 ### Specific Targets
@@ -67,21 +67,16 @@ The Makefile also provides targets for managing specific parts of the configurat
   The Makefile is configured to pass any target name as a tag to Ansible. This allows for granular control.
 
   ```bash
-  # Only run the tmux configuration tasks
-  make tmux
+  # Only run the grub configuration tasks
+  make grub
 
-  # Only run the neovim configuration tasks
-  make neovim
-  ```
-
-- **Run system updates (only for Gentoo currently):**
-  A dedicated playbook exists for running system updates.
-
-  ```bash
-  make update
+  # Only run the greetd configuration tasks
+  make greetd
   ```
 
 ## Project Structure Overview
+
+### Ansible
 
 The project follows Ansible best practices to ensure modularity and separation of concerns.
 
@@ -90,9 +85,8 @@ The project follows Ansible best practices to ensure modularity and separation o
 - `requirements.yml`: Defines external Ansible role dependencies that are managed via `ansible-galaxy`.
 - `group_vars/`: Contains variables that apply to specific groups defined in the inventory files (e.g., `group_vars/macos` holds the list of Homebrew packages).
 - `roles/`: Contains all the Ansible roles.
-  - `common`: A meta-role containing tasks and configurations common to all systems.
   - `macos`/`gentoo`/`archlinux`: Meta-roles that define the dependencies for each specific OS.
-  - Application-specific roles (`neovim`, `tmux`, `zsh`, etc.): Self-contained roles for managing a single application.
+  - Application-specific roles (`greetd`, `grub`, etc.): Self-contained roles for managing a single application.
 - `.github/workflows/`: Contains CI pipeline configurations using GitHub Actions to automatically lint and test the Ansible code.
 
 ## License

@@ -5,9 +5,6 @@ portage_packages:
   - app-emulation/spice
   - app-emulation/virt-manager
   - app-emulation/virt-viewer
-  - app-misc/tmux
-  - app-misc/yazi
-  - app-office/libreoffice
   - app-portage/gentoolkit
   - app-shells/zsh
   - dev-qt/qtwayland
@@ -15,7 +12,6 @@ portage_packages:
   - dev-util/android-studio
   - dev-util/android-sdk-cmdline-tools
   - gui-apps/tuigreet
-  - gui-apps/waybar
   - gui-libs/greetd
   - media-fonts/font-isas-misc
   - media-fonts/arphicfonts
@@ -34,11 +30,10 @@ portage_packages:
   - net-vpn/tailscale
   - net-wireless/blueman
   - net-wireless/wpa_supplicant
-  - sys-apps/flatpak
   - sys-fs/fuse
-  - sys-process/procs
   - virtual/opengl
   - www-client/firefox
   - x11-drivers/nvidia-drivers
   - x11-terms/alacritty
+  - x11-terms/kitty
   - x11-themes/papirus-icon-theme

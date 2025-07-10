@@ -1,11 +1,8 @@
-{ pkgs, ... }:
-{
-  home.packages = [ pkgs.kitty ];
+{ flake, ... }:
 
-  programs.kitty = {
-    enable = true;
-    settings = {
-      background_opacity = "0.85"; # Note: Kitty expects this as a string
-    };
+{
+  home.file.".config/kitty" = {
+    source = "${flake}/.config/kitty";
+    recursive = true;
   };
 }
