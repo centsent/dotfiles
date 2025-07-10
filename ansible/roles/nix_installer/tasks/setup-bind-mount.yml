@@ -1,0 +1,35 @@
+---
+- name: Prepare Nix store on the home partition
+  become: true
+  block:
+    - name: "Create the real storage directory on /home"
+      ansible.builtin.file:
+        path: "{{ nix_bind_mount }}"
+        state: directory
+        owner: root
+        group: wheel
+        mode: '0755'
+
+    - name: "Ensure /nix mount point exists"
+      ansible.builtin.file:
+        path: "/nix"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: "Set up the bind mount in /etc/fstab"
+      ansible.posix.mount:
+        path: "/nix"
+        src: "{{ nix_bind_mount }}"
+        fstype: none
+        opts: bind
+        state: present
+
+    - name: "Ensure /nix is correctly bind mounted"
+      ansible.posix.mount:
+        path: "/nix"
+        src: "{{ nix_bind_mount }}"
+        fstype: none
+        opts: bind
+        state: mounted

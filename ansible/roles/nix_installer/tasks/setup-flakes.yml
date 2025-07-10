@@ -8,7 +8,6 @@
     owner: "{{ nix_user }}"
     mode: "0644"
     create: true
-  notify: Restart Nix Daemon
 
 - name: Ensure nix-env is available for the user
   become: true

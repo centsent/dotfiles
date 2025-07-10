@@ -1,19 +1,18 @@
 ---
 - name: Set up user and initial directories
   ansible.builtin.include_tasks: setup-user.yml
+  tags:
+    - nix_user
+    - nix_configure
 
 - name: Install the Nix package manager
   ansible.builtin.include_tasks: install-nix.yml
+  tags:
+    - nix_install
 
 - name: Configure Nix Flakes
   ansible.builtin.include_tasks: setup-flakes.yml
   when: nix_flakes | default(false)
-
-- name: Apply the Home-Manager configuration using Flakes
-  ansible.builtin.shell:
-    cmd: |
-      . {{ ansible_env.HOME }}/.nix-profile/etc/profile.d/nix.sh
-      nix run home-manager switch --flake {{ playbook_dir }}/../nix/#{{ ansible_distribution | lower }}
-    executable: /bin/zsh
-  register: home_manager_switch
-  changed_when: "'activating' in home_manager_switch.stdout or 'building' in home_manager_switch.stdout"
+  tags:
+    - nix_flakes
+    - nix_configure

@@ -1,6 +1,6 @@
 ---
 - name: Check if Nix is installed
-  ansible.builtin.shell: command -v nix
+  ansible.builtin.command: which nix
   register: nix_installed
   changed_when: false
   ignore_errors: true
@@ -12,15 +12,6 @@
 - name: Install Nix
   when: should_install_nix
   block:
-    - name: "Ensure /nix directory is owned by the user"
-      become: true
-      ansible.builtin.file:
-        path: /nix
-        state: directory
-        owner: "{{ nix_user }}"
-        group: "{{ nix_user }}"
-        recurse: true
-        
     - name: Download installer script
       ansible.builtin.get_url:
         url: "https://nixos.org/nix/install"
@@ -29,6 +20,5 @@
 
     - name: Run installer script
       become: true
-      become_user: "{{ nix_user }}"
       ansible.builtin.command: "{{ nix_script_dir }}/install_nix.sh"
       changed_when: true
