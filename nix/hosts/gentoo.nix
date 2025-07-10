@@ -12,6 +12,7 @@
     "${flake}/modules/apps"
     "${flake}/modules/rime"
     "${flake}/modules/apps/linux-apps.nix"
+    "${flake}/modules/apps/nixgl.nix"
   ];
 
   home.stateVersion = "25.05";
