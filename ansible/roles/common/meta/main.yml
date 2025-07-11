@@ -1,4 +1,6 @@
 ---
 dependencies:
+  - role: doom-emacs
+    tags: doom-emacs
   - role: neovim
     tags: neovim

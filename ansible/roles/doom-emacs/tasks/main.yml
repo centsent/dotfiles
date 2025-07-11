@@ -1,0 +1,14 @@
+---
+- name: Clone Doom Emacs with depth 1
+  ansible.builtin.git:
+    repo: https://github.com/doomemacs/doomemacs
+    dest: "{{ ansible_env.HOME }}/.config/emacs"
+    depth: 1
+    update: false
+
+- name: Symlink Doom Emacs configuration directories
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/../nix/.config/doom"
+    dest: "{{ ansible_env.HOME }}/.config/doom"
+    state: link
+    force: true
