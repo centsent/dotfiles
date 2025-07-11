@@ -16,9 +16,6 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v4
 
-      - name: Install Ansible Galaxy role dependencies
-        run: ansible-galaxy install -r requirements.yml
-
       - name: Install required Ansible Collections
         run: |
           ansible-galaxy collection install community.general
@@ -30,6 +27,5 @@ jobs:
       - name: Syntax-check all main playbooks
         run: |
           echo "localhost ansible_connection=local" > inventory_for_test
-          ansible-playbook -i inventory_for_test ./macos.yml --syntax-check
-          ansible-playbook -i inventory_for_test ./gentoo.yml --syntax-check
-          ansible-playbook -i inventory_for_test ./update.yml --syntax-check
+          ansible-playbook -i inventory_for_test ./ansible/macos.yml --syntax-check
+          ansible-playbook -i inventory_for_test ./ansible/gentoo.yml --syntax-check
