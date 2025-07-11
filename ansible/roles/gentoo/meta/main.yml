@@ -8,3 +8,5 @@ dependencies:
     tags: greetd
   - role: nix_installer
     tags: nix_installer
+  - role: common
+    tags: common

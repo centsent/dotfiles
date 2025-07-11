@@ -1,0 +1,7 @@
+---
+- name: Symlink Neovim config from the repository
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/../nix/.config/nvim"
+    dest: "{{ ansible_env.HOME }}/.config/nvim"
+    state: link
+    force: true
