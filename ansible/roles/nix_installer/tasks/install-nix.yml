@@ -19,6 +19,5 @@
         mode: "0755"
 
     - name: Run installer script
-      become: true
       ansible.builtin.command: "{{ nix_script_dir }}/install_nix.sh"
       changed_when: true
