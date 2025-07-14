@@ -4,6 +4,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 	},
+	config = true,
 	keys = {
 		{ "<leader>rd", "<cmd>FlutterDevices<cr>", desc = "Brings up a list of connected devices to select from" },
 		{
