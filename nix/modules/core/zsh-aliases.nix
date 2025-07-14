@@ -6,6 +6,7 @@
     ls = "eza --grid --color --icons --all";
     ll = "eza -l";
     tree = "eza --tree --git-ignore";
+
     rm = "rip";
     cp = "xcp";
     tg = "topgrade";
@@ -13,7 +14,7 @@
     ps = "procs";
     pn = "pnpm";
 
-    gemini = "bunx @google/gemini";
+    gemini = "bunx @google/gemini-cli";
 
     se = "sudo emerge --ask --verbose";
   };
