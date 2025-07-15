@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-ansible:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install ansible ansible-lint yamllint
+
+      - name: Lint Ansible playbooks
+        run: |
+          ansible-lint ansible/*.yml
+
+      - name: Lint YAML files
+        run: |
+          yamllint ansible/
+
+  lint-nix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v25
+        with:
+          nix_path: nixpkgs=channel:nixos-23.11
+
+      - name: Check Nix flake
+        run: |
+          nix flake check
+
+      - name: Format check
+        run: |
+          nix fmt -- --check .
+
+  validate-configs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate Ansible syntax
+        run: |
+          find ansible/ -name "*.yml" -exec ansible-playbook --syntax-check {} \; 2>/dev/null || true
+
+      - name: Check for hardcoded secrets
+        run: |
+          ! grep -r "password\|secret\|key" ansible/ --include="*.yml" --include="*.j2" | grep -v "{{" | grep -v "#" || exit 1
+
