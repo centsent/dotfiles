@@ -15,6 +15,7 @@
     pn = "pnpm";
 
     gemini = "bunx @google/gemini-cli";
+    claude = "bunx @anthropic-ai/claude-code";
 
     se = "sudo emerge --ask --verbose";
   };

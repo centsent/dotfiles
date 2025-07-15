@@ -19,7 +19,6 @@ in {
     "$HOME/.bun/bin"
     "$HOME/go/bin"
     "$HOME/.pub-cache/bin"
-    "$HOME/.config/emacs/bin"
     "${androidHome}/platform-tools"
     "${androidHome}/tools"
     "${androidHome}/tools/bin"
