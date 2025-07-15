@@ -82,7 +82,6 @@ The project follows Ansible best practices to ensure modularity and separation o
 
 - `*.yml`: Top-level playbooks (`dotfiles.yml`, `macos.yml`, `gentoo.yml`, etc.) that define the high-level execution flow.
 - `hosts_*`: Separate inventory files for each environment (`hosts_macos`, `hosts_gentoo`, `hosts_archlinux`). The Makefile automatically selects the correct one.
-- `requirements.yml`: Defines external Ansible role dependencies that are managed via `ansible-galaxy`.
 - `group_vars/`: Contains variables that apply to specific groups defined in the inventory files (e.g., `group_vars/macos` holds the list of Homebrew packages).
 - `roles/`: Contains all the Ansible roles.
   - `macos`/`gentoo`/`archlinux`: Meta-roles that define the dependencies for each specific OS.
