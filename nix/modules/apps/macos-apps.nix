@@ -6,6 +6,7 @@
   ];
 
   home.packages = with pkgs; [
+    cocoapods
     iina
     pika
     raycast
