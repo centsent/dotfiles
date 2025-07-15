@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.packages = [ pkgs.emacs-pgtk ];
@@ -17,12 +17,21 @@
       '';
     };
 
+  home.sessionPath = [ "$HOME/.config/emacs/bin" ];
+
   home.activation = {
     installAndSync = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       if [ -x "$HOME/.config/emacs/bin/doom" ]; then
-        echo "Running 'doom install'..."
         export PATH=${pkgs.emacs-pgtk}/bin:${pkgs.git}/bin:$PATH
-        $HOME/.config/emacs/bin/doom install
+        DOOM_EXEC="${config.home.homeDirectory}/.config/emacs/bin/doom"
+
+        if [ -x "$DOOM_EXEC" ]; then
+          echo "Running 'doom sync' to ensure environment is up-to-date..."
+          $DOOM_EXEC sync
+        else
+          echo "Running 'doom install'..."
+          $DOOM_EXEC install
+        fi
       fi
     '';
   };
