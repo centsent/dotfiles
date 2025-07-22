@@ -10,6 +10,7 @@
     fzf
     gdu
     glow
+    gzip
     jq
     lazygit
     ripgrep
