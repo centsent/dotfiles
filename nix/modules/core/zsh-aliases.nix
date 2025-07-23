@@ -14,8 +14,10 @@
     ps = "procs";
     pn = "pnpm";
 
-    gemini = "bunx @google/gemini-cli";
     claude = "bunx @anthropic-ai/claude-code";
+    degit = "bunx degit";
+    gemini = "bunx @google/gemini-cli";
+    qwen = "bunx @qwen-code/qwen-code";
 
     se = "sudo emerge --ask --verbose";
   };
