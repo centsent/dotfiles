@@ -6,7 +6,6 @@
     air
     bat
     btop
-    debugpy
     eza
     fd
     fzf
