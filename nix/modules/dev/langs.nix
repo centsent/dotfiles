@@ -5,7 +5,6 @@
     bun
     cabal-install
     dotnet-sdk
-    flutter
     gcc
     gdb
     ghc
