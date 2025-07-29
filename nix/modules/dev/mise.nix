@@ -1,4 +1,4 @@
-{ nixpkgs-unstable, ... }:
+{ nixpkgs-unstable, flake, ... }:
 
 {
   programs.mise = {
@@ -7,4 +7,6 @@
 
     package = nixpkgs-unstable.mise;
   };
+
+  home.file.".config/mise" = { source = "${flake}/.config/mise"; };
 }
