@@ -6,7 +6,5 @@
   programs.mise = {
     enable = true;
     enableZshIntegration = true;
-
-    packages = { flutter = "latest"; };
   };
 }

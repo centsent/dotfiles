@@ -9,3 +9,5 @@ user.yaml
 installation.yaml
 
 *.log
+
+.env
