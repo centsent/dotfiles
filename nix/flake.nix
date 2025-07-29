@@ -26,7 +26,7 @@
         extraSpecialArgs = {
           flake = self;
           username = "gentty";
-          nixpkgs-unstable = nixpkgs-unstable.legacyPackages.aarch64-darwin;
+          nixpkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
         };
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [ ./hosts/gentoo.nix ];
