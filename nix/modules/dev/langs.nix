@@ -1,21 +1,5 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    bun
-    cabal-install
-    dotnet-sdk
-    gcc
-    gdb
-    ghc
-    gnumake
-    go
-    luajit
-    jdk
-    nodejs
-    pnpm
-    python3
-    ruby
-    rustup
-  ];
+  home.packages = with pkgs; [ cabal-install gcc gdb ghc gnumake luajit ];
 }
