@@ -1,11 +1,10 @@
 [tools]
 bun = "latest"
-dotnet = "lts"
+dotnet = "latest"
 flutter = "latest"
 go = "latest"
 java = "21"
 nodejs = "lts"
 pnpm = "latest"
 python = "latest"
-ruby = "latest"
 rust = "stable"
