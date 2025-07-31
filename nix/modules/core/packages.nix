@@ -16,6 +16,7 @@
     gzip
     jq
     lazygit
+    neovim
     ripgrep
     rm-improved
     procs

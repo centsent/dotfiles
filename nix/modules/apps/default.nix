@@ -9,6 +9,4 @@
     ./tmux.nix
     ./yazi.nix
   ];
-
-  home.packages = with pkgs; [ neovim ];
 }
