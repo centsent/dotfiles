@@ -34,6 +34,7 @@ portage_packages:
   - sys-fs/fuse
   - virtual/opengl
   - www-client/firefox
+  - x11-apps/mesa-progs
   - x11-drivers/nvidia-drivers
   - x11-terms/alacritty
   - x11-terms/kitty
