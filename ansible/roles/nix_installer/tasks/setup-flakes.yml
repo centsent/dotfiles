@@ -2,18 +2,20 @@
 - name: Ensure Nix Flakes features are enabled in nix.conf
   become: true
   ansible.builtin.lineinfile:
-    path: "{{ nix_config_dir_path }}/nix.conf"
+    path: "{{ nix_installer_config_dir_path }}/nix.conf"
     regexp: "^experimental-features ="
     line: "experimental-features = nix-command flakes"
-    owner: "{{ nix_user }}"
+    owner: "{{ nix_installer_user }}"
     mode: "0644"
     create: true
 
 - name: Ensure nix-env is available for the user
   become: true
-  become_user: "{{ nix_user }}"
+  become_user: "{{ nix_installer_user }}"
   ansible.builtin.shell:
-    cmd: ". {{ nix_user_details.home }}/.nix-profile/etc/profile.d/nix.sh && nix-env -iA nixpkgs.nixVersions.stable"
+    cmd: >-
+      . {{ nix_installer_user_details.home }}/.nix-profile/etc/profile.d/nix.sh
+      && nix-env -iA nixpkgs.nixVersions.stable
     executable: /bin/bash
-  register: nix_stable_install
-  changed_when: "'installing' in nix_stable_install.stdout"
+  register: nix_installer_stable_install
+  changed_when: "'installing' in nix_installer_stable_install.stdout"

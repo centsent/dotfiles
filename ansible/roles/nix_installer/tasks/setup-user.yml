@@ -1,25 +1,31 @@
 ---
 - name: Set up Nix bind mount
   ansible.builtin.include_tasks: setup-bind-mount.yml
-  when: nix_bind_mount is defined and nix_bind_mount != "" and ansible_os_family != "Darwin"
+  when:
+    - nix_installer_bind_mount is defined
+    - nix_installer_bind_mount != ""
+    - ansible_os_family != "Darwin"
 
 - name: Ensure Nix user exists
   become: true
   ansible.builtin.user:
-    name: "{{ nix_user }}"
+    name: "{{ nix_installer_user }}"
     state: present
-  register: nix_user_details
+  register: nix_installer_user_details
 
 - name: Set fact for Nix config directory path
   ansible.builtin.set_fact:
-    nix_config_dir_path: "{{ lookup('env', 'XDG_CONFIG_HOME') | default(nix_user_details.home + '/.config', true) }}/nix"
+    nix_installer_config_dir_path: >-
+      {{ lookup('env', 'XDG_CONFIG_HOME')
+         | default(nix_installer_user_details.home + '/.config', true)
+      }}/nix
 
 - name: Ensure Nix user config directory exists
   become: true
   ansible.builtin.file:
-    path: "{{ nix_config_dir_path }}"
+    path: "{{ nix_installer_config_dir_path }}"
     state: directory
-    owner: "{{ nix_user }}"
+    owner: "{{ nix_installer_user }}"
     mode: "0755"
 
 - name: Enable Flakes in the user's nix.conf
@@ -30,4 +36,4 @@
     block: |
       experimental-features = nix-command flakes
       accept-flake-config = true
-  when: nix_flakes | default(false)
+  when: nix_installer_flakes | default(false)

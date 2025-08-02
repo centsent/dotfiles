@@ -4,7 +4,7 @@
   block:
     - name: "Create the real storage directory on /home"
       ansible.builtin.file:
-        path: "{{ nix_bind_mount }}"
+        path: "{{ nix_installer_bind_mount }}"
         state: directory
         owner: root
         group: wheel
@@ -21,7 +21,7 @@
     - name: "Set up the bind mount in /etc/fstab"
       ansible.posix.mount:
         path: "/nix"
-        src: "{{ nix_bind_mount }}"
+        src: "{{ nix_installer_bind_mount }}"
         fstype: none
         opts: bind
         state: present
@@ -29,7 +29,7 @@
     - name: "Ensure /nix is correctly bind mounted"
       ansible.posix.mount:
         path: "/nix"
-        src: "{{ nix_bind_mount }}"
+        src: "{{ nix_installer_bind_mount }}"
         fstype: none
         opts: bind
         state: mounted

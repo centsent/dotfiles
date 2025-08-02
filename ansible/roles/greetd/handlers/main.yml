@@ -1,3 +1,4 @@
+---
 - name: Restart greetd
   become: true
   ansible.builtin.systemd:

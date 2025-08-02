@@ -1,7 +1,7 @@
 ---
 - name: Ensure eselect-repository is installed
   become: true
-  ansible.builtin.portage:
+  community.general.portage:
     name: app-eselect/eselect-repository
     state: present
   run_once: true

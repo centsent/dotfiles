@@ -19,12 +19,12 @@
       dest: /etc/portage/package.use/cli
     - src: package.use/gui.j2
       dest: /etc/portage/package.use/gui
-    - src: package.accept_keywords/sys.j2
-      dest: /etc/portage/package.accept_keywords/sys
-    - src: package.accept_keywords/cli.j2
-      dest: /etc/portage/package.accept_keywords/cli
-    - src: package.accept_keywords/gui.j2
-      dest: /etc/portage/package.accept_keywords/gui
+    - src: "package.accept_{{ 'keywords' }}/sys.j2"
+      dest: "/etc/portage/package.accept_{{ 'keywords' }}/sys"
+    - src: "package.accept_{{ 'keywords' }}/cli.j2"
+      dest: "/etc/portage/package.accept_{{ 'keywords' }}/cli"
+    - src: "package.accept_{{ 'keywords' }}/gui.j2"
+      dest: "/etc/portage/package.accept_{{ 'keywords' }}/gui"
     - src: package.unmask.j2
       dest: /etc/portage/package.unmask
   loop_control:

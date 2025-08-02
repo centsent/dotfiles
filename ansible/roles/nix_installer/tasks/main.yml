@@ -12,7 +12,7 @@
 
 - name: Configure Nix Flakes
   ansible.builtin.include_tasks: setup-flakes.yml
-  when: nix_flakes | default(false)
+  when: nix_installer_flakes | default(false)
   tags:
     - nix_flakes
     - nix_configure

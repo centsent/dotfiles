@@ -1,3 +1,4 @@
+---
 portage_overlays:
   - name: guru
     packages:
