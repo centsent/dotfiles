@@ -1,9 +1,9 @@
 ---
 # If non empty, the path where /nix should be bind mount to.
-nix_bind_mount: ""
+nix_installer_bind_mount: ""
 
 # If true, also install and configure nix flakes
-nix_flakes: false
+nix_installer_flakes: false
 
 # User to install nix for
-nix_user: "{{ ansible_user_id | default(lookup('env', 'USER')) }}"
+nix_installer_user: "{{ ansible_user_id | default(lookup('env', 'USER')) }}"

@@ -5,6 +5,7 @@
     dest: "{{ ansible_env.HOME }}/.config/emacs"
     depth: 1
     update: false
+    version: ed9190ef005829c7a2331e12fb36207794c5ad75
 
 - name: Symlink Doom Emacs configuration directories
   ansible.builtin.file:

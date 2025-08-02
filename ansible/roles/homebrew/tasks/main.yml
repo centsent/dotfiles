@@ -17,6 +17,7 @@
   environment:
     NONINTERACTIVE: "1"
   when: not homebrew_stat_apple.stat.exists and not homebrew_stat_intel.stat.exists
+  changed_when: true
 
 - name: Install Homebrew packages
   community.general.homebrew:

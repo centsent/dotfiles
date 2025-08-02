@@ -1,14 +1,14 @@
 ---
 - name: Install packages from Gentoo repository
   become: true
-  ansible.builtin.portage:
+  community.general.portage:
     name: "{{ portage_packages }}"
     state: present
     verbose: true
 
 - name: Install packages from overlays
   become: true
-  ansible.builtin.portage:
+  community.general.portage:
     name: "{{ item.packages }}"
     state: present
     verbose: true
