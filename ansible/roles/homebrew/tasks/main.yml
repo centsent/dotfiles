@@ -10,13 +10,18 @@
   register: homebrew_stat_intel
   when: not homebrew_stat_apple.stat.exists
 
+
 - name: Install Homebrew
   ansible.builtin.shell:
-    cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    cmd: >-
+      /bin/bash -c "$(curl -fsSL
+      https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     warn: false
   environment:
     NONINTERACTIVE: "1"
-  when: not homebrew_stat_apple.stat.exists and not homebrew_stat_intel.stat.exists
+  when:
+    - not homebrew_stat_apple.stat.exists
+    - not homebrew_stat_intel.stat.exists
   changed_when: true
 
 - name: Install Homebrew packages

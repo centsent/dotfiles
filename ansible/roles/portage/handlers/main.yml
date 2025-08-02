@@ -1,3 +1,4 @@
+---
 - name: Sync portage tree if config files changed
   ansible.builtin.command: emerge --sync
   become: true

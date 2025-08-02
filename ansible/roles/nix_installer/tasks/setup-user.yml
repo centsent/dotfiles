@@ -1,7 +1,10 @@
 ---
 - name: Set up Nix bind mount
   ansible.builtin.include_tasks: setup-bind-mount.yml
-  when: nix_installer_bind_mount is defined and nix_installer_bind_mount != "" and ansible_os_family != "Darwin"
+  when:
+    - nix_installer_bind_mount is defined
+    - nix_installer_bind_mount != ""
+    - ansible_os_family != "Darwin"
 
 - name: Ensure Nix user exists
   become: true
@@ -12,7 +15,10 @@
 
 - name: Set fact for Nix config directory path
   ansible.builtin.set_fact:
-    nix_installer_config_dir_path: "{{ lookup('env', 'XDG_CONFIG_HOME') | default(nix_installer_user_details.home + '/.config', true) }}/nix"
+    nix_installer_config_dir_path: >-
+      {{ lookup('env', 'XDG_CONFIG_HOME')
+         | default(nix_installer_user_details.home + '/.config', true)
+      }}/nix
 
 - name: Ensure Nix user config directory exists
   become: true

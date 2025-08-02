@@ -1,3 +1,4 @@
+---
 flatpak_packages:
   - com.bitwarden.desktop
   - com.github.tchx84.Flatseal
