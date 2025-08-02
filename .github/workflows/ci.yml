@@ -41,10 +41,12 @@ jobs:
 
       - name: Check Nix flake
         run: |
+          cd nix
           nix flake check
 
       - name: Format check
         run: |
+          cd nix
           nix fmt -- --check .
 
   validate-configs:
