@@ -1,5 +1,6 @@
 ---
 portage_packages:
+  - app-arch/7zip
   - app-crypt/swtpm
   - app-emulation/qemu
   - app-emulation/libvirt
