@@ -7,6 +7,7 @@
     ./starship.nix
     ./topgrade.nix
     ./tmux.nix
+    ./yazi.nix
   ];
 
   home.packages = with pkgs; [ neovim ];
