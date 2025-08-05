@@ -21,7 +21,7 @@
         extraSpecialArgs = {
           flake = self;
           username = "theodo";
-          nixpkgs-unstable = nixpkgs-unstable.legacyPackages.aarch64-darwin;
+          nixpkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-darwin;
         };
         pkgs = nixpkgs.legacyPackages.x86_64-darwin;
         modules = [ ./hosts/macosx.nix ];
