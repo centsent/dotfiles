@@ -1,15 +1,7 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ./aerospace.nix
-  ];
+  imports = [ ./aerospace.nix ];
 
-  home.packages = with pkgs; [
-    cocoapods
-    iina
-    pika
-    raycast
-    shottr
-  ];
+  home.packages = with pkgs; [ cocoapods iina pika raycast shottr ];
 }

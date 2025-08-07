@@ -9,9 +9,10 @@ let
 in {
   # --- Environment Variables ---
   home.sessionVariables = {
-    BUN_INSTALL = "$HOME/.bun";
-    GOPATH = "$HOME/go";
     ANDROID_HOME = androidHome;
+    BUN_INSTALL = "$HOME/.bun";
+    EDITOR = "nvim";
+    GOPATH = "$HOME/go";
   };
 
   # --- PATH Modifications ---

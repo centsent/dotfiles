@@ -21,6 +21,5 @@
     tokei
     wakatime-cli
     xcp
-    yazi
   ];
 }

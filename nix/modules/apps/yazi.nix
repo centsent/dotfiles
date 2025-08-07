@@ -1,7 +1,16 @@
-{ pkgs, flake, ... }:
+{ ... }:
 
 {
-  home.packages = [ pkgs.yazi ];
-
-  home.file.".config/yazi" = { source = "${flake}/.config/yazi"; };
+  programs.yazi = {
+    enable = true;
+    settings = {
+      mgr = {
+        show_hidden = false;
+        sort_by = "mtime";
+        sort_dir_first = true;
+        sort_reverse = true;
+        show_symlink = true;
+      };
+    };
+  };
 }
