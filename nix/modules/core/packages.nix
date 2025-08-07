@@ -21,5 +21,6 @@
     tokei
     wakatime-cli
     xcp
+    zellij
   ];
 }
