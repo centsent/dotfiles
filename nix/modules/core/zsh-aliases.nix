@@ -15,10 +15,13 @@
     pn = "pnpm";
 
     claude = "bunx @anthropic-ai/claude-code";
+    codex = "bunx @openai/codex";
     degit = "bunx degit";
     gemini = "bunx @google/gemini-cli";
+    lighthouse = "bunx lighthouse";
+    npkill = "bunx npkill";
     qwen = "bunx @qwen-code/qwen-code";
 
-    se = "sudo emerge --ask --verbose";
+    wrangler = "bunx wrangler";
   };
 }

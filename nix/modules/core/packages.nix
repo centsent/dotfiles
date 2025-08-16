@@ -10,6 +10,7 @@
     fd
     fzf
     gdu
+    git-open
     glow
     gzip
     jq
