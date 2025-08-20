@@ -1,6 +1,13 @@
-{ ... }:
+{ pkgs, ... }:
 
-{
+let
+  fzf-tab-src = pkgs.fetchFromGitHub {
+    owner = "Aloxaf";
+    repo = "fzf-tab";
+    rev = "master";
+    sha256 = "sha256-1g3kToboNGXNJTd+LEIB/j76VgPdYqG2PNs3u6Zke9s=";
+  };
+in {
   imports = [ ./zsh-aliases.nix ];
 
   # --- Zsh Program Configuration ---
@@ -22,6 +29,8 @@
     };
 
     initContent = ''
+      source "${fzf-tab-src}/fzf-tab.plugin.zsh"
+
       if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
       if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
         unset __HM_SESS_VARS_SOURCED
