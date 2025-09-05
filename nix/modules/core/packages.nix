@@ -10,6 +10,7 @@
     fd
     fzf
     gdu
+    gh
     git-open
     glow
     gzip
@@ -22,6 +23,7 @@
     tokei
     wakatime-cli
     xcp
+    yq
     zellij
   ];
 }

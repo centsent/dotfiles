@@ -2,6 +2,7 @@
 portage_packages:
   - app-arch/7zip
   - app-crypt/swtpm
+  - app-editors/vscode
   - app-emulation/qemu
   - app-emulation/libvirt
   - app-emulation/spice
