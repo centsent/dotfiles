@@ -14,8 +14,11 @@
     ps = "procs";
     pn = "pnpm";
 
+    bw = "bunx @bitwarden/cli";
     claude = "bunx @anthropic-ai/claude-code";
+    claudef = "bunx @anthropic-ai/claude-code --dangerously-skip-permissions";
     codex = "bunx @openai/codex";
+    codexf = "bunx @openai/codex --dangerously-bypass-approvals-and-sandbox";
     degit = "bunx degit";
     gemini = "bunx @google/gemini-cli";
     lighthouse = "bunx lighthouse";
