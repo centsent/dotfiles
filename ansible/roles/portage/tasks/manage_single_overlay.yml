@@ -1,4 +1,19 @@
 ---
+- name: "Check if repository '{{ item.name }}' directory exists"
+  become: true
+  ansible.builtin.stat:
+    path: "/var/db/repos/{{ item.name }}"
+  register: repo_stat
+
+- name: "Add repository: {{ item.name }}"
+  become: true
+  ansible.builtin.command:
+    cmd: "eselect repository add {{ item.name }} git {{ item.location }}"
+  when:
+    - not repo_stat.stat.exists
+    - item.location is defined
+  register: repo_add_result
+
 - name: "Enable repository: {{ item.name }}"
   become: true
   ansible.builtin.command:
@@ -10,6 +25,6 @@
   become: true
   ansible.builtin.command:
     cmd: "emaint sync -r {{ item.name }}"
-  when: portage_enable_result.changed
+  when: portage_enable_result.changed or (repo_add_result is defined and repo_add_result.changed)
   tags:
     - skip_ansible_lint

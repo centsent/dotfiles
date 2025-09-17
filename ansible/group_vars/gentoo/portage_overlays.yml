@@ -24,3 +24,8 @@ portage_overlays:
       - app-i18n/fcitx-gtk
       - app-i18n/fcitx-configtool
       - net-misc/rustdesk
+
+  - name: jaredallard-overlay
+    location: https://github.com/jaredallard/overlay.git
+    packages:
+      - gui-apps/vicinae
