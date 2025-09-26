@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-killall waybar
+pkill -f waybar
 waybar &
 hyprctl reload
 killall swww-daemon
