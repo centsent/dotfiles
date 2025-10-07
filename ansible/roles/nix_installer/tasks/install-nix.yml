@@ -18,6 +18,29 @@
         dest: "{{ nix_installer_script_dir }}/install_nix.sh"
         mode: "0755"
 
-    - name: Run installer script
+    - name: Run installer script (multi-user on macOS)
+      ansible.builtin.command: "{{ nix_installer_script_dir }}/install_nix.sh --daemon"
+      changed_when: true
+      when: ansible_os_family == "Darwin"
+
+    - name: Run installer script (standard on Linux)
       ansible.builtin.command: "{{ nix_installer_script_dir }}/install_nix.sh"
+      changed_when: true
+      when: ansible_os_family != "Darwin"
+
+- name: Verify Nix daemon is running (macOS)
+  when:
+    - nix_installer_should_install
+    - ansible_os_family == "Darwin"
+  block:
+    - name: Check if nix-daemon service is loaded
+      ansible.builtin.command: launchctl list org.nixos.nix-daemon
+      register: nix_daemon_status
+      changed_when: false
+      failed_when: false
+
+    - name: Load nix-daemon service if not running
+      become: true
+      ansible.builtin.command: launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist
+      when: nix_daemon_status.rc != 0
       changed_when: true
