@@ -5,7 +5,7 @@ let
     owner = "Aloxaf";
     repo = "fzf-tab";
     rev = "master";
-    sha256 = "sha256-1g3kToboNGXNJTd+LEIB/j76VgPdYqG2PNs3u6Zke9s=";
+    sha256 = "sha256-1Ior+/9e+M+Fc1u0uq5HhknlGRS96q7tazhEE6rmx9Y=";
   };
 in {
   imports = [ ./zsh-aliases.nix ];
