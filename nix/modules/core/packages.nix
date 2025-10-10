@@ -22,6 +22,7 @@
     procs
     sops
     tokei
+    uv
     wakatime-cli
     xcp
     yq
