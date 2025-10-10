@@ -11,7 +11,7 @@ let
     owner = "dangooddd";
     repo = "kanagawa.yazi";
     rev = "main";
-    hash = "sha256-oTPSZS4bORpPSG5QdAb8NIH6scjc/bLQ4GJmT6+iJ4Q=";
+    hash = "sha256-nGFiAgVWfq7RkuGGCt07zm3z7ZTGiIPIR319ojPfdUk=";
   };
 in {
   programs.yazi = {
