@@ -29,6 +29,7 @@ portage_packages:
   - media-sound/pavucontrol
   - media-sound/playerctl
   - media-video/ffmpeg
+  - media-video/obs-studio
   - net-im/telegram-desktop
   - net-misc/chrony
   - net-misc/spice-gtk
