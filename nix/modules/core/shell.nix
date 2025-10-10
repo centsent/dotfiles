@@ -36,6 +36,10 @@ in {
         unset __HM_SESS_VARS_SOURCED
         source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
       fi
+
+      if [ -x "$HOME/.local/bin/mise" ]; then
+        eval "$($HOME/.local/bin/mise activate zsh)"
+      fi
     '';
   };
 
