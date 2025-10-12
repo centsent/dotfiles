@@ -15,5 +15,6 @@ homebrew_casks:
   - kitty
   - obsidian
   - orbstack
+  - raycast
   - squirrel
   - wormhole
