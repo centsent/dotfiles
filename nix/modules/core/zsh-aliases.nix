@@ -19,8 +19,12 @@
     claudef = "bunx @anthropic-ai/claude-code --dangerously-skip-permissions";
     codex = "bunx @openai/codex";
     codexf = "bunx @openai/codex --dangerously-bypass-approvals-and-sandbox";
+    copilot = "bunx @github/copilot";
     degit = "bunx degit";
     gemini = "bunx @google/gemini-cli";
+    ccc = ''
+      bunx @google/gemini-cli -y "Write a commit message, commit, and push to GitHub"'';
+    gh = "bunx gh";
     lighthouse = "bunx lighthouse";
     npkill = "bunx npkill";
     qwen = "bunx @qwen-code/qwen-code";
