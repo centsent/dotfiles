@@ -2,16 +2,20 @@
 portage_packages:
   - app-arch/7zip
   - app-crypt/swtpm
+  - app-containers/podman
+  - app-containers/podman-compose
   - app-editors/vscode
   - app-emulation/qemu
   - app-emulation/libvirt
   - app-emulation/spice
   - app-emulation/virt-manager
   - app-emulation/virt-viewer
+  - app-misc/mkcert
   - app-misc/tmux
   - app-office/libreoffice
   - app-portage/gentoolkit
   - app-shells/zsh
+  - dev-build/cmake
   - dev-qt/qtwayland
   - dev-vcs/git
   - dev-util/android-studio
@@ -33,6 +37,7 @@ portage_packages:
   - net-im/telegram-desktop
   - net-misc/chrony
   - net-misc/spice-gtk
+  - net-proxy/dae
   - net-vpn/tailscale
   - net-wireless/blueman
   - net-wireless/wpa_supplicant
