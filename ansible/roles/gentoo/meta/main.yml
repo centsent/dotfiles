@@ -4,6 +4,8 @@ dependencies:
     tags: grub
   - role: portage
     tags: portage
+  - role: dae
+    tags: dae
   - role: greetd
     tags: greetd
   - role: nix_installer
