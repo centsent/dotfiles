@@ -1,0 +1,29 @@
+---
+- name: Manage dae configuration and service
+  block:
+    - name: Ensure dae configuration directory exists
+      become: true
+      ansible.builtin.file:
+        path: "{{ dae_config_path | dirname }}"
+        state: directory
+        owner: "{{ dae_config_owner }}"
+        group: "{{ dae_config_group }}"
+        mode: "0755"
+
+    - name: Deploy dae configuration
+      become: true
+      ansible.builtin.template:
+        src: config.dae.j2
+        dest: "{{ dae_config_path }}"
+        owner: "{{ dae_config_owner }}"
+        group: "{{ dae_config_group }}"
+        mode: "{{ dae_config_mode }}"
+        validate: "dae validate -c %s"
+      notify: Restart dae
+
+    - name: Enable and start dae service
+      become: true
+      ansible.builtin.systemd:
+        name: "{{ dae_service_name }}"
+        enabled: true
+        state: started

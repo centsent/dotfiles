@@ -1,0 +1,6 @@
+---
+- name: Restart dae
+  become: true
+  ansible.builtin.systemd:
+    name: "{{ dae_service_name }}"
+    state: restarted

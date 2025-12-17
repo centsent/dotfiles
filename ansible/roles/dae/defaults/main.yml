@@ -1,0 +1,7 @@
+---
+dae_config_path: /etc/dae/config.dae
+dae_config_owner: root
+dae_config_group: root
+dae_config_mode: "0640"
+
+dae_service_name: dae
