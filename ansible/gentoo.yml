@@ -2,5 +2,10 @@
 - name: Set up Gentoo workstation
   hosts: gentoo
   gather_facts: true
+  pre_tasks:
+    - name: Load encrypted secrets
+      community.sops.load_vars:
+        file: group_vars/all/secrets.sops.yaml
+      tags: [always]
   roles:
     - role: gentoo

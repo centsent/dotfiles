@@ -6,6 +6,8 @@ INVENTORY_FILE ?=
 
 UNAME_S := $(shell uname -s)
 
+SECRETS_FILE := ansible/group_vars/all/secrets.sops.yaml
+
 ifeq ($(UNAME_S),Darwin)
     INVENTORY_FILE = hosts_macos
 else
@@ -23,6 +25,11 @@ all: install
 install:
 	@echo "==> Running main installation playbook..."
 	ansible-playbook -i $(INVENTORY) $(ANSIBLE_DIR)/dotfiles.yml --ask-become-pass
+
+.PHONY: edit
+edit:
+	@echo "Opening $(SECRETS_FILE) for editing..."
+	@sops $(SECRETS_FILE)
 
 # Specific playbook targets
 .PHONY: macos
