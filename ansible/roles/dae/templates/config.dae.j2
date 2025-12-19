@@ -3,39 +3,59 @@ global {
   log_level: info
   allow_insecure: false
   auto_config_kernel_parameter: true
+  check_interval: 30s
 }
 
+{% if dae_nodes is defined and dae_nodes | length > 0 %}
 node {
-  {% if dae_nodes is defined %}
   {% for node in dae_nodes %}
   '{{ node }}'
   {% endfor %}
-  {% endif %}
 }
+{% endif %}
 
 dns {
   upstream {
     alidns: 'udp://223.5.5.5:53'
+    googledns: 'tcp://8.8.8.8:53'
   }
   routing {
     request {
-      fallback: alidns
+      qname(geosite:cn) -> alidns
+      qname(geosite:google) -> googledns
+      fallback: googledns
+    }
+    response {
+      upstream(googledns) -> accept
+      fallback: accept
     }
   }
 }
 
 group {
-    proxy {
-        filter: name(regex: '.*') 
-        policy: min_moving_avg
-    }
+  proxy {
+    filter: name(regex: '.*')
+    policy: min_moving_avg
+  }
 }
 
 routing {
   pname(NetworkManager) -> direct
   pname(sshd) -> direct
   
+  l4proto(udp) && dport(443) -> block
+
+  l4proto(udp) && dport(123) -> direct
+
   dip(224.0.0.0/4, 255.255.255.255) -> direct
+
+  domain(geosite:wechat) -> direct
+  domain(geosite:tencent) -> direct
+
+  pname(wechat) -> direct
+  domain(qq.com) -> direct
+  domain(weixin.com) -> direct
+  domain(qlogo.cn) -> direct
 
   domain(taifungbank.com) -> direct
   domain(epark-mo.com) -> direct

@@ -1,6 +1,48 @@
 ---
 - name: Manage dae configuration and service
   block:
+    - name: Check status of geosite.dat
+      ansible.builtin.stat:
+        path: /usr/share/dae/geosite.dat
+      register: geosite_stat
+
+    - name: Remove geosite.dat symlink
+      become: true
+      ansible.builtin.file:
+        path: /usr/share/dae/geosite.dat
+        state: absent
+      when: geosite_stat.stat.islnk is defined and geosite_stat.stat.islnk
+
+    - name: Download geosite.dat
+      become: true
+      ansible.builtin.get_url:
+        url: https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat
+        dest: /usr/share/dae/geosite.dat
+        mode: '0644'
+        force: no
+      notify: Restart dae
+
+    - name: Check status of geoip.dat
+      ansible.builtin.stat:
+        path: /usr/share/dae/geoip.dat
+      register: geoip_stat
+
+    - name: Remove geoip.dat symlink
+      become: true
+      ansible.builtin.file:
+        path: /usr/share/dae/geoip.dat
+        state: absent
+      when: geoip_stat.stat.islnk is defined and geoip_stat.stat.islnk
+
+    - name: Download geoip.dat
+      become: true
+      ansible.builtin.get_url:
+        url: https://github.com/v2ray/geoip/releases/latest/download/geoip.dat
+        dest: /usr/share/dae/geoip.dat
+        mode: '0644'
+        force: no
+      notify: Restart dae
+
     - name: Ensure dae configuration directory exists
       become: true
       ansible.builtin.file:
