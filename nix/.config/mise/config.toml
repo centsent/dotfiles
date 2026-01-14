@@ -8,3 +8,6 @@ nodejs = "lts"
 pnpm = "latest"
 python = "latest"
 rust = "stable"
+
+pipx = "latest"
+"pipx:sqlfluff" = "latest"
