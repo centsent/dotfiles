@@ -43,13 +43,12 @@ routing {
   pname(NetworkManager) -> direct
   pname(sshd) -> direct
   
-  l4proto(udp) && dport(443) -> block
+  # l4proto(udp) && dport(443) -> block
 
   l4proto(udp) && dport(123) -> direct
 
   dip(224.0.0.0/4, 255.255.255.255) -> direct
 
-  domain(geosite:wechat) -> direct
   domain(geosite:tencent) -> direct
 
   pname(wechat) -> direct
