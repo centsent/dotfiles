@@ -24,5 +24,6 @@ in {
     "${androidHome}/tools"
     "${androidHome}/tools/bin"
     "${androidHome}/emulator"
+    "$HOME/.platformio/penv/bin"
   ];
 }
