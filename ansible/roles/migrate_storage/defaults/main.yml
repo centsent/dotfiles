@@ -1,0 +1,7 @@
+---
+libvirt_service: "libvirtd"
+kvm_source_dir: "/var/lib/libvirt/images"
+kvm_target_dir: "/home/libvirt/images"
+portage_make_conf: "/etc/portage/make.conf"
+distfiles_source_dir: "/var/cache/distfiles"
+distfiles_target_dir: "/home/gentoo/distfiles"

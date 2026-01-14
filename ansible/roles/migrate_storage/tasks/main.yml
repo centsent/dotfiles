@@ -1,0 +1,101 @@
+---
+- name: Check if KVM source is already a symlink
+  stat:
+    path: "{{ kvm_source_dir }}"
+  register: kvm_dir_stat
+
+- name: KVM Migration Block
+  when: kvm_dir_stat.stat.islnk is defined and kvm_dir_stat.stat.islnk == False
+  block:
+    - name: Check for running VMs
+      become: true
+      shell: virsh list --state-running --name
+      register: running_vms
+      changed_when: false
+      ignore_errors: true
+
+    - name: Fail if VMs are running
+      fail:
+        msg: "CRITICAL: There are running VMs ({{ running_vms.stdout }}). Please shut them down before migration!"
+      when: running_vms.stdout | length > 0
+
+    - name: Ensure target parent directory exists
+      become: true
+      file:
+        path: "{{ kvm_target_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Stop libvirt service
+      become: true
+      service:
+        name: "{{ libvirt_service }}"
+        state: stopped
+
+    - name: Copy KVM images using rsync
+      become: true
+      shell: |
+        rsync -aS --info=progress2 "{{ kvm_source_dir }}/" "{{ kvm_target_dir }}/"
+      args:
+        executable: /bin/bash
+
+    - name: Remove original KVM directory
+      become: true
+      file:
+        path: "{{ kvm_source_dir }}"
+        state: absent
+
+    - name: Create symlink from /var to /home
+      become: true
+      file:
+        src: "{{ kvm_target_dir }}"
+        dest: "{{ kvm_source_dir }}"
+        state: link
+        owner: root
+        group: root
+
+    - name: Restart libvirt service
+      become: true
+      service:
+        name: "{{ libvirt_service }}"
+        state: started
+
+- name: Ensure Portage target directory exists
+  become: true
+  file:
+    path: "{{ distfiles_target_dir }}"
+    state: directory
+    owner: portage
+    group: portage
+    mode: '2775'
+
+- name: Update DISTDIR in make.conf
+  become: true
+  lineinfile:
+    path: "{{ portage_make_conf }}"
+    regexp: '^DISTDIR='
+    line: 'DISTDIR="{{ distfiles_target_dir }}"'
+    state: present
+
+- name: Check if old distfiles directory has content
+  become: true
+  shell: "ls -A {{ distfiles_source_dir }} 2>/dev/null || true"
+  register: old_distfiles_content
+  changed_when: false
+
+- name: Sync existing distfiles to new location
+  become: true
+  shell: |
+    rsync -a --remove-source-files "{{ distfiles_source_dir }}/" "{{ distfiles_target_dir }}/"
+  when: old_distfiles_content.stdout | length > 0
+
+- name: Clean up old distfiles directory structure
+  become: true
+  file:
+    path: "{{ distfiles_source_dir }}"
+    state: directory
+    mode: '0775'
+    owner: portage
+    group: portage

@@ -12,3 +12,5 @@ dependencies:
     tags: nix_installer
   - role: common
     tags: common
+  - role: migrate_storage
+    tags: migrate_storage
