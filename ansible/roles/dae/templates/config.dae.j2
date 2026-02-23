@@ -21,6 +21,10 @@ dns {
   }
   routing {
     request {
+      qname(keyword: taobao.com) -> alidns
+      qname(keyword: tmall.com) -> alidns
+      qname(keyword: alicdn.com) -> alidns
+      qname(keyword: tbcache.com) -> alidns
       qname(geosite:cn) -> alidns
       qname(geosite:google) -> googledns
       fallback: googledns
@@ -60,6 +64,14 @@ routing {
   domain(epark-mo.com) -> direct
   domain(mnetwork.center) -> direct
   domain(ipinfo.io) -> direct
+  domain(keyword: taobao.com) -> direct
+  domain(keyword: tmall.com) -> direct
+  domain(keyword: alicdn.com) -> direct
+  domain(keyword: tbcache.com) -> direct
+  domain(taobao.com) -> direct
+  domain(tmall.com) -> direct
+  domain(alicdn.com) -> direct
+  domain(tbcache.com) -> direct
 
   domain(geosite:cn) -> direct
   dip(geoip:cn) -> direct
