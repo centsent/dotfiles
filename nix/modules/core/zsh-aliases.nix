@@ -15,17 +15,16 @@
     pn = "pnpm";
 
     bw = "bunx @bitwarden/cli";
-    claude = "bunx @anthropic-ai/claude-code";
-    claudef = "bunx @anthropic-ai/claude-code --dangerously-skip-permissions";
+    claudef = "claude --dangerously-skip-permissions";
     codex = "bunx @openai/codex";
     codexf = "bunx @openai/codex --dangerously-bypass-approvals-and-sandbox";
     copilot = "bunx @github/copilot";
     degit = "bunx degit";
     gemini = "bunx @google/gemini-cli";
     aic = ''
-      bunx @google/gemini-cli -y -m "gemini-3-flash-preview" "Analyze the current git diff. Execute 'git add -A' and then execute 'git commit' with a concise message following the Conventional Commits specification (e.g., 'feat: ...', 'fix: ...'). Do NOT push to remote."'';
+      bunx @google/gemini-cli -y -m "gemini-3-flash-preview" -p "Analyze the current git diff. Execute 'git add -A' and then execute 'git commit' with a concise message following the Conventional Commits specification (e.g., 'feat: ...', 'fix: ...'). Do NOT push to remote."'';
     aim = ''
-      bunx @google/gemini-cli -y -m "gemini-3-flash-preview" "Analyze all modified files. Group them into logical sets based on functionality. For each set: 1. Execute 'git add' for those specific files only. 2. Execute 'git commit' with a descriptive Conventional Commit message. Repeat until all changes are committed. Do NOT push"'';
+      bunx @google/gemini-cli -y -m "gemini-3-flash-preview" -p "Analyze all modified files. Group them into logical sets based on functionality. For each set: 1. Execute 'git add' for those specific files only. 2. Execute 'git commit' with a descriptive Conventional Commit message. Repeat until all changes are committed. Do NOT push"'';
     gh = "bunx gh";
     lighthouse = "bunx lighthouse";
     npkill = "bunx npkill";
