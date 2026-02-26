@@ -11,3 +11,5 @@ rust = "stable"
 
 pipx = "latest"
 "pipx:sqlfluff" = "latest"
+
+mkcert = "latest"
