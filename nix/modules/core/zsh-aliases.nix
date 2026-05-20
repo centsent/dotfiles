@@ -16,6 +16,7 @@
 
     bw = "bunx @bitwarden/cli";
     claudef = "claude --dangerously-skip-permissions";
+    ctx7 = "bunx ctx7";
     codex = "bunx @openai/codex";
     codexf = "bunx @openai/codex --dangerously-bypass-approvals-and-sandbox";
     copilot = "bunx @github/copilot";
@@ -28,6 +29,7 @@
     gh = "bunx gh";
     lighthouse = "bunx lighthouse";
     npkill = "bunx npkill";
+    playwright = "bunx @playwright/cli@latest";
     qwen = "bunx @qwen-code/qwen-code";
 
     wrangler = "bunx wrangler";
