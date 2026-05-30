@@ -11,7 +11,7 @@ window-decoration = false
 linux-cgroup = always
 # window-save-state = always
 
-theme = catppuccin-mocha
+# theme = catppuccin-mocha
 
 background-opacity = 0.9
 
