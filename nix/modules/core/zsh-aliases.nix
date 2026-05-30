@@ -17,7 +17,6 @@
     bw = "bunx @bitwarden/cli";
     claudef = "claude --dangerously-skip-permissions";
     ctx7 = "bunx ctx7";
-    codex = "bunx @openai/codex";
     codexf = "bunx @openai/codex --dangerously-bypass-approvals-and-sandbox";
     copilot = "bunx @github/copilot";
     degit = "bunx degit";
