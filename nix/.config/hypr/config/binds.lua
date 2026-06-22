@@ -5,7 +5,7 @@ hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + D", hl.dsp.focus({ workspace = "previous" }))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + Tab", hl.dsp.cyclenext())
+-- hl.bind(mainMod .. " + Tab", hl.dsp.cyclenext())
 hl.bind(mainMod .. " + CTRL + SHIFT + B", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(notificationCenter))
 
@@ -29,9 +29,9 @@ hl.bind(mainMod .. " + CTRL + H", hl.dsp.focus({ workspace = "-1" }))
 hl.bind(mainMod .. " + CTRL + L", hl.dsp.focus({ workspace = "+1" }))
 
 for i = 1, 10 do
-    local key = i % 10
-    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+	local key = i % 10
+	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
 -- Window Focus
@@ -45,8 +45,16 @@ hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Media Controls
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ +5%"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ -5%"), { locked = true, repeating = true })
+hl.bind(
+	"XF86AudioRaiseVolume",
+	hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+	{ locked = true, repeating = true }
+)
+hl.bind(
+	"XF86AudioLowerVolume",
+	hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+	{ locked = true, repeating = true }
+)
 
 -- System Management
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(scriptsDir .. "/reload.sh"))
