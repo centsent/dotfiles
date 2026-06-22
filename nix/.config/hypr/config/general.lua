@@ -1,0 +1,21 @@
+hl.config({
+    general = {
+        gaps_in = 3,
+        gaps_out = 6,
+
+        border_size = 2,
+
+        col = {
+            active_border = { colors = {"rgb(8aadf4)", "rgb(24273A)", "rgb(24273A)", "rgb(8aadf4)"}, angle = 45 },
+            inactive_border = { colors = {"rgb(24273A)", "rgb(24273A)", "rgb(24273A)", "rgb(27273A)"}, angle = 45 },
+        },
+
+        resize_on_border = true,
+        extend_border_grab_area = 30,
+        hover_icon_on_border = true,
+        resize_corner = 5,
+        allow_tearing = false,
+
+        layout = "dwindle",
+    }
+})

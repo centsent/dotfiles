@@ -1,0 +1,7 @@
+terminal = "alacritty"
+menu = "vicinae toggle"
+fileManager = "EDITOR=nvim kitty yazi"
+browser = "firefox"
+logout = "pkill Hyprland"
+scriptsDir = "~/.config/hypr/scripts"
+notificationCenter = "swaync-client -t -sw"

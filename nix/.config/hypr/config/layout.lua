@@ -1,0 +1,11 @@
+hl.config({
+    dwindle = {
+        preserve_split = true,
+    },
+    master = {
+        new_status = "inherit",
+        new_on_top = true,
+        new_on_active = true,
+        smart_resizing = true,
+    }
+})
