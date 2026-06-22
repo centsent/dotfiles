@@ -13,6 +13,7 @@ in {
     BUN_INSTALL = "$HOME/.bun";
     EDITOR = "nvim";
     GOPATH = "$HOME/go";
+    HYPRLAND_CONFIG = "$HOME/.config/hypr/hyprland.lua";
   };
 
   # --- PATH Modifications ---
