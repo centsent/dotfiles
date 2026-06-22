@@ -1,4 +1,5 @@
 global {
+  lan_interface: virbr0
   wan_interface: auto
   log_level: info
   allow_insecure: false
@@ -25,6 +26,9 @@ dns {
       qname(keyword: tmall.com) -> alidns
       qname(keyword: alicdn.com) -> alidns
       qname(keyword: tbcache.com) -> alidns
+      qname(keyword: golang.org) -> alidns
+      qname(keyword: docker.io) -> alidns
+      qname(keyword: docker.com) -> alidns
       qname(geosite:cn) -> alidns
       qname(geosite:google) -> googledns
       fallback: googledns
@@ -52,6 +56,10 @@ routing {
   l4proto(udp) && dport(123) -> direct
 
   dip(224.0.0.0/4, 255.255.255.255) -> direct
+
+  domain(golang.org) -> direct
+  domain(docker.io) -> direct
+  domain(docker.com) -> direct
 
   domain(geosite:tencent) -> direct
 
