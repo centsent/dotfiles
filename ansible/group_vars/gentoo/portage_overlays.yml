@@ -3,18 +3,24 @@ portage_overlays:
   - name: guru
     packages:
       - app-office/obsidian
-      - gui-apps/hypridle
-      - gui-apps/hyprlock
-      - gui-apps/hyprpicker
-      - gui-apps/hyprshot
       - gui-apps/swaync
-      - gui-libs/xdg-desktop-portal-hyprland
-      - gui-wm/hyprland
-      - gui-wm/hyprland-contrib
       - app-misc/nwg-look
       - media-fonts/source-han-serif
       - x11-themes/apple-cursor
       - x11-themes/materia-theme
+
+  # Hyprland suite was last-rited in ::gentoo and ::guru; the community
+  # maintains it here. See https://wiki.gentoo.org/wiki/Hyprland#Emerge
+  - name: hyproverlay
+    location: https://codeberg.org/hyproverlay/hyproverlay.git
+    packages:
+      - gui-wm/hyprland
+      - gui-wm/hyprland-contrib
+      - gui-apps/hypridle
+      - gui-apps/hyprlock
+      - gui-apps/hyprpicker
+      - gui-apps/hyprshot
+      - gui-libs/xdg-desktop-portal-hyprland
 
   - name: gentoo-zh
     packages:
