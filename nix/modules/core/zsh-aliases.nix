@@ -21,8 +21,8 @@
     copilot = "bunx @github/copilot";
     degit = "bunx degit";
     agyf = "agy --dangerously-skip-permissions";
-    aic = ''agy --add-dir . --prompt "Analyze the current git diff. Execute 'git add -A' and then execute 'git commit' with a concise message following the Conventional Commits specification (e.g., 'feat: ...', 'fix: ...'). Do NOT push to remote."'';
-    aim = ''agy --add-dir . --prompt "Analyze all modified files. Group them into logical sets based on functionality. For each set: 1. Execute 'git add' for those specific files only. 2. Execute 'git commit' with a descriptive Conventional Commit message. Repeat until all changes are committed. Do NOT push"'';
+    aic = ''agy --add-dir . --prompt "The git repository is at $PWD. Analyze the current git diff. Execute 'git add -A' and then execute 'git commit' with a concise message following the Conventional Commits specification (e.g., 'feat: ...', 'fix: ...'). Do NOT push to remote."'';
+    aim = ''agy --add-dir . --prompt "The git repository is at $PWD. Analyze all modified files. Group them into logical sets based on functionality. For each set: 1. Execute 'git add' for those specific files only. 2. Execute 'git commit' with a descriptive Conventional Commit message. Repeat until all changes are committed. Do NOT push"'';
     gh = "bunx gh";
     lighthouse = "bunx lighthouse";
     npkill = "bunx npkill";
