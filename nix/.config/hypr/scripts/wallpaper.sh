@@ -9,8 +9,8 @@ log() {
 }
 
 check_dependencies() {
-  if ! command -v swww &>/dev/null; then
-    log "error: swww command not found"
+  if ! command -v awww &>/dev/null; then
+    log "error: awww command not found"
     exit 1
   fi
 
@@ -25,16 +25,16 @@ check_dependencies() {
   fi
 }
 
-wait_for_swww() {
+wait_for_awww() {
   local retries=30
   local count=0
 
-  while ! swww query &>/dev/null; do
+  while ! awww query &>/dev/null; do
     if [ $count -ge $retries ]; then
-      log "error: swww daemon failed to initialize"
+      log "error: awww daemon failed to initialize"
       exit 1
     fi
-    log "Waiting for swww daemon to initialize ($count/$retries)"
+    log "Waiting for awww daemon to initialize ($count/$retries)"
     sleep 2
     ((count++))
   done
@@ -64,7 +64,7 @@ main() {
 
   check_dependencies
 
-  wait_for_swww
+  wait_for_awww
 
   if [ ! -d "$directory" ]; then
     log "error: directory $directory does not exist"
@@ -75,7 +75,7 @@ main() {
 
   while true; do
     if random_background=$(select_random_wallpaper); then
-      if swww img "$random_background"; then
+      if awww img "$random_background"; then
         log "Successfully set wallpaper: $random_background"
       else
         log "Error: Failed to set wallpaper: $random_background"

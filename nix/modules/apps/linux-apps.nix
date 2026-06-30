@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ swww resvg ];
+  home.packages = with pkgs; [ awww resvg ];
 
   imports = [
     ./desktop-entries.nix

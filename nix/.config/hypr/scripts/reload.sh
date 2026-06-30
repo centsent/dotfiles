@@ -3,6 +3,6 @@ pkill -f waybar
 pkill -f vicinae
 waybar &
 hyprctl reload
-killall swww-daemon
-swww-daemon
+killall awww-daemon
+awww-daemon
 vicinae server
