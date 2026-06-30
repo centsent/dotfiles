@@ -7,9 +7,11 @@
 
   programs.git = {
     enable = true;
-    userName = "centsent";
-    userEmail = "2985258+centsent@users.noreply.github.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "centsent";
+        email = "2985258+centsent@users.noreply.github.com";
+      };
       init.defaultBranch = "main";
       core.editor = "nvim";
     };
