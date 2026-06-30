@@ -11,3 +11,6 @@
   loop: "{{ portage_overlays }}"
   loop_control:
     label: "{{ item.name }}"
+
+- name: Setup local overlay
+  ansible.builtin.include_tasks: manage_local_overlay.yml

@@ -1,0 +1,32 @@
+---
+- name: Ensure local repository directory exists
+  become: true
+  ansible.builtin.file:
+    path: /var/db/repos/local
+    state: directory
+    mode: '0755'
+
+- name: Synchronize local overlay to /var/db/repos/local
+  become: true
+  ansible.builtin.copy:
+    src: local_overlay/
+    dest: /var/db/repos/local/
+    owner: root
+    group: root
+
+- name: Configure local portage overlay
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/portage/repos.conf/local.conf
+    content: |
+      [local]
+      location = /var/db/repos/local
+      masters = gentoo
+      auto-sync = no
+    mode: '0644'
+
+- name: Generate manifest for flameshot ebuild
+  become: true
+  ansible.builtin.command: ebuild flameshot-14.0.0.ebuild manifest
+  args:
+    chdir: /var/db/repos/local/media-gfx/flameshot

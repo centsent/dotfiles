@@ -22,6 +22,7 @@ portage_packages:
   - dev-util/android-sdk-cmdline-tools
   - gui-apps/tuigreet
   - gui-libs/greetd
+  - media-gfx/flameshot
   - media-fonts/font-isas-misc
   - media-fonts/arphicfonts
   - media-fonts/opendesktop-fonts

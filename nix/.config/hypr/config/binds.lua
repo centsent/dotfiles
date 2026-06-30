@@ -15,8 +15,8 @@ hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + CTRL + X", hl.dsp.exec_cmd(logout))
-hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("hyprshot -m region"))
-hl.bind(mainMod .. " + CTRL + SHIFT + A", hl.dsp.exec_cmd("hyprshot -m region output --clipboard-only"))
+hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("flameshot gui"))
+hl.bind(mainMod .. " + CTRL + SHIFT + A", hl.dsp.exec_cmd("flameshot gui --clipboard"))
 
 -- Window Management
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
@@ -58,3 +58,10 @@ hl.bind(
 
 -- System Management
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(scriptsDir .. "/reload.sh"))
+
+-- Flameshot PrintScreen binding
+hl.bind("Print", function()
+    local mon = hl.get_active_monitor()
+    local n = mon and mon.id or 0
+    hl.exec_cmd("flameshot screen --number " .. n .. " --edit")
+end)

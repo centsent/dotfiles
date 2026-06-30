@@ -5,6 +5,7 @@
 
   imports = [
     ./desktop-entries.nix
+    ./flameshot.nix
     ./hyprland.nix
     ./swaync.nix
     ./waybar.nix
