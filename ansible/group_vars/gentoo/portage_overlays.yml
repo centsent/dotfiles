@@ -15,7 +15,6 @@ portage_overlays:
     location: https://codeberg.org/hyproverlay/hyproverlay.git
     packages:
       - gui-wm/hyprland
-      - gui-wm/hyprland-contrib
       - gui-apps/hypridle
       - gui-apps/hyprlock
       - gui-apps/hyprpicker
