@@ -6,7 +6,7 @@ go = "latest"
 java = "21"
 nodejs = "lts"
 pnpm = "latest"
-python = "latest"
+python = "3.13"
 rust = "stable"
 
 pipx = "latest"
