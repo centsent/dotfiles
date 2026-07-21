@@ -31,3 +31,10 @@
     label: "{{ item.dest }}"
   notify:
     - sync portage tree
+
+- name: Replace gentoo keyserver with ubuntu keyserver
+  become: true
+  ansible.builtin.replace:
+    path: /etc/portage/repos.conf/gentoo.conf
+    regexp: 'hkps://keys\.gentoo\.org'
+    replace: 'hkps://keyserver.ubuntu.com'
