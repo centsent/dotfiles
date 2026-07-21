@@ -16,7 +16,7 @@ hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + CTRL + X", hl.dsp.exec_cmd(logout))
 hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("flameshot gui"))
-hl.bind(mainMod .. " + CTRL + SHIFT + A", hl.dsp.exec_cmd("flameshot gui --clipboard"))
+hl.bind(mainMod .. " + CTRL + SHIFT + A", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
 
 -- Window Management
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
