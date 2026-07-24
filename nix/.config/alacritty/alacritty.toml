@@ -1,55 +1,105 @@
-[colors.bright]
-black = "#27272a"
-blue = "#aca1cf"
-cyan = "#ea83a5"
-green = "#90b99f"
-magenta = "#e29eca"
-red = "#f5a191"
-white = "#c1c0d4"
-yellow = "#e6b99d"
+# Alacritty — the daily driver. Launched onto workspace 1 at login and bound
+# to $mainMod+RETURN (see hypr/config/exec.lua and binds.lua).
+#
+# The look is shared with kitty/ and ghostty/: Catppuccin Mocha, FiraCode
+# Nerd Font Mono at 13, 12px padding, 0.85 alpha. What differs is the role —
+# this is the only one of the three that starts tmux.
 
-[colors.cursor]
-cursor = "#757581"
-text = "#c9c7cd"
-
-[colors.normal]
-black = "#32344a"
-blue = "#7aa2f7"
-cyan = "#449dab"
-green = "#9ece6a"
-magenta = "#ad8ee6"
-red = "#f7768e"
-white = "#9699a8"
-yellow = "#e0af68"
-
-[colors.primary]
-background = "#161617"
-foreground = "#c9c7cd"
+[general]
+import = ["~/.config/alacritty/mocha.toml"]
+live_config_reload = true
 
 [env]
+# Deliberately not the `alacritty` terminfo entry: this window spends its life
+# inside tmux and ssh sessions, and remote hosts reliably know xterm-256color
+# while very few ship alacritty's.
 TERM = "xterm-256color"
 
+# ----------------------------------------------------------------- Font
+# Note that Alacritty does not render ligatures at all, so FiraCode's arrows
+# stay as separate glyphs here. The family is shared with kitty and ghostty
+# regardless, which keeps metrics and glyph coverage identical across the
+# three.
 [font]
-size = 16.0
+size = 13.0
+builtin_box_drawing = true
 
 [font.normal]
-family = "Hack Nerd Font Mono"
+family = "FiraCode Nerd Font Mono"
 style = "Regular"
 
 [font.bold]
-family = "Hack Nerd Font Mono"
+family = "FiraCode Nerd Font Mono"
 style = "Bold"
 
+# A little air between rows. Matches kitty's cell_height 110% and ghostty's
+# adjust-cell-height 10%.
+[font.offset]
+x = 0
+y = 2
+
+# ----------------------------------------------------------------- Window
 [window]
-opacity = 0.75
-option_as_alt = "Both"
-decorations = "buttonless"
+# Alpha lives here rather than in a Hyprland window rule: a rule multiplies
+# with this value instead of replacing it, and keeping it in the terminal
+# means the window looks the same on macOS, where there is no compositor rule
+# to inherit. Hyprland's global decoration default still applies on top
+# (0.90 active), landing around 0.77.
+opacity = 0.85
+
+# Hyprland draws the border and rounding; client-side decorations would only
+# duplicate them. `buttonless` is the nicer macOS value, but the Linux session
+# is what this config is tuned for.
+decorations = "none"
+dynamic_padding = true
 startup_mode = "Windowed"
+
+# macOS only; ignored elsewhere.
+option_as_alt = "Both"
 
 [window.padding]
 x = 12
 y = 12
 
+# ----------------------------------------------------------------- Cursor
+[cursor]
+blink_interval = 600
+# Blink forever rather than settling after a timeout — a still block cursor in
+# a translucent window is easy to lose.
+blink_timeout = 0
+unfocused_hollow = true
+thickness = 0.15
+
+[cursor.style]
+shape = "Block"
+blinking = "On"
+
+# ----------------------------------------------------------------- Input
+[mouse]
+hide_when_typing = true
+
+[selection]
+# Selecting does not clobber the clipboard; the primary buffer still gets it,
+# so middle-click paste works as usual.
+save_to_clipboard = false
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+# ----------------------------------------------------------------- Bell
+# Silent and invisible. tmux forwards bells from every pane, so a flash here
+# would fire on routine command completions rather than on anything worth
+# looking at.
+[bell]
+animation = "EaseOutExpo"
+duration = 0
+
+# ----------------------------------------------------------------- Shell
 [terminal.shell]
 program = "zsh"
-args = ["-l", "-c", "tmux attach || tmux"]
+# `new-session -A` attaches to `main` if it exists and creates it otherwise —
+# the same intent as `tmux attach || tmux`, minus the fallback that also fires
+# when tmux failed for some unrelated reason.
+args = ["-l", "-c", "tmux new-session -A -s main"]

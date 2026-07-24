@@ -1,26 +1,56 @@
+# Ghostty — the plain-shell terminal, for work that should not land in the
+# long-lived tmux session alacritty opens: quick one-offs, anything that wants
+# a clean scrollback, and shell-integration features tmux would swallow.
+#
+# Shares its look with alacritty/ and kitty/: Catppuccin Mocha, FiraCode Nerd
+# Font Mono at 13, 12px padding, 0.85 alpha.
+
+# ----------------------------------------------------------------- Theme
+# Ships with Ghostty (`ghostty +list-themes`), so unlike alacritty and kitty
+# there is no palette file to keep in sync here.
+theme = catppuccin-mocha
+
+# ----------------------------------------------------------------- Font
+font-family = "FiraCode Nerd Font Mono"
 font-size = 13
 
-font-family = "JetBrainsMono Nerd Font Mono"
-
+# Programming ligatures on, discretionary ones off: `!=` and `=>` reading as
+# single glyphs is useful, `www` collapsing into one is just noise.
 font-feature = calt
 font-feature = liga
 font-feature = -dlig
 
-window-decoration = false
+# A little air between rows, matching alacritty's font.offset.y and kitty's
+# cell_height 110%.
+adjust-cell-height = 10%
+
+# ----------------------------------------------------------------- Window
+# Alpha lives here rather than in a Hyprland rule; a rule would multiply with
+# this rather than replace it. Hyprland's global 0.90 still applies on top.
+background-opacity = 0.85
+
+# Hyprland draws the border and rounding.
+window-decoration = none
+window-padding-x = 12
+window-padding-y = 12
+# Split leftover pixels evenly instead of banking them all against one edge,
+# so the padding stays visually symmetric at any window size.
+window-padding-balance = true
 
 linux-cgroup = always
-# window-save-state = always
 
-# theme = catppuccin-mocha
-
-background-opacity = 0.9
-
+# ----------------------------------------------------------------- Cursor
 cursor-style = block
 cursor-style-blink = true
 cursor-click-to-move = true
-
 mouse-hide-while-typing = true
 
-scrollback-limit = 10000
+# ----------------------------------------------------------------- Shell
+# No multiplexer here by design — that is alacritty's job. Ghostty's own shell
+# integration covers what tmux would otherwise provide for a single window.
+shell-integration = zsh
+shell-integration-features = cursor,sudo,title
 
+# ----------------------------------------------------------------- Behaviour
+scrollback-limit = 10000
 clipboard-paste-protection = true

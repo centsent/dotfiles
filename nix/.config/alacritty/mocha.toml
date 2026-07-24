@@ -1,0 +1,84 @@
+# Catppuccin Mocha — https://github.com/catppuccin/catppuccin
+#
+# The ANSI mapping follows the upstream Catppuccin terminal spec, so the same
+# hex values appear in waybar/mocha.css, swaync/style.css and hyprlock.conf.
+# Kept in its own file, mirroring the waybar mocha.css / style.css split, so
+# swapping flavours is a one-line change in alacritty.toml.
+
+[colors.primary]
+background        = "#1e1e2e" # base
+foreground        = "#cdd6f4" # text
+dim_foreground    = "#a6adc8" # subtext0
+bright_foreground = "#cdd6f4" # text
+
+[colors.cursor]
+text   = "#1e1e2e" # base
+cursor = "#f5e0dc" # rosewater
+
+[colors.vi_mode_cursor]
+text   = "#1e1e2e" # base
+cursor = "#b4befe" # lavender
+
+[colors.selection]
+text       = "#1e1e2e" # base
+background = "#f5e0dc" # rosewater
+
+[colors.search.matches]
+foreground = "#1e1e2e" # base
+background = "#a6adc8" # subtext0
+
+[colors.search.focused_match]
+foreground = "#1e1e2e" # base
+background = "#a6e3a1" # green
+
+[colors.footer_bar]
+foreground = "#1e1e2e" # base
+background = "#a6adc8" # subtext0
+
+[colors.hints.start]
+foreground = "#1e1e2e" # base
+background = "#f9e2af" # yellow
+
+[colors.hints.end]
+foreground = "#1e1e2e" # base
+background = "#a6adc8" # subtext0
+
+[colors.normal]
+black   = "#45475a" # surface1
+red     = "#f38ba8" # red
+green   = "#a6e3a1" # green
+yellow  = "#f9e2af" # yellow
+blue    = "#89b4fa" # blue
+magenta = "#f5c2e7" # pink
+cyan    = "#94e2d5" # teal
+white   = "#bac2de" # subtext1
+
+[colors.bright]
+black   = "#585b70" # surface2
+red     = "#f38ba8" # red
+green   = "#a6e3a1" # green
+yellow  = "#f9e2af" # yellow
+blue    = "#89b4fa" # blue
+magenta = "#f5c2e7" # pink
+cyan    = "#94e2d5" # teal
+white   = "#a6adc8" # subtext0
+
+[colors.dim]
+black   = "#45475a" # surface1
+red     = "#f38ba8" # red
+green   = "#a6e3a1" # green
+yellow  = "#f9e2af" # yellow
+blue    = "#89b4fa" # blue
+magenta = "#f5c2e7" # pink
+cyan    = "#94e2d5" # teal
+white   = "#bac2de" # subtext1
+
+# Catppuccin extends the 16-colour palette with two extras that themed prompts
+# and TUIs reach for by index.
+[[colors.indexed_colors]]
+index = 16
+color = "#fab387" # peach
+
+[[colors.indexed_colors]]
+index = 17
+color = "#f5e0dc" # rosewater
