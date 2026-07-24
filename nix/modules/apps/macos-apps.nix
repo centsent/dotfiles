@@ -3,5 +3,10 @@
 {
   imports = [ ./aerospace.nix ];
 
-  home.packages = with pkgs; [ cocoapods iina pika shottr ];
+  home.packages = with pkgs; [
+    cocoapods
+    iina
+    pika
+    shottr
+  ];
 }

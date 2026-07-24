@@ -26,9 +26,19 @@
     # Set the default font fallback order. This tells the system which font to
     # try first, and which to use if a character is not found.
     defaultFonts = {
-      serif = [ "Noto Serif" "Noto Sans CJK SC" ];
-      sansSerif = [ "Inter" "Noto Sans CJK SC" ];
-      monospace = [ "FiraCode Nerd Font" "Sarasa Gothic" "Noto Sans CJK SC" ];
+      serif = [
+        "Noto Serif"
+        "Noto Sans CJK SC"
+      ];
+      sansSerif = [
+        "Inter"
+        "Noto Sans CJK SC"
+      ];
+      monospace = [
+        "FiraCode Nerd Font"
+        "Sarasa Gothic"
+        "Noto Sans CJK SC"
+      ];
       emoji = [ "Noto Color Emoji" ];
     };
   };

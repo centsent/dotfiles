@@ -3,8 +3,16 @@
 directory=~/Wallpapers
 log_file=/tmp/wallpaper.log
 interval=600
+# This script loops for the lifetime of the session, so the log needs a cap.
+max_log_bytes=262144
+keep_log_lines=200
 
 log() {
+  if [ -f "$log_file" ] &&
+    [ "$(stat -c %s "$log_file" 2>/dev/null || echo 0)" -gt "$max_log_bytes" ]; then
+    tail -n "$keep_log_lines" "$log_file" >"$log_file.tmp" &&
+      mv "$log_file.tmp" "$log_file"
+  fi
   echo "$(date): $1" >>"$log_file"
 }
 

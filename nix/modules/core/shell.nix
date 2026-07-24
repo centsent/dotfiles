@@ -7,7 +7,8 @@ let
     rev = "master";
     sha256 = "sha256-1Ior+/9e+M+Fc1u0uq5HhknlGRS96q7tazhEE6rmx9Y=";
   };
-in {
+in
+{
   imports = [ ./zsh-aliases.nix ];
 
   # --- Zsh Program Configuration ---
@@ -15,7 +16,11 @@ in {
     enable = true;
     autosuggestion = {
       enable = true;
-      strategy = [ "history" "completion" "match_prev_cmd" ];
+      strategy = [
+        "history"
+        "completion"
+        "match_prev_cmd"
+      ];
       highlight = "fg=#7dcfff,bg=#1a1b26,underline";
     };
     syntaxHighlighting.enable = true;
@@ -25,7 +30,10 @@ in {
       enable = true;
 
       theme = "robbyrussell";
-      plugins = [ "git" "tmux" ];
+      plugins = [
+        "git"
+        "tmux"
+      ];
     };
 
     initContent = ''

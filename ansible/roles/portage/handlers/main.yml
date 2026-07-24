@@ -4,3 +4,10 @@
   become: true
   changed_when: true
   listen: "sync portage tree"
+
+- name: Regenerate local overlay manifest
+  become: true
+  ansible.builtin.command: ebuild flameshot-14.0.0.ebuild manifest
+  args:
+    chdir: /var/db/repos/local/media-gfx/flameshot
+  changed_when: true

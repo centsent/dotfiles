@@ -1,0 +1,27 @@
+---
+extends: default
+
+# SOPS-encrypted files are generated: their ciphertext lines are hundreds of
+# characters long and they carry no document start marker.
+ignore: |
+  ansible/group_vars/all/secrets.sops.yaml
+
+rules:
+  line-length:
+    max: 120
+    allow-non-breakable-words: true
+  # Ansible task keys such as `no_log` read fine unquoted; only check values.
+  truthy:
+    check-keys: false
+
+  # Below here: required by ansible-lint, which refuses to use a custom
+  # yamllint config that disagrees with it. See
+  # https://ansible.readthedocs.io/projects/lint/rules/yaml/
+  comments:
+    min-spaces-from-content: 1
+  comments-indentation: false
+  braces:
+    max-spaces-inside: 1
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: true

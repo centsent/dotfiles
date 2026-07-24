@@ -2,11 +2,9 @@
 
 let
   # Dynamically set ANDROID_HOME based on the OS
-  androidHome = if pkgs.stdenv.isDarwin then
-    "$HOME/Library/Android/Sdk"
-  else
-    "$HOME/Android/Sdk";
-in {
+  androidHome = if pkgs.stdenv.isDarwin then "$HOME/Library/Android/Sdk" else "$HOME/Android/Sdk";
+in
+{
   # --- Environment Variables ---
   home.sessionVariables = {
     ANDROID_HOME = androidHome;

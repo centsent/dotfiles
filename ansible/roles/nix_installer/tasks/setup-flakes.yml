@@ -1,13 +1,15 @@
 ---
+# Kept as a single managed block so these two settings cannot drift apart.
 - name: Ensure Nix Flakes features are enabled in nix.conf
   become: true
-  ansible.builtin.lineinfile:
+  ansible.builtin.blockinfile:
     path: "{{ nix_installer_config_dir_path }}/nix.conf"
-    regexp: "^experimental-features ="
-    line: "experimental-features = nix-command flakes"
     owner: "{{ nix_installer_user }}"
     mode: "0644"
     create: true
+    block: |
+      experimental-features = nix-command flakes
+      accept-flake-config = true
 
 - name: Ensure nix-env is available for the user
   become: true

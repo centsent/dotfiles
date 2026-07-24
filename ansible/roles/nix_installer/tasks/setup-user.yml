@@ -27,13 +27,3 @@
     state: directory
     owner: "{{ nix_installer_user }}"
     mode: "0755"
-
-- name: Enable Flakes in the user's nix.conf
-  ansible.builtin.blockinfile:
-    path: "{{ ansible_env.HOME }}/.config/nix/nix.conf"
-    create: true
-    mode: '0644'
-    block: |
-      experimental-features = nix-command flakes
-      accept-flake-config = true
-  when: nix_installer_flakes | default(false)

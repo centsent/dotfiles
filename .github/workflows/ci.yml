@@ -13,52 +13,80 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
           pip install ansible ansible-lint yamllint
 
-      - name: Lint Ansible playbooks
-        run: |
-          ansible-lint ansible/*.yml
-
       - name: Lint YAML files
         run: |
           yamllint ansible/
 
+      - name: Lint Ansible playbooks
+        run: |
+          ansible-lint ansible/
+
+      - name: Validate playbook syntax
+        run: |
+          for playbook in ansible/dotfiles.yml ansible/gentoo.yml ansible/macos.yml; do
+            echo "==> $playbook"
+            ansible-playbook --syntax-check -i ansible/hosts_gentoo "$playbook"
+          done
+
   lint-nix:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: nix
     steps:
       - uses: actions/checkout@v4
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v25
+        uses: cachix/install-nix-action@v31
         with:
-          nix_path: nixpkgs=channel:nixos-23.11
-
-      - name: Check Nix flake
-        run: |
-          cd nix
-          nix flake check
+          extra_nix_config: |
+            experimental-features = nix-command flakes
 
       - name: Format check
         run: |
-          cd nix
           nix fmt -- --check .
 
-  validate-configs:
+      - name: Check Nix flake
+        run: |
+          nix flake check
+
+      # `nix flake check` does not touch homeConfigurations, since that is not
+      # a standard flake output. Evaluate both explicitly so a broken module
+      # actually fails CI. Evaluation is cross-platform, so the darwin config
+      # can be checked from a Linux runner.
+      - name: Evaluate home configurations
+        run: |
+          for host in gentoo macosx; do
+            echo "==> $host"
+            nix eval --raw ".#homeConfigurations.${host}.activationPackage.drvPath"
+            echo
+          done
+
+  check-secrets:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate Ansible syntax
+      # Guards the one real risk here: committing the secrets file before SOPS
+      # has encrypted it. Every value must be an ENC[...] blob.
+      - name: Verify secrets file is encrypted
         run: |
-          find ansible/ -name "*.yml" -exec ansible-playbook --syntax-check {} \; 2>/dev/null || true
-
-      - name: Check for hardcoded secrets
-        run: |
-          ! grep -r "password\|secret\|key" ansible/ --include="*.yml" --include="*.j2" | grep -v "{{" | grep -v "#" || exit 1
-
+          file=ansible/group_vars/all/secrets.sops.yaml
+          if ! grep -q '^sops:' "$file"; then
+            echo "::error file=$file::missing SOPS metadata - committed unencrypted?"
+            exit 1
+          fi
+          if sed '/^sops:/,$d' "$file" \
+              | grep -nE ':[[:space:]]*[^[:space:]]' | grep -v 'ENC\['; then
+            echo "::error file=$file::plaintext values found above the sops block"
+            exit 1
+          fi
+          echo "OK: all values encrypted"

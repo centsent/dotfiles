@@ -1,28 +1,34 @@
 ---
 - name: Check if KVM source is already a symlink
-  stat:
-    path: "{{ kvm_source_dir }}"
-  register: kvm_dir_stat
+  ansible.builtin.stat:
+    path: "{{ migrate_storage_kvm_source_dir }}"
+  register: migrate_storage_kvm_dir_stat
 
 - name: KVM Migration Block
-  when: kvm_dir_stat.stat.islnk is defined and kvm_dir_stat.stat.islnk == False
+  when:
+    - migrate_storage_kvm_dir_stat.stat.islnk is defined
+    - not migrate_storage_kvm_dir_stat.stat.islnk
   block:
+    # Deliberately not ignoring errors: if virsh cannot be queried we must not
+    # go on to move image files out from under a possibly-running hypervisor.
     - name: Check for running VMs
       become: true
-      shell: virsh list --state-running --name
-      register: running_vms
+      ansible.builtin.command: virsh list --state-running --name
+      register: migrate_storage_running_vms
       changed_when: false
-      ignore_errors: true
 
     - name: Fail if VMs are running
-      fail:
-        msg: "CRITICAL: There are running VMs ({{ running_vms.stdout }}). Please shut them down before migration!"
-      when: running_vms.stdout | length > 0
+      ansible.builtin.fail:
+        msg: >-
+          CRITICAL: There are running VMs
+          ({{ migrate_storage_running_vms.stdout_lines | join(', ') }}).
+          Please shut them down before migration!
+      when: migrate_storage_running_vms.stdout | length > 0
 
     - name: Ensure target parent directory exists
       become: true
-      file:
-        path: "{{ kvm_target_dir }}"
+      ansible.builtin.file:
+        path: "{{ migrate_storage_kvm_target_dir }}"
         state: directory
         owner: root
         group: root
@@ -30,42 +36,68 @@
 
     - name: Stop libvirt service
       become: true
-      service:
-        name: "{{ libvirt_service }}"
+      ansible.builtin.service:
+        name: "{{ migrate_storage_libvirt_service }}"
         state: stopped
 
-    - name: Copy KVM images using rsync
+    # noqa command-instead-of-module: ansible.posix.synchronize is a wrapper for
+    # pushing to a remote host and does not cleanly express -S / a dry run, both
+    # of which this migration depends on.
+    - name: Copy KVM images to the new location  # noqa: command-instead-of-module
       become: true
-      shell: |
-        rsync -aS --info=progress2 "{{ kvm_source_dir }}/" "{{ kvm_target_dir }}/"
-      args:
-        executable: /bin/bash
+      ansible.builtin.command:
+        cmd: >-
+          rsync -aS --info=progress2
+          "{{ migrate_storage_kvm_source_dir }}/"
+          "{{ migrate_storage_kvm_target_dir }}/"
+      changed_when: true
+
+    # rsync above is non-zero on failure, which aborts the block before we get
+    # here. Verify the copy independently anyway: this is the last point at
+    # which the original images still exist.
+    - name: Verify the copy before removing the originals  # noqa: command-instead-of-module
+      become: true
+      ansible.builtin.command:
+        cmd: >-
+          rsync -aSn --itemize-changes
+          "{{ migrate_storage_kvm_source_dir }}/"
+          "{{ migrate_storage_kvm_target_dir }}/"
+      register: migrate_storage_kvm_copy_diff
+      changed_when: false
+
+    - name: Fail if the copy is incomplete
+      ansible.builtin.fail:
+        msg: >-
+          CRITICAL: {{ migrate_storage_kvm_target_dir }} does not match {{ migrate_storage_kvm_source_dir }}
+          after rsync; refusing to delete the originals. Outstanding:
+          {{ migrate_storage_kvm_copy_diff.stdout_lines | join(', ') }}
+      when: migrate_storage_kvm_copy_diff.stdout | length > 0
 
     - name: Remove original KVM directory
       become: true
-      file:
-        path: "{{ kvm_source_dir }}"
+      ansible.builtin.file:
+        path: "{{ migrate_storage_kvm_source_dir }}"
         state: absent
 
     - name: Create symlink from /var to /home
       become: true
-      file:
-        src: "{{ kvm_target_dir }}"
-        dest: "{{ kvm_source_dir }}"
+      ansible.builtin.file:
+        src: "{{ migrate_storage_kvm_target_dir }}"
+        dest: "{{ migrate_storage_kvm_source_dir }}"
         state: link
         owner: root
         group: root
 
     - name: Restart libvirt service
       become: true
-      service:
-        name: "{{ libvirt_service }}"
+      ansible.builtin.service:
+        name: "{{ migrate_storage_libvirt_service }}"
         state: started
 
 - name: Ensure Portage target directory exists
   become: true
-  file:
-    path: "{{ distfiles_target_dir }}"
+  ansible.builtin.file:
+    path: "{{ migrate_storage_distfiles_target_dir }}"
     state: directory
     owner: portage
     group: portage
@@ -73,28 +105,33 @@
 
 - name: Update DISTDIR in make.conf
   become: true
-  lineinfile:
-    path: "{{ portage_make_conf }}"
+  ansible.builtin.lineinfile:
+    path: "{{ migrate_storage_portage_make_conf }}"
     regexp: '^DISTDIR='
-    line: 'DISTDIR="{{ distfiles_target_dir }}"'
+    line: 'DISTDIR="{{ migrate_storage_distfiles_target_dir }}"'
     state: present
 
 - name: Check if old distfiles directory has content
   become: true
-  shell: "ls -A {{ distfiles_source_dir }} 2>/dev/null || true"
-  register: old_distfiles_content
-  changed_when: false
+  ansible.builtin.find:
+    paths: "{{ migrate_storage_distfiles_source_dir }}"
+    file_type: any
+  register: migrate_storage_old_distfiles
 
-- name: Sync existing distfiles to new location
+- name: Sync existing distfiles to new location  # noqa: command-instead-of-module
   become: true
-  shell: |
-    rsync -a --remove-source-files "{{ distfiles_source_dir }}/" "{{ distfiles_target_dir }}/"
-  when: old_distfiles_content.stdout | length > 0
+  ansible.builtin.command:
+    cmd: >-
+      rsync -a --remove-source-files
+      "{{ migrate_storage_distfiles_source_dir }}/"
+      "{{ migrate_storage_distfiles_target_dir }}/"
+  when: migrate_storage_old_distfiles.matched > 0
+  changed_when: true
 
 - name: Clean up old distfiles directory structure
   become: true
-  file:
-    path: "{{ distfiles_source_dir }}"
+  ansible.builtin.file:
+    path: "{{ migrate_storage_distfiles_source_dir }}"
     state: directory
     mode: '0775'
     owner: portage

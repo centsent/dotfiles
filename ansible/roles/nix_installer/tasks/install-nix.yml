@@ -1,9 +1,11 @@
 ---
+# failed_when rather than ignore_errors: a missing nix is the expected case
+# here, not an error to be swallowed and reported red in the play output.
 - name: Check if Nix is installed
   ansible.builtin.command: which nix
   register: nix_installer_installed
   changed_when: false
-  ignore_errors: true
+  failed_when: false
 
 - name: Set should_install_nix fact
   ansible.builtin.set_fact:
@@ -35,12 +37,12 @@
   block:
     - name: Check if nix-daemon service is loaded
       ansible.builtin.command: launchctl list org.nixos.nix-daemon
-      register: nix_daemon_status
+      register: nix_installer_daemon_status
       changed_when: false
       failed_when: false
 
     - name: Load nix-daemon service if not running
       become: true
       ansible.builtin.command: launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist
-      when: nix_daemon_status.rc != 0
+      when: nix_installer_daemon_status.rc != 0
       changed_when: true
