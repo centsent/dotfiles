@@ -1,10 +1,14 @@
 ---
-- name: Clone Doom Emacs with depth 1
+# update: true so the pinned revision is actually enforced. With update: false
+# the version below only applied to a fresh clone, and an existing checkout
+# never moved. Bump `version` to upgrade rather than running `doom upgrade`,
+# which this task would otherwise revert on the next run.
+- name: Clone Doom Emacs at the pinned revision
   ansible.builtin.git:
     repo: https://github.com/doomemacs/doomemacs
     dest: "{{ ansible_env.HOME }}/.config/emacs"
     depth: 1
-    update: false
+    update: true
     version: ed9190ef005829c7a2331e12fb36207794c5ad75
 
 - name: Symlink Doom Emacs configuration directories

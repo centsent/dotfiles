@@ -4,43 +4,46 @@
     - name: Check status of geosite.dat
       ansible.builtin.stat:
         path: /usr/share/dae/geosite.dat
-      register: geosite_stat
+      register: dae_geosite_stat
 
     - name: Remove geosite.dat symlink
       become: true
       ansible.builtin.file:
         path: /usr/share/dae/geosite.dat
         state: absent
-      when: geosite_stat.stat.islnk is defined and geosite_stat.stat.islnk
+      when: dae_geosite_stat.stat.islnk is defined and dae_geosite_stat.stat.islnk
 
+    # These URLs track the newest release, so the file has to be re-fetched to
+    # pick up changes. get_url only reports changed (and only notifies the
+    # handler) when the downloaded content actually differs.
     - name: Download geosite.dat
       become: true
       ansible.builtin.get_url:
         url: https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat
         dest: /usr/share/dae/geosite.dat
         mode: '0644'
-        force: no
+        force: true
       notify: Restart dae
 
     - name: Check status of geoip.dat
       ansible.builtin.stat:
         path: /usr/share/dae/geoip.dat
-      register: geoip_stat
+      register: dae_geoip_stat
 
     - name: Remove geoip.dat symlink
       become: true
       ansible.builtin.file:
         path: /usr/share/dae/geoip.dat
         state: absent
-      when: geoip_stat.stat.islnk is defined and geoip_stat.stat.islnk
+      when: dae_geoip_stat.stat.islnk is defined and dae_geoip_stat.stat.islnk
 
     - name: Download geoip.dat
       become: true
       ansible.builtin.get_url:
-        url: https://github.com/v2ray/geoip/releases/latest/download/geoip.dat
+        url: https://github.com/v2fly/geoip/releases/latest/download/geoip.dat
         dest: /usr/share/dae/geoip.dat
         mode: '0644'
-        force: no
+        force: true
       notify: Restart dae
 
     - name: Ensure dae configuration directory exists
