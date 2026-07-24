@@ -5,8 +5,8 @@
   "hyprland/window": {
     "format": "{initialClass}",
     "icon": true,
-    "icon-size": 18,
-    "seperate-outputs": true,
+    "icon-size": 16,
+    "separate-outputs": true,
     "rewrite": {
       "": "󰣨 Gentoo",
       "firefox-esr": "Firefox",

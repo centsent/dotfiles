@@ -1,7 +1,16 @@
 {
   "layer": "top",
+  "position": "top",
   "reload_style_on_change": true,
-  "margin-top": 5,
+
+  // Each module list is drawn as one rounded "island" (see style.css); the
+  // islands supply their own internal spacing, so the bar only needs to clear
+  // the screen edge. 6 matches Hyprland's gaps_out.
+  "margin-top": 6,
+  "margin-left": 6,
+  "margin-right": 6,
+  "spacing": 0,
+
   "include": [
     "$HOME/.config/waybar/modules/battery.jsonc",
     "$HOME/.config/waybar/modules/bluetooth.jsonc",
@@ -13,10 +22,8 @@
   "modules-left": [
     "custom/launcher",
     "hyprland/workspaces",
-    "disk",
     "cpu",
-    "memory",
-    "network#speed"
+    "memory"
   ],
   "modules-center": [
     "clock"
@@ -30,12 +37,14 @@
     "bluetooth",
     "network"
   ],
+
+  // Not on the bar — kept so it can be dropped back into modules-left.
   "disk": {
-    "format": "{percentage_used}% ",
+    "format": "{percentage_used}% ",
     "on-click": "kitty yazi"
   },
   "tray": {
-    "icon-size": 18,
+    "icon-size": 16,
     "spacing": 10
   },
   "clock": {
@@ -47,14 +56,23 @@
   },
   "cpu": {
     "interval": 1,
-    "format": "{usage}% ",
+    "format": "{usage}% ",
+    // Drives #cpu.warning / #cpu.critical, which recolour to peach and red.
+    "states": {
+      "warning": 70,
+      "critical": 90
+    },
     "on-click": "kitty btop"
   },
   "memory": {
     "tooltip": true,
     "interval": 1,
-    "format": "{percentage}% ",
+    "format": "{percentage}% ",
     "tooltip-format": "{used}/{total} GiB",
+    "states": {
+      "warning": 75,
+      "critical": 90
+    },
     "on-click": "kitty btop"
   }
 }
