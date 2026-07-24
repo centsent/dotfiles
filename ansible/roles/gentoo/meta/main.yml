@@ -4,6 +4,9 @@ dependencies:
     tags: grub
   - role: portage
     tags: portage
+  # After portage: the flatpak binary itself comes from sys-apps/flatpak.
+  - role: flatpak
+    tags: flatpak
   - role: dae
     tags: dae
   - role: greetd

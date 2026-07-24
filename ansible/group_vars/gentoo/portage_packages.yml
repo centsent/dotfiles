@@ -42,6 +42,7 @@ portage_packages:
   - net-vpn/tailscale
   - net-wireless/blueman
   - net-wireless/iwd
+  - sys-apps/flatpak
   - sys-fs/fuse
   - virtual/opengl
   - www-client/firefox
