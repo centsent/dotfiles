@@ -13,7 +13,8 @@ let
     rev = "main";
     hash = "sha256-nGFiAgVWfq7RkuGGCt07zm3z7ZTGiIPIR319ojPfdUk=";
   };
-in {
+in
+{
   programs.yazi = {
     enable = true;
     shellWrapperName = "y";
@@ -75,9 +76,13 @@ in {
     };
   };
 
-  xdg.configFile."yazi/plugins/office.yazi" = { source = yazi-office-plugin; };
+  xdg.configFile."yazi/plugins/office.yazi" = {
+    source = yazi-office-plugin;
+  };
 
-  xdg.configFile."yazi/flavors/kanagawa.yazi" = { source = kanagawa-flavor; };
+  xdg.configFile."yazi/flavors/kanagawa.yazi" = {
+    source = kanagawa-flavor;
+  };
   xdg.configFile."yazi/theme.toml" = {
     text = ''
       [flavor]

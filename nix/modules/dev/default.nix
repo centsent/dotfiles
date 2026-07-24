@@ -1,1 +1,6 @@
-{ ... }: { imports = [ ./langs.nix ./mise.nix ]; }
+{ ... }: {
+  imports = [
+    ./langs.nix
+    ./mise.nix
+  ];
+}

@@ -10,33 +10,41 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, ... }: {
-    formatter = {
-      x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-      aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
-    };
-
-    homeConfigurations = {
-      "macosx" = home-manager.lib.homeManagerConfiguration {
-        extraSpecialArgs = {
-          flake = self;
-          username = "theodo";
-          nixpkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-darwin;
-        };
-        pkgs = nixpkgs.legacyPackages.x86_64-darwin;
-        modules = [ ./hosts/macosx.nix ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nixpkgs-unstable,
+      ...
+    }:
+    {
+      formatter = {
+        x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+        aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
       };
 
-      "gentoo" = home-manager.lib.homeManagerConfiguration {
-        extraSpecialArgs = {
-          flake = self;
-          username = "gentty";
-          nixpkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+      homeConfigurations = {
+        "macosx" = home-manager.lib.homeManagerConfiguration {
+          extraSpecialArgs = {
+            flake = self;
+            username = "theodo";
+            nixpkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-darwin;
+          };
+          pkgs = nixpkgs.legacyPackages.x86_64-darwin;
+          modules = [ ./hosts/macosx.nix ];
         };
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [ ./hosts/gentoo.nix ];
-      };
-    };
 
-  };
+        "gentoo" = home-manager.lib.homeManagerConfiguration {
+          extraSpecialArgs = {
+            flake = self;
+            username = "gentty";
+            nixpkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+          };
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [ ./hosts/gentoo.nix ];
+        };
+      };
+
+    };
 }

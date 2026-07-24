@@ -1,7 +1,14 @@
-{ flake, lib, pkgs, ... }:
+{
+  flake,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  home.file.".config/mise" = { source = "${flake}/.config/mise"; };
+  home.file.".config/mise" = {
+    source = "${flake}/.config/mise";
+  };
 
   home.activation.miseInstall = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
     MISE_BIN="$HOME/.local/bin/mise"
@@ -15,15 +22,14 @@
     fi
   '';
 
-  home.activation.miseInstallTools =
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      MISE_BIN="$HOME/.local/bin/mise"
+  home.activation.miseInstallTools = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    MISE_BIN="$HOME/.local/bin/mise"
 
-      if [ -x "$MISE_BIN" ]; then
-        echo "Running 'mise install' to sync tools defined in config.toml..."
-        $MISE_BIN install
-      else
-        echo "Warning: mise not found at $MISE_BIN"
-      fi
-    '';
+    if [ -x "$MISE_BIN" ]; then
+      echo "Running 'mise install' to sync tools defined in config.toml..."
+      $MISE_BIN install
+    else
+      echo "Warning: mise not found at $MISE_BIN"
+    fi
+  '';
 }

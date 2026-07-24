@@ -1,21 +1,25 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   home.packages = [ pkgs.emacs-pgtk ];
 
-  home.file.".local/share/applications/emacs-doom.desktop" =
-    lib.mkIf pkgs.stdenv.isLinux {
-      text = ''
-        [Desktop Entry]
-        Name=Emacs (Doom)
-        Comment=Text Editor
-        Exec=${pkgs.emacs-pgtk}/bin/emacs
-        Icon=emacs
-        Terminal=false
-        Type=Application
-        Categories=Development;Editor;
-      '';
-    };
+  home.file.".local/share/applications/emacs-doom.desktop" = lib.mkIf pkgs.stdenv.isLinux {
+    text = ''
+      [Desktop Entry]
+      Name=Emacs (Doom)
+      Comment=Text Editor
+      Exec=${pkgs.emacs-pgtk}/bin/emacs
+      Icon=emacs
+      Terminal=false
+      Type=Application
+      Categories=Development;Editor;
+    '';
+  };
 
   home.sessionPath = [ "$HOME/.config/emacs/bin" ];
 
