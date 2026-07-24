@@ -1,7 +1,9 @@
 {
   "custom/launcher": {
     "format": "",
-    "on-click": "wlogout"
+    // -b 3 gives the 3x2 grid the wlogout stylesheet is laid out for; -s draws
+    // each button's keybind next to its label.
+    "on-click": "wlogout -b 3 -s"
   },
   "custom/wallpaper": {
     "format": " ",
