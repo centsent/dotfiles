@@ -1,50 +1,32 @@
-#workspaces {
-  background: @raisin-black;
-  margin: 0;
-  margin-left: 3px;
-  padding: 0;
-  font-weight: bold;
-  font-style: normal;
-  opacity: 1;
-  font-size: 20px;
-  color: #1e1;
-  border-radius: 6px;
-}
-
+/* Workspace buttons. style.css sizes the #workspaces container; the buttons
+   own their own box so the active pill can be a proper rounded chip. */
 #workspaces button {
-  padding: 0px 5px;
-  margin: 3px;
+  color: @overlay1;
+  background-color: transparent;
+  padding: 0 8px;
+  margin: 0 2px;
   border-radius: 6px;
-  border: none;
-  transition: all 0.3s ease-in-out;
-  opacity: 0.4;
+  font-size: 14px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 #workspaces button.active {
-  color: #1e1e2e;
-  background: #cba6f7;
-  min-width: 20px;
-  opacity: 1;
+  color: @base;
+  background-color: @mauve;
+  font-weight: 700;
+}
+
+#workspaces button.urgent {
+  color: @base;
+  background-color: @red;
 }
 
 #workspaces button:hover {
-  color: @cerise;
-  background: #1e1e2e;
-  opacity: 1;
-  animation: none;
+  color: @text;
+  background-color: @hover;
 }
 
-#workspaces button:not(.active) {
-  color: #74c7ec;
+#workspaces button.active:hover {
+  color: @base;
+  background-color: @lavender;
 }
-
-#workspaces button:nth-child(1):not(.active) {
-  color: #f38ba8;
-}
-#workspaces button:nth-child(2):not(.active) {
-  color: #f9e2af;
-}
-#workspaces button:nth-child(3):not(.active) {
-  color: #a6e3a1;
-}
-

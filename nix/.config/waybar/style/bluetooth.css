@@ -1,0 +1,12 @@
+#bluetooth {
+  color: @sapphire;
+}
+
+#bluetooth.off,
+#bluetooth.disabled {
+  color: @overlay1;
+}
+
+#bluetooth.connected {
+  color: @blue;
+}

@@ -1,0 +1,12 @@
+#network {
+  color: @blue;
+}
+
+#network.disconnected,
+#network.disabled {
+  color: @red;
+}
+
+#network.linked {
+  color: @peach;
+}

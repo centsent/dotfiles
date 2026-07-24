@@ -1,16 +1,12 @@
 #custom-launcher {
-  font-size: 18px;
-  transition: none;
-  padding: 0px 10px;
-  margin-right: 2px;
-  background: @raisin-black;
-  color: #a7a8e9;
-  border-radius: 0 6px 6px 0;
+  color: @mauve;
+  font-size: 15px;
 }
 
 #custom-wallpaper {
-  font-size: 20px;
-  font-family: 'Font Awesome 5 Free';
-  margin-right: 1px;
-  color: #f38ba8;
+  /* The glyph is a Font Awesome codepoint, which Nerd Fonts already carry —
+     no separate Font Awesome family needed (the old 'Font Awesome 5 Free'
+     was not installed and fell back). */
+  color: @pink;
+  font-size: 14px;
 }

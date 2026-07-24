@@ -1,0 +1,11 @@
+#pulseaudio {
+  color: @sky;
+}
+
+#pulseaudio.bluetooth {
+  color: @sapphire;
+}
+
+#pulseaudio.muted {
+  color: @overlay1;
+}

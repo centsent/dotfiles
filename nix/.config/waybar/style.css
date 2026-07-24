@@ -1,156 +1,168 @@
+/*
+ * Waybar — three floating islands on a transparent bar, Catppuccin Mocha.
+ *
+ * GTK only honours @import before any rule, so every import lives up here.
+ * Palette first, then the per-module sheets, which mirror the modules dir.
+ *
+ * Division of labour: this file owns geometry — the island containers, module
+ * padding and the dividers between them. The module sheets own colour and
+ * per-state styling. Keeping borders out of the module sheets is what stops
+ * them fighting the divider rules below.
+ */
 @import 'mocha.css';
+@import 'style/hyprland.css';
+@import 'style/custom.css';
+@import 'style/pulseaudio.css';
+@import 'style/battery.css';
+@import 'style/bluetooth.css';
+@import 'style/network.css';
 
 * {
-  font-family: JetBrains Mono Nerd Font;
-  min-height: 14px;
-  font-size: 12px;
+  /* Must match an installed family exactly — `fc-list : family`. The old
+     "JetBrains Mono Nerd Font" (with a space) matched nothing and silently
+     fell back to the GTK default. */
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
   border: none;
-  border-radius: 6px;
+  border-radius: 0;
+  min-height: 0;
   padding: 0;
   margin: 0;
   box-shadow: none;
   text-shadow: none;
-  background-color: transparent;
 }
 
 window#waybar {
-  border-radius: 6px;
-  padding: 2px;
-  box-shadow: none;
-}
-
-#window {
+  background: transparent;
   color: @text;
-  background: @raisin-black;
-  padding: 6px;
-  margin: 0px 2px;
 }
 
-
-#network {
-  margin-left: 8px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 0px;
-  transition: none;
-  color: #81A1C1;
-}
-
-/* Pulseaudio */
-#pulseaudio {
-  background-color: @raisin-black;
-  margin-left: 8px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 0px;
+/*
+ * The islands. Waybar wraps each module list in one of these boxes, so they
+ * are what carries the container look; the modules inside stay flat.
+ */
+.modules-left,
+.modules-center,
+.modules-right {
+  background-color: @island;
+  border: 1px solid @island-border;
   border-radius: 10px;
-  transition: none;
-  color: #A3BE8C;
+  padding: 0 4px;
 }
 
-/* Backlight */
-d3d3d3 #backlight {
-  margin-left: 8px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 0px;
-  border-radius: 10px;
-  transition: none;
-  color: #F4B6C2;
-}
-
-/* Clock */
-#clock {
-  margin-left: 8px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 0px;
-  border-radius: 10px;
-  transition: none;
-  color: #A3BE8C;
-}
-
-/* Memory */
-#memory {
-  color: @beige;
-  padding: 0px 15px 0px 8px;
-  background: @raisin-black;
-  margin-right: 1px;
-  border-radius: 0 6px 6px 0;
-}
-
-/* CPU */
-#cpu {
-  color: @beige;
-  padding: 0px 8px 0px 15px;
-  background: @raisin-black;
-  margin-left: 2px;
-  border-radius: 6px 0 0 6px;
-}
-
-/* Disk */
-#disk {
-  color: @beige;
-  padding: 0px 8px 0px 15px;
-  background: @raisin-black;
-  margin-left: 2px;
-  border-radius: 6px;
-}
-
-/* Tray */
-#tray {
-  margin-left: 8px;
-  padding: 5px 10px;
-  border-radius: 10px;
-  transition: none;
-}
-
-/* General Styling */
-tooltip,
-menu,
+/* Every module is a flat cell on the island surface. */
+#custom-launcher,
 #workspaces,
+#cpu,
+#memory,
 #clock,
-#wireplumber,
-#backlight,
-#bluetooth,
-#network,
+#window,
+#tray,
+#custom-wallpaper,
+#pulseaudio,
 #battery,
-#custom-power {
-  background: @raisin-black;
-  padding: 7px 8px;
-  margin: 0;
-  border-radius: 6px;
-}
-
-#clock {
-  padding: 0 15px;
-  color: @beige;
-  border-radius: 6px;
-}
-
-#backlight {
-  padding: 0 8px;
-  margin: 0 1px;
-  color: @beige;
-  border-radius: 6px 6px;
-}
-
 #bluetooth,
 #network {
-  color: #cba6f7;
-  border-radius: 6px;
-  margin: 0 1px;
+  background-color: transparent;
+  padding: 3px 10px;
+  margin: 3px 0;
 }
 
-@import url('./style/battery.css');
-@import url('./style/custom.css');
-@import url('./style/hyprland.css');
+/*
+ * Dividers. A divider belongs to the module on its right, so the first module
+ * of each island never draws one. #tray is deliberately skipped: it can be
+ * empty and GTK gives no way to select that, which would strand a hairline.
+ */
+#workspaces,
+#cpu,
+#memory,
+#custom-wallpaper,
+#pulseaudio,
+#battery,
+#bluetooth,
+#network {
+  border-left: 1px solid @divider;
+}
+
+/* Modules that do something on click get a hover cell. Sharp-cornered on
+   purpose — a radius here would bend the divider borders into arcs. */
+#custom-launcher:hover,
+#cpu:hover,
+#memory:hover,
+#clock:hover,
+#custom-wallpaper:hover,
+#pulseaudio:hover,
+#battery:hover,
+#bluetooth:hover,
+#network:hover {
+  background-color: @hover;
+}
+
+/* Workspaces is a container of buttons, so it stays tight here and lets
+   hyprland.css size the buttons themselves. */
+#workspaces {
+  padding: 3px 4px;
+}
+
+/* Clock — the centre island is a single module, so it carries the emphasis. */
+#clock {
+  color: @text;
+  padding: 3px 14px;
+}
+
+/* CPU / memory. Colour is uniform; the glyphs tell them apart. Warning and
+   critical come from the `states` blocks in config.jsonc. */
+#cpu,
+#memory {
+  color: @yellow;
+}
+
+#cpu.warning,
+#memory.warning {
+  color: @peach;
+}
+
+#cpu.critical,
+#memory.critical {
+  color: @red;
+}
+
+/* Focused window — deliberately quiet, it is context rather than status. */
+#window {
+  color: @subtext0;
+  font-weight: 400;
+}
+
+/* No window focused: collapse the module so the island shrinks with it. */
+window#waybar.empty #window {
+  padding: 0;
+  margin: 0;
+}
+
+#tray {
+  padding: 3px 8px;
+}
+
+#tray > .needs-attention {
+  background-color: @red;
+  border-radius: 6px;
+}
+
+tooltip {
+  background-color: @island;
+  border: 1px solid @island-border;
+  border-radius: 10px;
+}
+
+tooltip label {
+  color: @text;
+  padding: 4px;
+}
 
 @keyframes blink {
   to {
-    color: #d20f39;
-    /* Red */
-    background: #eff1f5;
-    /* Text */
+    color: @base;
+    background-color: @red;
   }
 }
