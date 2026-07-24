@@ -36,8 +36,12 @@ hl.window_rule({ match = { class = ".*kitty.*" }, workspace = "6" })
 -- The global default now lives in decoration.lua (active 0.90 / inactive 0.80).
 -- Only deviations from it belong here.
 
--- The terminal carries the least detail per pixel, so it can take the most.
-hl.window_rule({ match = { class = "Alacritty" }, opacity = "0.82 0.70" })
+-- No terminal rule here on purpose. Alacritty, kitty and ghostty each set
+-- 0.85 in their own config, which also survives on macOS where none of these
+-- rules exist. A rule on top would multiply rather than replace it: the old
+-- `Alacritty 0.82` against the config's own alpha landed near 0.62, far darker
+-- than either number reads as. The global default still applies, so a terminal
+-- ends up around 0.77 active.
 
 -- Kept fully opaque: transparency over video or a photo looks like a rendering
 -- fault, and the emulator has to show true colours to be worth anything.
