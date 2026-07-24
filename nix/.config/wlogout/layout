@@ -5,22 +5,10 @@
     "keybind" : "l"
 }
 {
-    "label" : "hibernate",
-    "action" : "systemctl hibernate || loginctl hibernate",
-    "text" : "Save",
-    "keybind" : "h"
-}
-{
     "label" : "logout",
     "action" : "pkill Hyprland || pkill sway || pkill niri || loginctl terminate-user $USER",
     "text" : "Logout",
     "keybind" : "e"
-}
-{
-    "label" : "shutdown",
-    "action" : "systemctl poweroff || loginctl poweroff",
-    "text" : "Shutdown",
-    "keybind" : "s"
 }
 {
     "label" : "suspend",
@@ -33,4 +21,16 @@
     "action" : "systemctl reboot || loginctl reboot",
     "text" : "Reboot",
     "keybind" : "r"
+}
+{
+    "label" : "hibernate",
+    "action" : "systemctl hibernate || loginctl hibernate",
+    "text" : "Save",
+    "keybind" : "h"
+}
+{
+    "label" : "shutdown",
+    "action" : "systemctl poweroff || loginctl poweroff",
+    "text" : "Shutdown",
+    "keybind" : "s"
 }

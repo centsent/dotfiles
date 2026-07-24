@@ -1,26 +1,160 @@
+/*
+ * wlogout — 3x2 grid of cards, Catppuccin Mocha.
+ *
+ * Mirrors the bar's island look (see ../waybar/style.css). The palette is
+ * repeated here rather than imported because wlogout loads this file through
+ * its own GTK provider, with no shared root to @import from.
+ *
+ * Colour escalates with how much the action costs you: blues and teals for
+ * anything reversible, peach once the session dies, red for the two that take
+ * the machine down. The icons in icons/ are tinted to match.
+ *
+ * Those icons are PNG, not SVG, on purpose: the gdk-pixbuf that ships with the
+ * Nix wlogout has no SVG loader, so an .svg background silently renders as
+ * nothing. They were made from wlogout's own assets by inheriting a fill on the
+ * root element (the shipped paths carry no fill of their own, which is why they
+ * came out black and had to be disabled before), then rasterised:
+ *
+ *     rsvg-convert -w 512 -h 512 lock.svg -o lock.png
+ *
+ * wlogout builds buttons with gtk_button_new_with_label, so there is no Pango
+ * markup and the whole label shares one font-size. That is why the glyph comes
+ * from background-image instead of the label text — it is the only way to have
+ * a large icon above small type.
+ *
+ * Note on `layout`: wlogout fills the grid COLUMN by column, and its parser
+ * rejects comments, so the ordering rationale lives here instead. The entries
+ * are interleaved to read left-to-right on screen as:
+ *
+ *     Lock     Bedtime   Save        (reversible)
+ *     Logout   Reboot    Shutdown    (costs the session, or the machine)
+ *
+ * Keep that pairing when editing: entries 1/2 are column one, 3/4 column two,
+ * 5/6 column three. Launched with -b 3 -s from waybar's custom/launcher.
+ */
+
+/* base */
+@define-color base     #1e1e2e;
+@define-color crust    #11111b;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+
+/* text */
+@define-color subtext0 #a6adc8;
+@define-color text     #cdd6f4;
+
+/* accents, in escalating order of consequence */
+@define-color blue     #89b4fa;
+@define-color sapphire #74c7ec;
+@define-color teal     #94e2d5;
+@define-color peach    #fab387;
+@define-color red      #f38ba8;
+@define-color mauve    #cba6f7;
+
 * {
-	all: unset;
-	background-image: none;
-	transition: 400ms cubic-bezier(0.05, 0.7, 0.1, 1);
+  all: unset;
+  background-image: none;
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+  transition: background-color 200ms ease, border-color 200ms ease,
+              color 200ms ease;
 }
 
+/* Dim the desktop hard enough that the cards are unambiguously the focus.
+   Below about 0.9 the text behind stays legible enough to read, which competes
+   with the cards; this leaves the desktop as a ghost rather than content. */
 window {
-	background: rgba(0, 0, 0, 0.5);
+  background-color: rgba(17, 17, 27, 0.94);
 }
 
 button {
-	font-family: 'Material Symbols Outlined';
-	font-size: 10rem;
-	background-color: rgba(11, 11, 11, 0.4);
-	color: #FFFFFF;
-	margin: 2rem;
-	border-radius: 2rem;
-	padding: 3rem;
+  color: @subtext0;
+  background-color: rgba(30, 30, 46, 0.9);
+  border: 1px solid @surface0;
+  border-radius: 14px;
+  margin: 14px;
+  font-size: 15px;
+  font-weight: 500;
+
+  /* The icon sits in the upper third. GTK3 accepts percentages for background
+     geometry but NOT for padding, so the offset that pushes the label clear of
+     the icon has to be a fixed length. */
+  background-repeat: no-repeat;
+  background-position: center 34%;
+  background-size: 26%;
+  padding-top: 40px;
 }
 
-button:focus,
-button:active,
-button:hover {
-	background-color: rgba(51, 51, 51, 0.5);
-	border-radius: 4rem;
+/* Hover and keyboard focus are styled identically — the keybinds mean this is
+   usually driven from the keyboard, and focus must be as loud as hover. */
+button:hover,
+button:focus {
+  background-color: @surface0;
+  border-color: @mauve;
+  color: @text;
+}
+
+button:active {
+  background-color: @surface1;
+}
+
+/* Reversible */
+#lock {
+  color: @blue;
+  background-image: url("icons/lock.png");
+}
+
+#suspend {
+  color: @sapphire;
+  background-image: url("icons/suspend.png");
+}
+
+#hibernate {
+  color: @teal;
+  background-image: url("icons/hibernate.png");
+}
+
+/* Costs you the session */
+#logout {
+  color: @peach;
+  background-image: url("icons/logout.png");
+}
+
+/* Takes the machine down */
+#reboot {
+  color: @red;
+  background-image: url("icons/reboot.png");
+}
+
+#shutdown {
+  color: @red;
+  background-image: url("icons/shutdown.png");
+}
+
+/* Border follows the action's own colour on focus, so the severity signal
+   survives even when the card is lit up. */
+#lock:hover,
+#lock:focus {
+  border-color: @blue;
+}
+
+#suspend:hover,
+#suspend:focus {
+  border-color: @sapphire;
+}
+
+#hibernate:hover,
+#hibernate:focus {
+  border-color: @teal;
+}
+
+#logout:hover,
+#logout:focus {
+  border-color: @peach;
+}
+
+#reboot:hover,
+#reboot:focus,
+#shutdown:hover,
+#shutdown:focus {
+  border-color: @red;
 }
