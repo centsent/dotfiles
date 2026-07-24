@@ -19,14 +19,23 @@ hl.curve("easeOutExpo", { type = "bezier", points = { {0.16, 1}, {0.3, 1} } })
 hl.curve("softAcDecel", { type = "bezier", points = { {0.26, 0.26}, {0.15, 1} } })
 hl.curve("md2", { type = "bezier", points = { {0.4, 0}, {0.2, 1} } })
 
-hl.animation({ leaf = "windows", enabled = true, speed = 3, bezier = "md3_decel", style = "popin 60%" })
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 3, bezier = "md3_decel", style = "popin 60%" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 3, bezier = "md3_accel", style = "popin 60%" })
-hl.animation({ leaf = "border", enabled = true, speed = 10, bezier = "default" })
-hl.animation({ leaf = "fade", enabled = true, speed = 3, bezier = "md3_decel" })
-hl.animation({ leaf = "layersIn", enabled = true, speed = 3, bezier = "menu_decel", style = "slide" })
-hl.animation({ leaf = "layersOut", enabled = true, speed = 1.6, bezier = "menu_accel" })
-hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 2, bezier = "menu_decel" })
+-- Tuned for glide over snap. Durations are broadly unchanged, so nothing feels
+-- less responsive than before; what changed is the easing and the window entry
+-- scale. `popin 60%` starts a window at 60% of its size, which is a big enough
+-- jump to read as a pop; at 88% the same motion is a settle instead.
+--
+-- softAcDecel eases in and out gently, so entrances have no hard edge at either
+-- end. easeOutExpo covers most of its distance early then coasts, which is what
+-- makes a workspace slide feel like it glides to a stop rather than halting.
+hl.animation({ leaf = "windows", enabled = true, speed = 3.5, bezier = "softAcDecel", style = "popin 88%" })
+hl.animation({ leaf = "windowsIn", enabled = true, speed = 3.5, bezier = "softAcDecel", style = "popin 88%" })
+-- Exits keep an accelerating curve: leaving should get out of the way quickly.
+hl.animation({ leaf = "windowsOut", enabled = true, speed = 3, bezier = "md3_accel", style = "popin 88%" })
+hl.animation({ leaf = "border", enabled = true, speed = 10, bezier = "easeOutExpo" })
+hl.animation({ leaf = "fade", enabled = true, speed = 3.5, bezier = "softAcDecel" })
+hl.animation({ leaf = "layersIn", enabled = true, speed = 3, bezier = "softAcDecel", style = "slide" })
+hl.animation({ leaf = "layersOut", enabled = true, speed = 2, bezier = "menu_accel" })
+hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 2, bezier = "softAcDecel" })
 hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 4.5, bezier = "menu_accel" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 7, bezier = "menu_decel", style = "slide" })
-hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 3, bezier = "md3_decel", style = "slidevert" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 6, bezier = "easeOutExpo", style = "slide" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 3.5, bezier = "softAcDecel", style = "slidevert" })
