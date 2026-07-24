@@ -1,7 +1,6 @@
 ---
 - name: Configure portage files from templates
   become: true
-  register: portage_files
   ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -19,22 +18,25 @@
       dest: /etc/portage/package.use/cli
     - src: package.use/gui.j2
       dest: /etc/portage/package.use/gui
-    - src: "package.accept_{{ 'keywords' }}/sys.j2"
-      dest: "/etc/portage/package.accept_{{ 'keywords' }}/sys"
-    - src: "package.accept_{{ 'keywords' }}/cli.j2"
-      dest: "/etc/portage/package.accept_{{ 'keywords' }}/cli"
-    - src: "package.accept_{{ 'keywords' }}/gui.j2"
-      dest: "/etc/portage/package.accept_{{ 'keywords' }}/gui"
+    - src: package.accept_keywords/sys.j2
+      dest: /etc/portage/package.accept_keywords/sys
+    - src: package.accept_keywords/cli.j2
+      dest: /etc/portage/package.accept_keywords/cli
+    - src: package.accept_keywords/gui.j2
+      dest: /etc/portage/package.accept_keywords/gui
     - src: package.unmask.j2
       dest: /etc/portage/package.unmask
   loop_control:
     label: "{{ item.dest }}"
-  notify:
-    - sync portage tree
 
+# Only a change to the repository definition warrants re-syncing the tree.
+# USE flags, keywords and licences are evaluated at emerge time, so syncing on
+# every edit to those just meant a full tree pull for a one-line USE change.
 - name: Replace gentoo keyserver with ubuntu keyserver
   become: true
   ansible.builtin.replace:
     path: /etc/portage/repos.conf/gentoo.conf
     regexp: 'hkps://keys\.gentoo\.org'
     replace: 'hkps://keyserver.ubuntu.com'
+  notify:
+    - sync portage tree
