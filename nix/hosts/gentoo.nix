@@ -1,4 +1,4 @@
-{ flake, username, ... }:
+{ username, ... }:
 
 {
   home.username = username;
@@ -7,11 +7,11 @@
   nixpkgs.config.allowUnfree = true;
 
   imports = [
-    "${flake}/modules/core"
-    "${flake}/modules/dev"
-    "${flake}/modules/apps"
-    "${flake}/modules/rime"
-    "${flake}/modules/apps/linux-apps.nix"
+    ../modules/core
+    ../modules/dev
+    ../modules/apps
+    ../modules/apps/linux-apps.nix
+    ../modules/rime
   ];
 
   home.stateVersion = "25.05";

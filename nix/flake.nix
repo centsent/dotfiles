@@ -19,9 +19,12 @@
       ...
     }:
     {
+      # Systems here must match the ones the homeConfigurations below are
+      # built for, or `nix fmt` fails on the machine it is run from.
+      # nixfmt-rfc-style is now an alias for nixfmt and warns on evaluation.
       formatter = {
-        x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-        aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
+        x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
+        x86_64-darwin = nixpkgs.legacyPackages.x86_64-darwin.nixfmt;
       };
 
       homeConfigurations = {

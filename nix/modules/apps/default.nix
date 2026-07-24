@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ ... }:
+{
   imports = [
     ./alacritty.nix
     ./doom-emacs.nix
