@@ -33,8 +33,18 @@ hl.window_rule({ match = { class = ".*kitty.*" }, workspace = "6" })
 
 -- ----------------- Visual Properties -----------------
 -- Opacity Rules
-hl.window_rule({ match = { class = ".*" }, opacity = "0.95 0.9" })
-hl.window_rule({ match = { class = "Alacritty" }, opacity = "0.9 0.8" })
+-- The global default now lives in decoration.lua (active 0.90 / inactive 0.80).
+-- Only deviations from it belong here.
+
+-- The terminal carries the least detail per pixel, so it can take the most.
+hl.window_rule({ match = { class = "Alacritty" }, opacity = "0.82 0.70" })
+
+-- Kept fully opaque: transparency over video or a photo looks like a rendering
+-- fault, and the emulator has to show true colours to be worth anything.
+hl.window_rule({ match = { class = "^(mpv|vlc|imv|org.gnome.Loupe)$" }, opacity = "1.0 1.0" })
+hl.window_rule({ match = { class = "^(AndroidEmulator|Emulator)$" }, opacity = "1.0 1.0" })
+hl.window_rule({ match = { class = "^(qemu-system-.*)$" }, opacity = "1.0 1.0" })
+hl.window_rule({ match = { class = "jetbrains-studio" }, opacity = "1.0 1.0" })
 
 -- Floating Windows
 hl.window_rule({ match = { class = "(wpa_gui|pavucontrol|blueman-manager)" }, float = true })
@@ -58,6 +68,9 @@ hl.window_rule({
     decorate    = false,
     no_blur     = true,
     no_shadow   = true,
+    -- A pinned screenshot has to be opaque or you see the desktop through the
+    -- thing you just captured.
+    opacity     = "1.0 1.0",
 })
 hl.window_rule({
     match   = { class = "flameshot", title = "flameshot" },
