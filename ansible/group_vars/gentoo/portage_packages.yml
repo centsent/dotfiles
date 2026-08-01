@@ -43,6 +43,7 @@ portage_packages:
   - net-wireless/blueman
   - net-wireless/iwd
   - sys-apps/flatpak
+  - sys-apps/xdg-desktop-portal-gtk
   - sys-fs/fuse
   - virtual/opengl
   - www-client/firefox
