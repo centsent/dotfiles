@@ -14,6 +14,13 @@ local colorschemes = {
 	"everforest",
 	"monokai-pro",
 	"solarized-osaka",
+	"sonokai",
+	"edge",
+	"gruvbox-material",
+	"moonfly",
+	"oxocarbon",
+	"poimandres",
+	"ayu",
 }
 
 math.randomseed(os.time())
@@ -26,15 +33,14 @@ local function switch_colorscheme()
 	vim.notify("Colorscheme switched to: " .. random_scheme, vim.log.levels.INFO)
 end
 
--- Add keymap to change colorscheme manually
-vim.keymap.set("n", "<leader>uR", switch_colorscheme, { desc = "Random Colorscheme" })
-
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		local uv = vim.uv or vim.loop
 		local timer = uv.new_timer()
 		-- 600,000 milliseconds = 10 minutes
-		timer:start(600000, 600000, vim.schedule_wrap(switch_colorscheme))
+		if timer ~= nil then
+			timer:start(600000, 600000, vim.schedule_wrap(switch_colorscheme))
+		end
 	end,
 })
 
@@ -54,10 +60,20 @@ return {
 	{ "neanias/everforest-nvim" },
 	{ "loctvl842/monokai-pro.nvim" },
 	{ "craftzdog/solarized-osaka.nvim" },
+	{ "sainnhe/sonokai" },
+	{ "sainnhe/edge" },
+	{ "sainnhe/gruvbox-material" },
+	{ "bluz71/vim-moonfly-colors", name = "moonfly" },
+	{ "nyoom-engineering/oxocarbon.nvim" },
+	{ "olivercederborg/poimandres.nvim" },
+	{ "Shatur/neovim-ayu" },
 	{
 		"LazyVim/LazyVim",
 		opts = {
 			colorscheme = initial_scheme,
+		},
+		keys = {
+			{ "<leader>uR", switch_colorscheme, desc = "Random Colorscheme" },
 		},
 	},
 }
