@@ -8,11 +8,11 @@
 # ----------------------------------------------------------------- Theme
 # Ships with Ghostty (`ghostty +list-themes`), so unlike alacritty and kitty
 # there is no palette file to keep in sync here.
-theme = catppuccin-mocha
+theme = Tokyonight
 
 # ----------------------------------------------------------------- Font
 font-family = "FiraCode Nerd Font Mono"
-font-size = 13
+font-size = 16
 
 # Programming ligatures on, discretionary ones off: `!=` and `=>` reading as
 # single glyphs is useful, `www` collapsing into one is just noise.
