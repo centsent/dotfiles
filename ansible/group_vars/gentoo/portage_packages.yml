@@ -3,6 +3,7 @@ portage_packages:
   - app-arch/7zip
   - app-crypt/swtpm
   - app-containers/podman
+  - app-containers/distrobox
   - app-containers/podman-compose
   - app-editors/vscode
   - app-emulation/qemu
