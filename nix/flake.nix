@@ -8,6 +8,10 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -16,6 +20,7 @@
       nixpkgs,
       home-manager,
       nixpkgs-unstable,
+      sops-nix,
       ...
     }:
     {
@@ -35,7 +40,10 @@
             nixpkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-darwin;
           };
           pkgs = nixpkgs.legacyPackages.x86_64-darwin;
-          modules = [ ./hosts/macosx.nix ];
+          modules = [
+            sops-nix.homeManagerModules.sops
+            ./hosts/macosx.nix
+          ];
         };
 
         "gentoo" = home-manager.lib.homeManagerConfiguration {
@@ -45,7 +53,10 @@
             nixpkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
           };
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [ ./hosts/gentoo.nix ];
+          modules = [
+            sops-nix.homeManagerModules.sops
+            ./hosts/gentoo.nix
+          ];
         };
       };
 
