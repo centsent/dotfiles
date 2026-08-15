@@ -7,3 +7,4 @@ flatpak_packages:
   - org.gnome.Calendar
   - org.jupyter.JupyterLab
   - rest.insomnia.Insomnia
+  - it.mijorus.gearlever
