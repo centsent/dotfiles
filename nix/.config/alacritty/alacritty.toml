@@ -2,7 +2,7 @@
 # to $mainMod+RETURN (see hypr/config/exec.lua and binds.lua).
 #
 # The look is shared with kitty/ and ghostty/: Catppuccin Mocha, FiraCode
-# Nerd Font Mono at 13, 12px padding, 0.85 alpha. What differs is the role —
+# Nerd Font Mono at 16, 12px padding, 0.85 alpha. What differs is the role —
 # this is the only one of the three that starts tmux.
 
 [general]

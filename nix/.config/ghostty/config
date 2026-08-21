@@ -3,12 +3,32 @@
 # a clean scrollback, and shell-integration features tmux would swallow.
 #
 # Shares its look with alacritty/ and kitty/: Catppuccin Mocha, FiraCode Nerd
-# Font Mono at 13, 12px padding, 0.85 alpha.
+# Font Mono at 16, 12px padding, 0.85 alpha. It also shares a keymap with
+# kitty/ — see keybinds.conf.
+#
+# Everything here is checked against `ghostty +show-config --default --docs`
+# for 1.1.x; `ghostty +validate-config` will catch anything that drifts.
+
+config-file = keybinds.conf
+# Machine-local overrides. The leading ? makes it optional, and
+# ~/.config/ghostty is a real directory of symlinks (home.file recursive), so
+# a hand-written local.conf sits beside them, untracked.
+config-file = ?local.conf
 
 # ----------------------------------------------------------------- Theme
 # Ships with Ghostty (`ghostty +list-themes`), so unlike alacritty and kitty
-# there is no palette file to keep in sync here.
-theme = Tokyonight
+# there is no palette file to keep in sync here. This used to be Tokyonight,
+# which quietly broke the "all three terminals look the same" rule the
+# comments in all three files claim.
+theme = catppuccin-mocha
+
+# Mocha's overlay0. The divider is the only thing separating two splits, so
+# it has to read against both the background and the padding.
+split-divider-color = #6c7086
+# Ghostty's 0.7 default dims an unfocused split so far that it is unreadable
+# once the 0.85 window alpha is applied on top. Matches kitty's
+# inactive_text_alpha.
+unfocused-split-opacity = 0.9
 
 # ----------------------------------------------------------------- Font
 font-family = "FiraCode Nerd Font Mono"
@@ -31,13 +51,53 @@ background-opacity = 0.85
 
 # Hyprland draws the border and rounding.
 window-decoration = none
+gtk-titlebar = false
 window-padding-x = 12
 window-padding-y = 12
 # Split leftover pixels evenly instead of banking them all against one edge,
 # so the padding stays visually symmetric at any window size.
 window-padding-balance = true
+# Continue the nearest cell's background into the padding, so a full-width
+# coloured line (a selected fzf row, a diff hunk) does not stop 12px short of
+# the edge. Ghostty already skips this for prompt rows and powerline glyphs,
+# where extending looks wrong.
+window-padding-color = extend
 
+# Chrome follows the terminal palette rather than the GTK theme, so the tab
+# bar does not turn up in a different colour scheme than the terminal.
+window-theme = ghostty
+gtk-tabs-location = top
+gtk-wide-tabs = false
+
+# This terminal is for throwaway work; restoring last session's windows at
+# login is the opposite of what it is for. Hyprland's exec.lua decides where
+# it lands.
+window-save-state = never
+
+# The size overlay on every resize is noise under a tiling compositor, where
+# windows get resized by the WM constantly.
+resize-overlay = never
+
+# Kills the "copied to clipboard" toast, which fires on every selection given
+# copy-on-select below.
+app-notifications = no-clipboard-copy
+
+# One-off shells: nothing here is worth a confirmation dialog on close.
+confirm-close-surface = false
+
+# Keeps Ghostty's processes in their own cgroup, so a runaway child cannot
+# take the whole terminal's scheduling slice down with it.
 linux-cgroup = always
+
+# ----------------------------------------------------------------- Quick terminal
+# A drop-down terminal that slides in over whatever is on screen — the fastest
+# path to "run one command and get out". Bound in keybinds.conf.
+quick-terminal-position = top
+quick-terminal-animation-duration = 0.15
+quick-terminal-autohide = true
+# Follow to the active workspace rather than yanking the focus back to
+# whichever workspace it was last shown on.
+quick-terminal-space-behavior = move
 
 # ----------------------------------------------------------------- Cursor
 cursor-style = block
@@ -45,12 +105,25 @@ cursor-style-blink = true
 cursor-click-to-move = true
 mouse-hide-while-typing = true
 
-# ----------------------------------------------------------------- Shell
-# No multiplexer here by design — that is alacritty's job. Ghostty's own shell
-# integration covers what tmux would otherwise provide for a single window.
-shell-integration = zsh
-shell-integration-features = cursor,sudo,title
+# ----------------------------------------------------------------- Clipboard
+# `true` (the default, restated because it is easy to misread) puts the
+# selection on the PRIMARY buffer only, never the system clipboard — the same
+# behaviour as alacritty's save_to_clipboard = false and kitty's
+# copy_on_select no. Middle-click paste still works.
+copy-on-select = true
+clipboard-paste-protection = true
+clipboard-trim-trailing-spaces = true
 
 # ----------------------------------------------------------------- Behaviour
-scrollback-limit = 10000
-clipboard-paste-protection = true
+# Bytes, not lines — the old value of 10000 here meant 10KB of scrollback,
+# roughly two screenfuls. 64MB is the rough equivalent of kitty's 100k lines.
+scrollback-limit = 67108864
+
+link-url = true
+
+# ----------------------------------------------------------------- Shell
+# No multiplexer here by design — that is alacritty's job. Ghostty's own shell
+# integration covers what tmux would otherwise provide for a single window,
+# and it is what makes jump-to-prompt and the cursor-shape changes work.
+shell-integration = zsh
+shell-integration-features = cursor,sudo,title
