@@ -18,7 +18,6 @@ local colorschemes = {
 	"edge",
 	"gruvbox-material",
 	"moonfly",
-	"oxocarbon",
 	"poimandres",
 	"ayu",
 }
