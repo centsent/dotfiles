@@ -63,7 +63,6 @@ return {
 	{ "sainnhe/edge" },
 	{ "sainnhe/gruvbox-material" },
 	{ "bluz71/vim-moonfly-colors", name = "moonfly" },
-	{ "nyoom-engineering/oxocarbon.nvim" },
 	{ "olivercederborg/poimandres.nvim" },
 	{ "Shatur/neovim-ayu" },
 	{
