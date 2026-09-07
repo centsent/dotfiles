@@ -58,6 +58,11 @@ jobs:
         run: |
           nix flake check
 
+      - name: Test Zsh Git helpers
+        run: |
+          nix shell --inputs-from . nixpkgs#python3 nixpkgs#zsh nixpkgs#git \
+            --command python3 tests/test_zsh_aliases.py
+
       # `nix flake check` does not touch homeConfigurations, since that is not
       # a standard flake output. Evaluate both explicitly so a broken module
       # actually fails CI. Evaluation is cross-platform, so the darwin config
