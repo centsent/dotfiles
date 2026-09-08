@@ -3,7 +3,12 @@
 nix_installer_bind_mount: ""
 
 # If true, also install and configure nix flakes
-nix_installer_flakes: false
+nix_installer_flakes: true
 
 # User to install nix for
-nix_installer_user: "{{ ansible_user_id | default(lookup('env', 'USER')) }}"
+nix_installer_user: "{{ ansible_facts['user_id'] | default(lookup('env', 'USER')) }}"
+
+# Bump the version and checksum together after reviewing the installer.
+nix_installer_version: "2.35.2"
+nix_installer_download_url: "https://releases.nixos.org/nix/nix-{{ nix_installer_version }}/install"
+nix_installer_checksum: "sha256:9adda97297d9e8ab360df95c729eabff4f4f93d6db091953c3a68f29e3fb130c"

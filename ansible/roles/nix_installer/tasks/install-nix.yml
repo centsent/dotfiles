@@ -6,43 +6,71 @@
   register: nix_installer_installed
   changed_when: false
   failed_when: false
+  check_mode: false
+
+- name: Check Nix profile paths before the shell has loaded them
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  loop:
+    - "{{ nix_installer_user_details.home }}/.nix-profile/bin/nix"
+    - /nix/var/nix/profiles/default/bin/nix
+  register: nix_installer_profiles
 
 - name: Set should_install_nix fact
   ansible.builtin.set_fact:
-    nix_installer_should_install: "{{ nix_installer_installed.rc != 0 }}"
+    nix_installer_should_install: >-
+      {{ nix_installer_installed.rc != 0 and
+         nix_installer_profiles.results | selectattr('stat.exists') | list | length == 0 }}
 
-- name: Install Nix
-  when: nix_installer_should_install
-  block:
-    - name: Download installer script
-      ansible.builtin.get_url:
-        url: "https://nixos.org/nix/install"
-        dest: "{{ nix_installer_script_dir }}/install_nix.sh"
-        mode: "0755"
-
-    - name: Run installer script (multi-user on macOS)
-      ansible.builtin.command: "{{ nix_installer_script_dir }}/install_nix.sh --daemon"
-      changed_when: true
-      when: ansible_os_family == "Darwin"
-
-    - name: Run installer script (standard on Linux)
-      ansible.builtin.command: "{{ nix_installer_script_dir }}/install_nix.sh"
-      changed_when: true
-      when: ansible_os_family != "Darwin"
-
-- name: Verify Nix daemon is running (macOS)
+- name: Describe a fresh installation in check mode
+  ansible.builtin.debug:
+    msg: "Would install Nix {{ nix_installer_version }} with the multi-user daemon."
   when:
     - nix_installer_should_install
-    - ansible_os_family == "Darwin"
+    - ansible_check_mode
+
+# Both supported hosts (macOS and Gentoo with systemd) support the daemon.
+# Let Ansible handle privilege escalation; an inner sudo prompt has no terminal.
+- name: Install Nix
+  become: true
+  when:
+    - nix_installer_should_install
+    - not ansible_check_mode
   block:
-    - name: Check if nix-daemon service is loaded
-      ansible.builtin.command: launchctl list org.nixos.nix-daemon
+    - name: Create a private installer directory
+      ansible.builtin.tempfile:
+        state: directory
+        path: "{{ nix_installer_script_dir }}"
+        prefix: nix-installer-
+      register: nix_installer_download
+
+    - name: Download the pinned installer
+      ansible.builtin.get_url:
+        url: "{{ nix_installer_download_url }}"
+        checksum: "{{ nix_installer_checksum }}"
+        dest: "{{ nix_installer_download.path }}/install.sh"
+        mode: "0755"
+
+    - name: Run the multi-user installer
+      ansible.builtin.command: "{{ nix_installer_download.path }}/install.sh --daemon --yes"
+      changed_when: true
+
+    - name: Check the system Nix daemon on macOS
+      ansible.builtin.command: launchctl print system/org.nixos.nix-daemon
       register: nix_installer_daemon_status
       changed_when: false
       failed_when: false
+      when: ansible_facts['os_family'] == "Darwin"
 
-    - name: Load nix-daemon service if not running
-      become: true
-      ansible.builtin.command: launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist
-      when: nix_installer_daemon_status.rc != 0
+    - name: Load the system Nix daemon if necessary
+      ansible.builtin.command: launchctl bootstrap system /Library/LaunchDaemons/org.nixos.nix-daemon.plist
+      when:
+        - ansible_facts['os_family'] == "Darwin"
+        - nix_installer_daemon_status.rc != 0
       changed_when: true
+  always:
+    - name: Remove the private installer directory
+      ansible.builtin.file:
+        path: "{{ nix_installer_download.path }}"
+        state: absent
+      when: nix_installer_download.path is defined

@@ -3,19 +3,20 @@
 # (nix_installer_config_dir_path, nix_installer_user_details), so running
 # `--tags nix_flakes` on its own must still set them.
 - name: Set up user and initial directories
-  ansible.builtin.include_tasks: setup-user.yml
+  ansible.builtin.import_tasks: setup-user.yml
   tags:
     - nix_user
+    - nix_install
     - nix_configure
     - nix_flakes
 
 - name: Install the Nix package manager
-  ansible.builtin.include_tasks: install-nix.yml
+  ansible.builtin.import_tasks: install-nix.yml
   tags:
     - nix_install
 
 - name: Configure Nix Flakes
-  ansible.builtin.include_tasks: setup-flakes.yml
+  ansible.builtin.import_tasks: setup-flakes.yml
   when: nix_installer_flakes | default(false)
   tags:
     - nix_flakes
