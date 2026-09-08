@@ -8,7 +8,8 @@ RUSTFLAGS="${RUSTFLAGS} -C target-cpu=native"
 
 LC_MESSAGES=C.utf8
 
-MAKEOPTS="-j{{ ansible_processor_vcpus }} -l{{ ansible_processor_vcpus }}"
+MAKEOPTS="-j{{ ansible_facts['processor_vcpus'] }} -l{{ ansible_facts['processor_vcpus'] }}"
+DISTDIR="{{ portage_distdir }}"
 
 VIDEO_CARDS="nvidia"
 

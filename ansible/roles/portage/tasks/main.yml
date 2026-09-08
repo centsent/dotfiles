@@ -5,6 +5,9 @@
 - name: Enable and sync overlays
   ansible.builtin.include_tasks: manage_overlays.yml
 
+- name: Prepare repositories and manifests before installing packages
+  ansible.builtin.meta: flush_handlers
+
 - name: Install all packages
   ansible.builtin.include_tasks: install_packages.yml
 

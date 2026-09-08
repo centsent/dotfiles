@@ -1,4 +1,13 @@
 ---
+- name: Ensure Portage distfiles directory exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ portage_distdir }}"
+    state: directory
+    owner: portage
+    group: portage
+    mode: '2775'
+
 - name: Configure portage files from templates
   become: true
   ansible.builtin.template:
