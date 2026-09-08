@@ -1,0 +1,31 @@
+---
+- name: Ensure the Portage destination exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ migrate_storage_distfiles_target_dir }}"
+    state: directory
+    owner: portage
+    group: portage
+    mode: '2775'
+
+- name: Inspect the old cache
+  become: true
+  ansible.builtin.stat:
+    path: "{{ migrate_storage_distfiles_source_dir }}"
+  register: migrate_storage_distfiles_source
+
+# Keep originals and existing destination files. Cache cleanup is a separate,
+# deliberate action after the new DISTDIR has been used successfully.
+- name: Copy missing distfiles  # noqa: command-instead-of-module
+  become: true
+  ansible.builtin.command:
+    argv:
+      - rsync
+      - -aS
+      - --ignore-existing
+      - --itemize-changes
+      - "{{ migrate_storage_distfiles_source_dir }}/"
+      - "{{ migrate_storage_distfiles_target_dir }}/"
+  register: migrate_storage_distfiles_copy
+  when: migrate_storage_distfiles_source.stat.isdir | default(false)
+  changed_when: migrate_storage_distfiles_copy.stdout | length > 0

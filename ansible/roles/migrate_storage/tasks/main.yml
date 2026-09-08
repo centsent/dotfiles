@@ -1,138 +1,51 @@
 ---
-- name: Check if KVM source is already a symlink
+- name: Validate migration paths
+  ansible.builtin.assert:
+    that:
+      - migrate_storage_kvm_source_dir is match('^/.+')
+      - migrate_storage_kvm_target_dir is match('^/.+')
+      - not migrate_storage_kvm_source_dir.endswith('/')
+      - not migrate_storage_kvm_target_dir.endswith('/')
+      - migrate_storage_kvm_source_dir != migrate_storage_kvm_target_dir
+      - not migrate_storage_kvm_target_dir.startswith(migrate_storage_kvm_source_dir + '/')
+      - not migrate_storage_kvm_source_dir.startswith(migrate_storage_kvm_target_dir + '/')
+      - migrate_storage_kvm_target_dir != migrate_storage_kvm_source_dir + '.pre-migration'
+      - not migrate_storage_kvm_target_dir.startswith(migrate_storage_kvm_source_dir + '.pre-migration/')
+      - migrate_storage_distfiles_source_dir is match('^/.+')
+      - migrate_storage_distfiles_target_dir is match('^/.+')
+      - not migrate_storage_distfiles_source_dir.endswith('/')
+      - not migrate_storage_distfiles_target_dir.endswith('/')
+      - migrate_storage_distfiles_source_dir != migrate_storage_distfiles_target_dir
+      - not migrate_storage_distfiles_target_dir.startswith(migrate_storage_distfiles_source_dir + '/')
+      - not migrate_storage_distfiles_source_dir.startswith(migrate_storage_distfiles_target_dir + '/')
+    fail_msg: Migration source and target directories must be distinct, non-overlapping absolute paths.
+
+- name: Inspect VM storage
+  become: true
   ansible.builtin.stat:
     path: "{{ migrate_storage_kvm_source_dir }}"
+    follow: false
   register: migrate_storage_kvm_dir_stat
 
-- name: KVM Migration Block
+- name: Validate existing VM storage link
+  ansible.builtin.assert:
+    that:
+      - migrate_storage_kvm_dir_stat.stat.lnk_source == migrate_storage_kvm_target_dir
+    fail_msg: The existing VM storage symlink points elsewhere; refusing to replace it.
+  when: migrate_storage_kvm_dir_stat.stat.islnk | default(false)
+
+- name: Migrate VM storage while preserving service state
+  ansible.builtin.import_tasks: kvm.yml
   when:
-    - migrate_storage_kvm_dir_stat.stat.islnk is defined
-    - not migrate_storage_kvm_dir_stat.stat.islnk
-  block:
-    # Deliberately not ignoring errors: if virsh cannot be queried we must not
-    # go on to move image files out from under a possibly-running hypervisor.
-    - name: Check for running VMs
-      become: true
-      ansible.builtin.command: virsh list --state-running --name
-      register: migrate_storage_running_vms
-      changed_when: false
+    - migrate_storage_kvm_dir_stat.stat.isdir | default(false)
+    - not ansible_check_mode
 
-    - name: Fail if VMs are running
-      ansible.builtin.fail:
-        msg: >-
-          CRITICAL: There are running VMs
-          ({{ migrate_storage_running_vms.stdout_lines | join(', ') }}).
-          Please shut them down before migration!
-      when: migrate_storage_running_vms.stdout | length > 0
+- name: Describe VM migration in check mode
+  ansible.builtin.debug:
+    msg: "Would migrate {{ migrate_storage_kvm_source_dir }} to {{ migrate_storage_kvm_target_dir }}."
+  when:
+    - ansible_check_mode
+    - migrate_storage_kvm_dir_stat.stat.isdir | default(false)
 
-    - name: Ensure target parent directory exists
-      become: true
-      ansible.builtin.file:
-        path: "{{ migrate_storage_kvm_target_dir }}"
-        state: directory
-        owner: root
-        group: root
-        mode: '0755'
-
-    - name: Stop libvirt service
-      become: true
-      ansible.builtin.service:
-        name: "{{ migrate_storage_libvirt_service }}"
-        state: stopped
-
-    # noqa command-instead-of-module: ansible.posix.synchronize is a wrapper for
-    # pushing to a remote host and does not cleanly express -S / a dry run, both
-    # of which this migration depends on.
-    - name: Copy KVM images to the new location  # noqa: command-instead-of-module
-      become: true
-      ansible.builtin.command:
-        cmd: >-
-          rsync -aS --info=progress2
-          "{{ migrate_storage_kvm_source_dir }}/"
-          "{{ migrate_storage_kvm_target_dir }}/"
-      changed_when: true
-
-    # rsync above is non-zero on failure, which aborts the block before we get
-    # here. Verify the copy independently anyway: this is the last point at
-    # which the original images still exist.
-    - name: Verify the copy before removing the originals  # noqa: command-instead-of-module
-      become: true
-      ansible.builtin.command:
-        cmd: >-
-          rsync -aSn --itemize-changes
-          "{{ migrate_storage_kvm_source_dir }}/"
-          "{{ migrate_storage_kvm_target_dir }}/"
-      register: migrate_storage_kvm_copy_diff
-      changed_when: false
-
-    - name: Fail if the copy is incomplete
-      ansible.builtin.fail:
-        msg: >-
-          CRITICAL: {{ migrate_storage_kvm_target_dir }} does not match {{ migrate_storage_kvm_source_dir }}
-          after rsync; refusing to delete the originals. Outstanding:
-          {{ migrate_storage_kvm_copy_diff.stdout_lines | join(', ') }}
-      when: migrate_storage_kvm_copy_diff.stdout | length > 0
-
-    - name: Remove original KVM directory
-      become: true
-      ansible.builtin.file:
-        path: "{{ migrate_storage_kvm_source_dir }}"
-        state: absent
-
-    - name: Create symlink from /var to /home
-      become: true
-      ansible.builtin.file:
-        src: "{{ migrate_storage_kvm_target_dir }}"
-        dest: "{{ migrate_storage_kvm_source_dir }}"
-        state: link
-        owner: root
-        group: root
-
-    - name: Restart libvirt service
-      become: true
-      ansible.builtin.service:
-        name: "{{ migrate_storage_libvirt_service }}"
-        state: started
-
-- name: Ensure Portage target directory exists
-  become: true
-  ansible.builtin.file:
-    path: "{{ migrate_storage_distfiles_target_dir }}"
-    state: directory
-    owner: portage
-    group: portage
-    mode: '2775'
-
-- name: Update DISTDIR in make.conf
-  become: true
-  ansible.builtin.lineinfile:
-    path: "{{ migrate_storage_portage_make_conf }}"
-    regexp: '^DISTDIR='
-    line: 'DISTDIR="{{ migrate_storage_distfiles_target_dir }}"'
-    state: present
-
-- name: Check if old distfiles directory has content
-  become: true
-  ansible.builtin.find:
-    paths: "{{ migrate_storage_distfiles_source_dir }}"
-    file_type: any
-  register: migrate_storage_old_distfiles
-
-- name: Sync existing distfiles to new location  # noqa: command-instead-of-module
-  become: true
-  ansible.builtin.command:
-    cmd: >-
-      rsync -a --remove-source-files
-      "{{ migrate_storage_distfiles_source_dir }}/"
-      "{{ migrate_storage_distfiles_target_dir }}/"
-  when: migrate_storage_old_distfiles.matched > 0
-  changed_when: true
-
-- name: Clean up old distfiles directory structure
-  become: true
-  ansible.builtin.file:
-    path: "{{ migrate_storage_distfiles_source_dir }}"
-    state: directory
-    mode: '0775'
-    owner: portage
-    group: portage
+- name: Copy the old Portage cache
+  ansible.builtin.import_tasks: distfiles.yml

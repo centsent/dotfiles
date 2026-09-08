@@ -1,0 +1,40 @@
+---
+- name: Read libvirt service state
+  become: true
+  ansible.builtin.service_facts:
+
+- name: Require a known libvirt service
+  ansible.builtin.assert:
+    that: (migrate_storage_libvirt_service + '.service') in ansible_facts.services
+    fail_msg: The configured libvirt service was not found.
+
+- name: Remember whether libvirt was running
+  ansible.builtin.set_fact:
+    migrate_storage_libvirt_was_running: >-
+      {{ ansible_facts.services[migrate_storage_libvirt_service + '.service'].state == 'running' }}
+
+- name: Stop libvirt for the filesystem transaction
+  become: true
+  block:
+    - name: Check for running VMs
+      ansible.builtin.command: virsh --connect qemu:///system list --state-running --name
+      register: migrate_storage_running_vms
+      changed_when: false
+
+    - name: Require all VMs to be stopped
+      ansible.builtin.assert:
+        that: migrate_storage_running_vms.stdout | trim | length == 0
+        fail_msg: Shut down all VMs before migrating storage.
+
+    - name: Stop libvirt
+      ansible.builtin.service:
+        name: "{{ migrate_storage_libvirt_service }}"
+        state: stopped
+
+    - name: Migrate VM images
+      ansible.builtin.include_tasks: kvm-data.yml
+  always:
+    - name: Restore libvirt's previous state
+      ansible.builtin.service:
+        name: "{{ migrate_storage_libvirt_service }}"
+        state: "{{ 'started' if migrate_storage_libvirt_was_running else 'stopped' }}"

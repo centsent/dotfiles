@@ -1,0 +1,105 @@
+---
+- name: Inspect the backup path
+  ansible.builtin.stat:
+    path: "{{ migrate_storage_kvm_source_dir }}.pre-migration"
+    follow: false
+  register: migrate_storage_backup
+
+- name: Require an unused backup path
+  ansible.builtin.assert:
+    that: not migrate_storage_backup.stat.exists
+    fail_msg: A pre-migration backup already exists. Resolve the earlier migration before retrying.
+
+- name: Inspect the destination without following symlinks
+  ansible.builtin.stat:
+    path: "{{ migrate_storage_kvm_target_dir }}"
+    follow: false
+  register: migrate_storage_target
+
+- name: Require a directory destination
+  ansible.builtin.assert:
+    that: not migrate_storage_target.stat.exists or migrate_storage_target.stat.isdir | default(false)
+    fail_msg: The VM destination must be a directory, not a file or symlink.
+
+- name: Create the destination
+  ansible.builtin.file:
+    path: "{{ migrate_storage_kvm_target_dir }}"
+    state: directory
+    mode: '0755'
+
+# Keep sparse VM images sparse. Checksums verify contents, including files whose
+# size and timestamp happen to match after an interrupted earlier copy.
+- name: Copy VM images  # noqa: command-instead-of-module
+  ansible.builtin.command:
+    argv:
+      - rsync
+      - -aS
+      - --checksum
+      - --ignore-existing
+      - "{{ migrate_storage_kvm_source_dir }}/"
+      - "{{ migrate_storage_kvm_target_dir }}/"
+  changed_when: true
+
+- name: Verify VM image contents and metadata  # noqa: command-instead-of-module
+  ansible.builtin.command:
+    argv:
+      - rsync
+      - -aScn
+      - --itemize-changes
+      - "{{ migrate_storage_kvm_source_dir }}/"
+      - "{{ migrate_storage_kvm_target_dir }}/"
+  register: migrate_storage_kvm_copy_diff
+  changed_when: false
+
+- name: Require a complete copy
+  ansible.builtin.assert:
+    that: migrate_storage_kvm_copy_diff.stdout | length == 0
+    fail_msg: "Copy verification failed; originals are intact: {{ migrate_storage_kvm_copy_diff.stdout }}"
+
+- name: Switch to the new storage with rollback
+  block:
+    - name: Retain original images as a backup
+      ansible.builtin.command:
+        argv:
+          - mv
+          - "{{ migrate_storage_kvm_source_dir }}"
+          - "{{ migrate_storage_kvm_source_dir }}.pre-migration"
+      changed_when: true
+
+    - name: Link the new storage
+      ansible.builtin.file:
+        src: "{{ migrate_storage_kvm_target_dir }}"
+        dest: "{{ migrate_storage_kvm_source_dir }}"
+        state: link
+  rescue:
+    - name: Inspect the original path after failure
+      ansible.builtin.stat:
+        path: "{{ migrate_storage_kvm_source_dir }}"
+        follow: false
+      register: migrate_storage_failed_source
+
+    - name: Remove only the new link if it was created before failure
+      ansible.builtin.file:
+        path: "{{ migrate_storage_kvm_source_dir }}"
+        state: absent
+      when:
+        - migrate_storage_failed_source.stat.islnk | default(false)
+        - migrate_storage_failed_source.stat.lnk_source == migrate_storage_kvm_target_dir
+
+    - name: Restore the original directory if the switch failed
+      ansible.builtin.command:
+        argv:
+          - mv
+          - "{{ migrate_storage_kvm_source_dir }}.pre-migration"
+          - "{{ migrate_storage_kvm_source_dir }}"
+      when: >-
+        not migrate_storage_failed_source.stat.exists or
+        (migrate_storage_failed_source.stat.islnk | default(false) and
+         migrate_storage_failed_source.stat.lnk_source == migrate_storage_kvm_target_dir)
+      changed_when: true
+
+    - name: Report the failed migration
+      ansible.builtin.fail:
+        msg: >-
+          Storage switch failed. Originals are at {{ migrate_storage_kvm_source_dir }}
+          or its .pre-migration backup; inspect those paths before retrying.
