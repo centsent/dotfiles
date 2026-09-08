@@ -5,21 +5,30 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      build_homes:
+        description: Build complete home generations on Linux and Intel macOS
+        type: boolean
+        default: false
 
 jobs:
   lint-ansible:
     runs-on: ubuntu-latest
+    env:
+      ANSIBLE_CONFIG: ${{ github.workspace }}/ansible/ansible.cfg
     steps:
       - uses: actions/checkout@v7
 
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
-          python-version: "3.12"
+          python-version: "3.13"
 
       - name: Install dependencies
         run: |
-          pip install ansible ansible-lint yamllint
+          pip install -r requirements-dev.txt
+          ansible-galaxy collection install -r ansible/requirements.yml -p .ansible/collections
 
       - name: Lint YAML files
         run: |
@@ -29,12 +38,11 @@ jobs:
         run: |
           ansible-lint ansible/
 
-      - name: Validate playbook syntax
-        run: |
-          for playbook in ansible/dotfiles.yml ansible/gentoo.yml ansible/macos.yml; do
-            echo "==> $playbook"
-            ansible-playbook --syntax-check -i ansible/hosts_gentoo "$playbook"
-          done
+      - name: Validate playbook syntax for both inventories
+        run: make syntax
+
+      - name: Test provisioning and migration with temporary files
+        run: python3 -m unittest discover -s tests -v
 
   lint-nix:
     runs-on: ubuntu-latest
@@ -58,22 +66,31 @@ jobs:
         run: |
           nix flake check
 
-      - name: Test Zsh Git helpers
+      - name: Test Git helpers and effective home configurations
         run: |
           nix shell --inputs-from . nixpkgs#python3 nixpkgs#zsh nixpkgs#git \
-            --command python3 tests/test_zsh_aliases.py
+            --command python3 -m unittest discover -s tests -v
 
-      # `nix flake check` does not touch homeConfigurations, since that is not
-      # a standard flake output. Evaluate both explicitly so a broken module
-      # actually fails CI. Evaluation is cross-platform, so the darwin config
-      # can be checked from a Linux runner.
-      - name: Evaluate home configurations
-        run: |
-          for host in gentoo macosx; do
-            echo "==> $host"
-            nix eval --raw ".#homeConfigurations.${host}.activationPackage.drvPath"
-            echo
-          done
+  build-homes:
+    if: github.event_name == 'workflow_dispatch' && inputs.build_homes
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            host: gentoo
+          - runner: macos-15-intel
+            host: macosx
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Build the native home generation without activation
+        working-directory: nix
+        run: nix build --no-link ".#homeConfigurations.${{ matrix.host }}.activationPackage"
 
   check-secrets:
     runs-on: ubuntu-latest
