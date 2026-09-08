@@ -1,5 +1,5 @@
 { flake, ... }: {
-  home.file.".config/hypr" = {
+  xdg.configFile."hypr" = {
     source = "${flake}/.config/hypr";
     recursive = true;
   };

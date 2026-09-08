@@ -3,7 +3,7 @@
 {
   home.packages = [ pkgs.wlogout ];
 
-  home.file.".config/wlogout" = {
+  xdg.configFile."wlogout" = {
     source = "${flake}/.config/wlogout";
   };
 }

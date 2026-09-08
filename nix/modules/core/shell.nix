@@ -1,12 +1,8 @@
 { pkgs, ... }:
 
 let
-  fzf-tab-src = pkgs.fetchFromGitHub {
-    owner = "Aloxaf";
-    repo = "fzf-tab";
-    rev = "master";
-    sha256 = "sha256-1Ior+/9e+M+Fc1u0uq5HhknlGRS96q7tazhEE6rmx9Y=";
-  };
+  fzf-tab-src = (import ../../sources.nix { inherit pkgs; }).fzf-tab;
+
 in
 {
   imports = [ ./zsh-aliases.nix ];
@@ -43,10 +39,6 @@ in
       if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
         unset __HM_SESS_VARS_SOURCED
         source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-      fi
-
-      if [ -x "$HOME/.local/bin/mise" ]; then
-        eval "$($HOME/.local/bin/mise activate zsh)"
       fi
     '';
   };

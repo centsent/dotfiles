@@ -1,7 +1,7 @@
 { flake, ... }:
 
 {
-  home.file.".config/swaync" = {
+  xdg.configFile."swaync" = {
     source = "${flake}/.config/swaync";
   };
 }

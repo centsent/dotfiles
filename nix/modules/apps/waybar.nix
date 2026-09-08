@@ -3,7 +3,7 @@
 {
   home.packages = [ pkgs.waybar ];
 
-  home.file.".config/waybar" = {
+  xdg.configFile."waybar" = {
     source = "${flake}/.config/waybar";
   };
 }

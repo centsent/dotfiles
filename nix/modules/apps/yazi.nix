@@ -1,18 +1,10 @@
 { pkgs, ... }:
 
 let
-  yazi-office-plugin = pkgs.fetchFromGitHub {
-    owner = "macydnah";
-    repo = "office.yazi";
-    rev = "main";
-    hash = "sha256-/zFSyVzyJLvNINB5vD5RlOimdhQT0WrmjjDUIhNlyj4=";
-  };
-  kanagawa-flavor = pkgs.fetchFromGitHub {
-    owner = "dangooddd";
-    repo = "kanagawa.yazi";
-    rev = "main";
-    hash = "sha256-nGFiAgVWfq7RkuGGCt07zm3z7ZTGiIPIR319ojPfdUk=";
-  };
+  sources = import ../../sources.nix { inherit pkgs; };
+  yazi-office-plugin = sources.yazi-office;
+  kanagawa-flavor = sources.yazi-kanagawa;
+
 in
 {
   programs.yazi = {

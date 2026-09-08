@@ -1,42 +1,39 @@
+{ pkgs, lib, ... }:
 {
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-
-{
-  home.packages = [ pkgs.emacs-pgtk ];
-
-  home.file.".local/share/applications/emacs-doom.desktop" = lib.mkIf pkgs.stdenv.isLinux {
-    text = ''
-      [Desktop Entry]
-      Name=Emacs (Doom)
-      Comment=Text Editor
-      Exec=${pkgs.emacs-pgtk}/bin/emacs
-      Icon=emacs
-      Terminal=false
-      Type=Application
-      Categories=Development;Editor;
-    '';
-  };
-
-  home.sessionPath = [ "$HOME/.config/emacs/bin" ];
-
-  home.activation = {
-    installAndSync = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      if [ -x "$HOME/.config/emacs/bin/doom" ]; then
-        export PATH=${pkgs.emacs-pgtk}/bin:${pkgs.git}/bin:$PATH
-        DOOM_EXEC="${config.home.homeDirectory}/.config/emacs/bin/doom"
-
-        if [ -x "$DOOM_EXEC" ]; then
-          echo "Running 'doom sync' to ensure environment is up-to-date..."
-          $DOOM_EXEC sync
-        else
-          echo "Running 'doom install'..."
-          $DOOM_EXEC install
+  # Ansible owns the mutable Doom checkout and repository configuration links.
+  home.packages = [
+    pkgs.emacs-pgtk
+    (pkgs.writeShellApplication {
+      name = "dotfiles-doom-sync";
+      runtimeInputs = [
+        pkgs.emacs-pgtk
+        pkgs.git
+      ];
+      text = ''
+        doom="$HOME/.config/emacs/bin/doom"
+        if [[ ! -x "$doom" ]]; then
+          echo "Doom is missing. Run make doom-emacs from the dotfiles checkout first." >&2
+          exit 1
         fi
-      fi
-    '';
+        if [[ "''${1:-}" == --install ]]; then
+          shift
+          exec "$doom" install "$@"
+        fi
+        exec "$doom" sync "$@"
+      '';
+    })
+  ];
+
+  xdg.desktopEntries.emacs-doom = lib.mkIf pkgs.stdenv.isLinux {
+    name = "Emacs (Doom)";
+    comment = "Text Editor";
+    exec = "${pkgs.emacs-pgtk}/bin/emacs";
+    icon = "emacs";
+    terminal = false;
+    categories = [
+      "Development"
+      "TextEditor"
+    ];
   };
+  home.sessionPath = [ "$HOME/.config/emacs/bin" ];
 }

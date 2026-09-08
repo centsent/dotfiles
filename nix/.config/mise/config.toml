@@ -1,15 +1,15 @@
+# Pin the workstation toolchains. Upgrade these deliberately, then run
+# dotfiles-tools-sync; project-specific mise.toml files can override them.
 [tools]
-bun = "latest"
-dotnet = "latest"
-flutter = "latest"
-go = "latest"
-java = "21"
-nodejs = "lts"
-pnpm = "latest"
-python = "3.13"
-rust = "stable"
-
-pipx = "latest"
-"pipx:sqlfluff" = "latest"
-
-mkcert = "latest"
+bun = "1.4.0"
+dotnet = "10.0.400"
+flutter = "3.47.2-stable"
+go = "1.27.0"
+java = "21.0.2"
+node = "24.20.0"
+pnpm = "11.22.0"
+python = "3.13.15"
+rust = "1.95.0"
+pipx = "1.16.7"
+"pipx:sqlfluff" = "4.3.0"
+mkcert = "1.4.4"

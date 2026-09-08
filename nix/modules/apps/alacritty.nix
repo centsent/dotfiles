@@ -1,7 +1,7 @@
 { flake, ... }:
 
 {
-  home.file.".config/alacritty" = {
+  xdg.configFile."alacritty" = {
     source = "${flake}/.config/alacritty";
     recursive = true;
   };

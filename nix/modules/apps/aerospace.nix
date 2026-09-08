@@ -3,7 +3,7 @@
 {
   home.packages = [ pkgs.aerospace ];
 
-  home.file.".config/aerospace" = {
+  xdg.configFile."aerospace" = {
     source = "${flake}/.config/aerospace";
     recursive = true;
   };
