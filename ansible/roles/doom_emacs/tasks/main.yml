@@ -6,7 +6,7 @@
 - name: Clone Doom Emacs at the pinned revision
   ansible.builtin.git:
     repo: https://github.com/doomemacs/doomemacs
-    dest: "{{ ansible_env.HOME }}/.config/emacs"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/emacs"
     depth: 1
     update: true
     version: ed9190ef005829c7a2331e12fb36207794c5ad75
@@ -14,6 +14,6 @@
 - name: Symlink Doom Emacs configuration directories
   ansible.builtin.file:
     src: "{{ playbook_dir }}/../nix/.config/doom"
-    dest: "{{ ansible_env.HOME }}/.config/doom"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/doom"
     state: link
     force: true

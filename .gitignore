@@ -11,3 +11,6 @@ installation.yaml
 *.log
 
 .env
+.venv/
+.ansible/
+__pycache__/
