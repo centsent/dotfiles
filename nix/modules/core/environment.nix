@@ -16,6 +16,7 @@ in
 
   # --- PATH Modifications ---
   home.sessionPath = [
+    "$HOME/.local/bin"
     "$HOME/.bun/bin"
     "$HOME/go/bin"
     "$HOME/.pub-cache/bin"
